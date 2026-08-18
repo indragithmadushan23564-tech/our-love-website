@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Love ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff7fa;
+      color: #351b24;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #d6336c;
+    }
+
+    nav button {
+      border: none;
+      background: #ffe3ec;
+      padding: 9px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 50px;
+      background: linear-gradient(135deg, #ffd6e5, #fff0f5, #ffe1ec);
+    }
+
+    .hero-content {
+      max-width: 750px;
+    }
+
+    .heart {
+      font-size: 70px;
+      animation: heartbeat 1.4s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+
+    h1 {
+      font-size: clamp(42px, 10vw, 80px);
+      color: #c2185b;
+      margin: 15px 0;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #6d394b;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 13px 25px;
+      border-radius: 30px;
+      border: none;
+      background: #d6336c;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      color: #c2185b;
+      margin-bottom: 40px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      color: #d6336c;
+      margin-bottom: 10px;
+    }
+
+    .timeline {
+      border-left: 3px solid #f783ac;
+      padding-left: 25px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .timeline-item {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    }
+
+    .timeline-item strong {
+      color: #d6336c;
+    }
+
+    .photo-placeholder {
+      height: 220px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffd6e5, #ffeef4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+
+    .counter {
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: #c2185b;
+      padding: 25px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .surprise {
+      text-align: center;
+      background: linear-gradient(135deg, #ffe0eb, #fff5f8);
+      border-radius: 25px;
+      padding: 50px 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      background: #351b24;
+      color: white;
+    }
+
+    body.dark {
+      background: #171116;
+      color: #f8e9ef;
+    }
+
+    body.dark nav {
+      background: rgba(30, 20, 25, 0.95);
+    }
+
+    body.dark .card,
+    body.dark .timeline-item,
+    body.dark .counter {
+      background: #261b21;
+      color: #f8e9ef;
+    }
+
+    body.dark .hero {
+      background: linear-gradient(135deg, #291621, #171116);
+    }
+
+    body.dark .hero p {
+      color: #e7cbd5;
+    }
+
+    .login-box {
+      max-width: 420px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    body.dark .login-box {
+      background: #261b21;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .heart-float {
+      position: fixed;
+      bottom: -30px;
+      font-size: 22px;
+      pointer-events: none;
+      animation: floatUp 5s linear forwards;
+      z-index: 2000;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 10px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      nav button {
+        padding: 7px 9px;
+        font-size: 12px;
+      }
+
+      section {
+        padding: 60px 15px;
+      }
+
+      .section-title {
+        font-size: 29px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">Our Love ❤️</div>
+    <div>
+      <button onclick="toggleDark()">🌙</button>
+      <button onclick="document.getElementById('login').scrollIntoView()">🔐 Login</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="heart">❤️</div>
+      <h1>Our Love</h1>
+      <p>A little place for our memories, our story and all the moments we never want to forget.</p>
+      <a href="#story" class="btn">Our Story 💕</a>
+    </div>
+  </header>
+
+  <section id="story">
+    <h2 class="section-title">❤️ Our Story</h2>
+
+    <div class="card">
+      <h3>How It All Started</h3>
+      <p>
+        Every beautiful story starts somewhere.
+        This is where we can write our story, our first meeting,
+        our first conversation and all the little moments that brought us closer.
+      </p>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2 class="section-title">📅 Our Timeline</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>Our First Meeting</strong>
+        <p>Add our special date and story here.</p>
+      </div>
+
+      <div class="timeline-item">
+        <strong>Our First Special Memory</strong>
+        <p>Add another beautiful moment here.</p>
+      </div>
+
+      <div class="timeline-item">
+        <strong>Today ❤️</strong>
+        <p>And our story continues...</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="memories">
+    <h2 class="section-title">💭 Our Memories</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Memory 01</h3>
+        <p>Our First Memory ❤️</p>
+      </div>
+
+      <div class="card">
+        <h3>Memory 02</h3>
+        <p>Add another special memory here.</p>
+      </div>
+
+      <div class="card">
+        <h3>Memory 03</h3>
+        <p>More beautiful memories coming soon...</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="photos">
+    <h2 class="section-title">📸 Our Photos</h2>
+
+    <div class="card-grid">
+      <div class="photo-placeholder">📷</div>
+      <div class="photo-placeholder">❤️</div>
+      <div class="photo-placeholder">🌹</div>
+    </div>
+
+    <p style="text-align:center;margin-top:20px;">
+      Our photos will appear here.
+    </p>
+  </section>
+
+  <section id="notes">
+    <h2 class="section-title">💌 Love Notes</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Love Note ❤️</h3>
+        <p>I love you ❤️</p>
+      </div>
+
+      <div class="card">
+        <h3>Another Note 💕</h3>
+        <p>Write something special here.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="song">
+    <h2 class="section-title">🎵 Our Song</h2>
+
+    <div class="card" style="text-align:center;">
+      <h3>Our Special Song ❤️</h3>
+      <p>Add our favourite song here.</p>
+
+      <button class="btn" onclick="alert('Our song will be added here ❤️')">
+        ▶ Play Our Song
+      </button>
+    </div>
+  </section>
+
+  <section id="reasons">
+    <h2 class="section-title">🌹 Reasons I Love You</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>01 ❤️</h3>
+        <p>Your smile.</p>
+      </div>
+
+      <div class="card">
+        <h3>02 💕</h3>
+        <p>The way you make me happy.</p>
+      </div>
+
+      <div class="card">
+        <h3>03 🌹</h3>
+        <p>Because you are special to me.</p>
+      </div>
+
+      <div class="card">
+        <h3>04 💖</h3>
+        <p>Simply because you are you.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="counter">
+    <h2 class="section-title">💖 Our Love Counter</h2>
+
+    <div class="counter">
+      <div id="days">0 Days ❤️</div>
+      <p style="font-size:16px;font-weight:normal;margin-top:10px;">
+        Together and counting...
+      </p>
+    </div>
+  </section>
+
+  <section id="surprise">
+    <div class="surprise">
+      <h2 class="section-title">🎁 Special Surprise</h2>
+
+      <p>
+        Some surprises are meant to stay hidden until the perfect moment. ❤️
+      </p>
+
+      <button class="btn" onclick="showSurprise()">
+        Open Surprise 🎁
+      </button>
+
+      <p id="surpriseText" class="hidden" style="margin-top:25px;font-size:22px;">
+        You are one of the most beautiful parts of my story. ❤️
+      </p>
+    </div>
+  </section>
+
+  <section id="login">
+    <h2 class="section-title">🔐 Private Login</h2>
+
+    <div class="login-box">
+      <h3>Our Private Space ❤️</h3>
+
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+
+      <button class="btn" onclick="demoLogin()">
+        Login 🔐
+      </button>
+
+      <p id="loginMessage" style="margin-top:15px;"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ for Our Love</p>
+    <p style="margin-top:8px;">Forever & Always 💕</p>
+  </footer>
+
+  <script>
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    function showSurprise() {
+      document.getElementById("surpriseText").classList.remove("hidden");
+      createHeart();
+    }
+
+    function demoLogin() {
+      document.getElementById("loginMessage").textContent =
+        "Firebase login will be connected in the next step ❤️";
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart-float";
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 3500);
+
+    /*
+      Love Counter
+      IMPORTANT:
+      Replace the date below with your real relationship date.
+      Format: YYYY-MM-DD
+    */
+
+    const relationshipDate = new Date("2026-01-01");
+    const today = new Date();
+
+    const difference = today - relationshipDate;
+    const days = Math.max(
+      0,
+      Math.floor(difference / (1000 * 60 * 60 * 24))
+    );
+
+    document.getElementById("days").textContent =
+      days + " Days ❤️";
+  </script>
+
+</body>
+</html>
