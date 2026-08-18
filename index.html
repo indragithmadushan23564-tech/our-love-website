@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+    .counter {<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -48,7 +49,40 @@
     nav button {
       border: none;
       background: #ffe3ec;
-      padding: 9px 12px;
+      paddingj    .timeline-item {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+    }
+
+    .timeline-item strong {
+      color: #d6336c;
+    }
+
+    .photo-placeholder {
+      height: 220px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffd6e5, #ffeef4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: #c2185b;
+      padding: 25px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .surprise {
+      text-align: center;: 9px 12px;
       border-radius: 20px;
       cursor: pointer;
       margin-left: 5px;
@@ -140,41 +174,7 @@
       margin: auto;
     }
 
-    .timeline-item {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 18px rgba(0,0,0,0.07);
-    }
 
-    .timeline-item strong {
-      color: #d6336c;
-    }
-
-    .photo-placeholder {
-      height: 220px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #ffd6e5, #ffeef4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-    }
-
-    .counter {
-      text-align: center;
-      font-size: 30px;
-      font-weight: bold;
-      color: #c2185b;
-      padding: 25px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .surprise {
-      text-align: center;
       background: linear-gradient(135deg, #ffe0eb, #fff5f8);
       border-radius: 25px;
       padding: 50px 20px;
@@ -477,53 +477,99 @@
     <p style="margin-top:8px;">Forever & Always 💕</p>
   </footer>
 
-  <script>
-    function toggleDark() {
-      document.body.classList.toggle("dark");
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signInWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAQXFOHrnrprEuqNwJidbtq1Yopgy608gc",
+    authDomain: "our-love-1fb6a.firebaseapp.com",
+    projectId: "our-love-1fb6a",
+    storageBucket: "our-love-1fb6a.firebasestorage.app",
+    messagingSenderId: "804339150204",
+    appId: "1:804339150204:web:b3ae23cffaf3200d0dc8f9"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  function toggleDark() {
+    document.body.classList.toggle("dark");
+  }
+
+  function showSurprise() {
+    document.getElementById("surpriseText").classList.remove("hidden");
+    createHeart();
+  }
+
+  async function demoLogin() {
+    const email = document.querySelector('input[type="email"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+    const message = document.getElementById("loginMessage");
+
+    if (!email || !password) {
+      message.textContent = "Please enter email and password ❤️";
+      return;
     }
 
-    function showSurprise() {
-      document.getElementById("surpriseText").classList.remove("hidden");
-      createHeart();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      message.textContent = "Login successful! ❤️";
+    } catch (error) {
+      message.textContent = "Login failed. Check your email and password.";
+      console.error(error);
     }
+  }
 
-    function demoLogin() {
+  async function googleLogin() {
+    const provider = new GoogleAuthProvider();
+
+    try {
+      await signInWithPopup(auth, provider);
       document.getElementById("loginMessage").textContent =
-        "Firebase login will be connected in the next step ❤️";
+        "Google Login successful! ❤️";
+    } catch (error) {
+      document.getElementById("loginMessage").textContent =
+        "Google Login cancelled or failed.";
+      console.error(error);
     }
+  }
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart-float";
-      heart.textContent = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      document.body.appendChild(heart);
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart-float";
+    heart.textContent = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
 
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
-    }
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
 
-    setInterval(createHeart, 3500);
+  setInterval(createHeart, 3500);
 
-    /*
-      Love Counter
-      IMPORTANT:
-      Replace the date below with your real relationship date.
-      Format: YYYY-MM-DD
-    */
+  const relationshipDate = new Date("2026-01-01");
+  const today = new Date();
+  const difference = today - relationshipDate;
 
-    const relationshipDate = new Date("2026-01-01");
-    const today = new Date();
+  const days = Math.max(
+    0,
+    Math.floor(difference / (1000 * 60 * 60 * 24))
+  );
 
-    const difference = today - relationshipDate;
-    const days = Math.max(
-      0,
-      Math.floor(difference / (1000 * 60 * 60 * 24))
-    );
+  document.getElementById("days").textContent =
+    days + " Days ❤️";
 
-    document.getElementById("days").textContent =
-      days + " Days ❤️";
+  window.toggleDark = toggleDark;
+  window.showSurprise = showSurprise;
+  window.demoLogin = demoLogin;
+  window.googleLogin = googleLogin;
   </script>
 
 </body>
