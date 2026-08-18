@@ -1,5 +1,17 @@
 
-    .counter {<!DOCTYPE html>
+    .
+      padding: 25px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .surprise {
+      text-align: center;: 9px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-left: 5px;
+    }counter { html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -75,18 +87,6 @@
       font-size: 30px;
       font-weight: bold;
       color: #c2185b;
-      padding: 25px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .surprise {
-      text-align: center;: 9px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      margin-left: 5px;
-    }
 
     .hero {
       min-height: 100vh;
@@ -485,6 +485,11 @@
     signInWithPopup,
     signInWithEmailAndPassword
   } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+      import {
+  getFirestore,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAQXFOHrnrprEuqNwJidbtq1Yopgy608gc",
@@ -497,6 +502,7 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
   function toggleDark() {
     document.body.classList.toggle("dark");
@@ -520,6 +526,13 @@
     try {
       await signInWithEmailAndPassword(auth, email, password);
       message.textContent = "Login successful! ❤️";
+        const notesSnapshot = await getDocs(collection(db, "love_notes"));
+      const memoriesSnapshot = await getDocs(collection(db, "memories"));
+      const photosSnapshot = await getDocs(collection(db, "photos"));
+
+      console.log("Love notes:", notesSnapshot.size);
+      console.log("Memories:", memoriesSnapshot.size);
+      console.log("Photos:", photosSnapshot.size);
     } catch (error) {
       message.textContent = "Login failed. Check your email and password.";
       console.error(error);
