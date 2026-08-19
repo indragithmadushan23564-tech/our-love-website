@@ -532,32 +532,7 @@
     createHeart();
   }
 
-  async function demoLogin() {
-    const email = document.querySelector('input[type="email"]').value;
-    const password = document.querySelector('input[type="password"]').value;
-    const message = document.getElementById("loginMessage");
-
-    if (!email || !password) {
-      message.textContent = "Please enter email and password ❤️";
-      return;
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      message.textContent = "Login successful! ❤️";
-        const notesSnapshot = await getDocs(collection(db, "love_notes"));
-      const memoriesSnapshot = await getDocs(collection(db, "memories"));
-      const photosSnapshot = await getDocs(collection(db, "photos"));
-
-      console.log("Love notes:", notesSnapshot.size);
-      console.log("Memories:", memoriesSnapshot.size);
-      console.log("Photos:", photosSnapshot.size);
-    } catch (error) {
-      message.textContent = "Login failed: " + error.code;
-      console.error(error);
-    }
-  }
-
+  
 async function demoLogin() {
   const email = document.querySelector('input[type="email"]').value;
   const password = document.querySelector('input[type="password"]').value;
