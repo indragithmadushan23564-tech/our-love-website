@@ -534,7 +534,7 @@
       console.log("Memories:", memoriesSnapshot.size);
       console.log("Photos:", photosSnapshot.size);
     } catch (error) {
-      message.textContent = "Login failed. Check your email and password.";
+      message.textContent = "Login failed: " + error.code;
       console.error(error);
     }
   }
