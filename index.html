@@ -539,19 +539,65 @@
     }
   }
 
-  async function googleLogin() {
-    const provider = new GoogleAuthProvider();
+async function demoLogin() {
+  const email = document.querySelector('input[type="email"]').value;
+  const password = document.querySelector('input[type="password"]').value;
+  const message = document.getElementById("loginMessage");
 
-    try {
-      await signInWithPopup(auth, provider);
-      document.getElementById("loginMessage").textContent =
-        "Google Login successful! ❤️";
-    } catch (error) {
-      document.getElementById("loginMessage").textContent =
-        "Google Login cancelled or failed.";
-      console.error(error);
-    }
+  if (!email || !password) {
+    message.textContent = "Please enter email and password ❤️";
+    return;
   }
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    message.textContent = "Login successful! ❤️";
+
+    // Show Private Space
+    document
+      .getElementById("privateSpace")
+      .classList.remove("hidden");
+
+    // Load Firestore data
+    const notesSnapshot =
+      await getDocs(collection(db, "love_notes"));
+
+    const memoriesSnapshot =
+      await getDocs(collection(db, "memories"));
+
+    const photosSnapshot =
+      await getDocs(collection(db, "photos"));
+
+    // Love Notes
+    document.getElementById("privateNotes").innerHTML =
+      notesSnapshot.docs.length
+        ? notesSnapshot.docs.map(doc =>
+            `<p>💌 ${JSON.stringify(doc.data())}</p>`
+          ).join("")
+        : "<p>No love notes yet ❤️</p>";
+
+    // Memories
+    document.getElementById("privateMemories").innerHTML =
+      memoriesSnapshot.docs.length
+        ? memoriesSnapshot.docs.map(doc =>
+            `<p>💭 ${JSON.stringify(doc.data())}</p>`
+          ).join("")
+        : "<p>No memories yet ❤️</p>";
+
+    // Photos
+    document.getElementById("privatePhotos").innerHTML =
+      photosSnapshot.docs.length
+        ? photosSnapshot.docs.map(doc =>
+            `<p>📸 ${JSON.stringify(doc.data())}</p>`
+          ).join("")
+        : "<p>No private photos yet ❤️</p>";
+
+  } catch (error) {
+    message.textContent = "Login failed: " + error.code;
+    console.error(error);
+  }
+}
 
   function createHeart() {
     const heart = document.createElement("div");
