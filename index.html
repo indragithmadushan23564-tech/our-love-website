@@ -551,9 +551,18 @@ async function demoLogin() {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
+const user = auth.currentUser;
 
-    message.textContent = "Login successful! ❤️";
+let role = "";
 
+if (user.uid === "oY6ooO337nYDaWojxakZ4JHN9C02") {
+  role = "BF";
+} else if (user.uid === "v6lE815HaBf59UTP8CXR6i8ZlOv1") {
+  role = "GF";
+}
+
+message.textContent = "Login successful! ❤️ " + role;
+    
     // Show Private Space
     document
       .getElementById("privateSpace")
