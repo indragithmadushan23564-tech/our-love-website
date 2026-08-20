@@ -630,6 +630,47 @@ async function demoLogin() {
   window.demoLogin = demoLogin;
   
   </script>
+    <audio id="bgMusic" loop>
+  <source src="Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%20%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" onclick="toggleMusic()" style="
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:3000;
+  border:none;
+  border-radius:50%;
+  width:55px;
+  height:55px;
+  background:#d6336c;
+  color:white;
+  font-size:22px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+">🎵</button>
+
+<script>
+  const music = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("musicBtn");
+
+  function toggleMusic() {
+    if (music.paused) {
+      music.play();
+      musicBtn.textContent = "🔊";
+    } else {
+      music.pause();
+      musicBtn.textContent = "🔇";
+    }
+  }
+
+  document.addEventListener("click", function startMusic() {
+    music.play().then(() => {
+      musicBtn.textContent = "🔊";
+    }).catch(() => {});
+    document.removeEventListener("click", startMusic);
+  }, { once: true });
+</script>
 
 </body>
 </html>
