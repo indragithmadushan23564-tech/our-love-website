@@ -478,24 +478,81 @@ margin-left: 5px;
     </div>
   </section>
 <section id="privateSpace" class="hidden">
+
   <div class="surprise">
+
     <h2 class="section-title">🔐 Our Private Space ❤️</h2>
 
-    <h3>📸 Private Photos</h3>
-    <div id="privatePhotos">
-      <p>Loading photos... ❤️</p>
+    <div id="roleTitle" style="
+      text-align:center;
+      font-size:24px;
+      font-weight:bold;
+      color:#d6336c;
+      margin-bottom:30px;
+    ">
+      ❤️ Welcome
     </div>
 
-    <h3 style="margin-top:30px;">💭 Our Memories</h3>
-    <div id="privateMemories">
-      <p>Loading memories... ❤️</p>
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>💭 My Thoughts</h3>
+        <p>Write your thoughts and feelings here. ❤️</p>
+        <button class="btn">➕ Add</button>
+      </div>
+
+      <div class="card">
+        <h3>📅 My Day</h3>
+        <p>Tell about your day. 💕</p>
+        <button class="btn">➕ Add</button>
+      </div>
+
+      <div class="card">
+        <h3>❤️ My List</h3>
+        <p>Your special list. 🌹</p>
+        <button class="btn">➕ Add</button>
+      </div>
+
+      <div class="card">
+        <h3>📸 My Photos</h3>
+        <p>Your private photos. 📷</p>
+        <button class="btn">➕ Add</button>
+      </div>
+
+      <div class="card">
+        <h3>🎂 Birthdays</h3>
+        <p>Special birthdays and dates. 🎉</p>
+        <button class="btn">➕ Add</button>
+      </div>
+
+      <div class="card">
+        <h3>💍 Anniversaries</h3>
+        <p>Your special anniversaries. ❤️</p>
+        <button class="btn">➕ Add</button>
+      </div>
+
     </div>
 
-    <h3 style="margin-top:30px;">💌 Love Notes</h3>
-    <div id="privateNotes">
-      <p>Loading love notes... ❤️</p>
+    <div style="margin-top:40px;">
+
+      <h2 class="section-title">❤️ Our Shared Space</h2>
+
+      <div class="card">
+        <h3>👩 GF's Space ❤️</h3>
+        <p>View your girlfriend's special memories, thoughts and lists.</p>
+        <button class="btn">View GF's Space 👩❤️</button>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3>👨 BF's Space ❤️</h3>
+        <p>View your boyfriend's special memories, thoughts and lists.</p>
+        <button class="btn">View BF's Space 👨❤️</button>
+      </div>
+
     </div>
+
   </div>
+
 </section>
   <footer>
     <p>Made with ❤️ for Our Love</p>
@@ -562,7 +619,10 @@ if (user.email === "indragithmadushan23564@gmail.com") {
 }
 
 message.textContent = "Login successful! ❤️ " + role;
-    
+    document.getElementById("roleTitle").textContent =
+  role === "BF"
+    ? "👨 BF Space ❤️"
+    : "👩 GF Space ❤️";
     // Show Private Space
     document
       .getElementById("privateSpace")
