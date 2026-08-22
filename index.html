@@ -709,6 +709,7 @@
 
 </footer>
 
+
 <!-- FIREBASE -->
 
 <script type="module">
@@ -752,11 +753,14 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app =
+  initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+  getAuth(app);
 
-const db = getFirestore(app);
+const db =
+  getFirestore(app);
 
 
 /* DARK MODE */
@@ -786,7 +790,7 @@ function showSurprise() {
 }
 
 
-/* SAFE HTML ELEMENT */
+/* SAFE ELEMENT */
 
 function getElement(id) {
 
@@ -820,7 +824,12 @@ async function demoLogin() {
   const message =
     getElement("loginMessage");
 
-  if (!emailInput || !passwordInput || !message) {
+
+  if (
+    !emailInput ||
+    !passwordInput ||
+    !message
+  ) {
 
     return;
 
@@ -844,7 +853,7 @@ async function demoLogin() {
   }
 
 
-  /* FIRST: LOGIN ONLY */
+  /* FIREBASE LOGIN */
 
   try {
 
@@ -875,7 +884,8 @@ async function demoLogin() {
   const user =
     auth.currentUser;
 
-  let role = "USER";
+  let role =
+    "USER";
 
 
   if (
@@ -884,7 +894,8 @@ async function demoLogin() {
     "indragithmadushan23564@gmail.com"
   ) {
 
-    role = "BF";
+    role =
+      "BF";
 
   } else if (
     user &&
@@ -892,17 +903,20 @@ async function demoLogin() {
     "dilshanisupunsara92@gmail.com"
   ) {
 
-    role = "GF";
+    role =
+      "GF";
 
   }
 
 
   message.textContent =
-    "Login successful! ❤️ " + role;
+    "Login successful! ❤️ " +
+    role;
 
 
   const roleTitle =
     getElement("roleTitle");
+
 
   if (roleTitle) {
 
@@ -919,9 +933,12 @@ async function demoLogin() {
   const privateSpace =
     getElement("privateSpace");
 
+
   if (privateSpace) {
 
-    privateSpace.classList.remove("hidden");
+    privateSpace.classList.remove(
+      "hidden"
+    );
 
     privateSpace.scrollIntoView({
       behavior: "smooth"
@@ -930,7 +947,7 @@ async function demoLogin() {
   }
 
 
-  /* FIRESTORE DATA */
+  /* LOAD FIRESTORE DATA */
 
   await loadLoveNotes();
 
@@ -948,11 +965,8 @@ async function loadLoveNotes() {
   const container =
     getElement("privateNotes");
 
-  if (!container) {
 
-    console.error(
-      "privateNotes element is missing."
-    );
+  if (!container) {
 
     return;
 
@@ -967,7 +981,10 @@ async function loadLoveNotes() {
 
     const snapshot =
       await getDocs(
-        collection(db, "love_notes")
+        collection(
+          db,
+          "love_notes"
+        )
       );
 
 
@@ -994,7 +1011,9 @@ async function loadLoveNotes() {
               style="margin-bottom:15px;"
             >
 
-              <h3>💌 Love Note ❤️</h3>
+              <h3>
+                💌 Love Note ❤️
+              </h3>
 
               <p>
                 ${escapeHtml(
@@ -1036,11 +1055,8 @@ async function loadMemories() {
   const container =
     getElement("privateMemories");
 
-  if (!container) {
 
-    console.error(
-      "privateMemories element is missing."
-    );
+  if (!container) {
 
     return;
 
@@ -1055,7 +1071,10 @@ async function loadMemories() {
 
     const snapshot =
       await getDocs(
-        collection(db, "memories")
+        collection(
+          db,
+          "memories"
+        )
       );
 
 
@@ -1129,11 +1148,8 @@ async function loadPhotos() {
   const container =
     getElement("privatePhotos");
 
-  if (!container) {
 
-    console.error(
-      "privatePhotos element is missing."
-    );
+  if (!container) {
 
     return;
 
@@ -1148,7 +1164,10 @@ async function loadPhotos() {
 
     const snapshot =
       await getDocs(
-        collection(db, "photos")
+        collection(
+          db,
+          "photos"
+        )
       );
 
 
@@ -1221,7 +1240,12 @@ async function loadPhotos() {
                 "
               >
 
-              <p style="display:none;margin-top:10px;">
+              <p
+                style="
+                  display:none;
+                  margin-top:10px;
+                "
+              >
                 ❤️ This photo could not be displayed.
               </p>
 
@@ -1256,11 +1280,26 @@ async function loadPhotos() {
 function escapeHtml(value) {
 
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -1268,10 +1307,22 @@ function escapeHtml(value) {
 function escapeAttribute(value) {
 
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    );
 
 }
 
@@ -1290,7 +1341,8 @@ function createHeart() {
     "❤️";
 
   heart.style.left =
-    Math.random() * 100 + "vw";
+    Math.random() * 100 +
+    "vw";
 
   document.body.appendChild(
     heart
@@ -1321,7 +1373,8 @@ const today =
   new Date();
 
 const difference =
-  today - relationshipDate;
+  today -
+  relationshipDate;
 
 const days =
   Math.max(
@@ -1334,7 +1387,9 @@ const days =
 
 
 const daysElement =
-  document.getElementById("days");
+  document.getElementById(
+    "days"
+  );
 
 
 if (daysElement) {
@@ -1345,7 +1400,7 @@ if (daysElement) {
 }
 
 
-/* MAKE FUNCTIONS AVAILABLE TO HTML */
+/* GLOBAL FUNCTIONS */
 
 window.toggleDark =
   toggleDark;
@@ -1362,10 +1417,13 @@ window.demoLogin =
 <!-- MUSIC -->
 
 <audio id="bgMusic" loop>
+
   <source
-    src="Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
+    src="Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%20%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
     type="audio/mpeg">
+
 </audio>
+
 
 <button
   id="musicBtn"
@@ -1389,33 +1447,64 @@ window.demoLogin =
   🎵
 </button>
 
+
 <script>
 
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
+const music =
+  document.getElementById("bgMusic");
+
+const musicBtn =
+  document.getElementById("musicBtn");
+
 
 function toggleMusic() {
 
   if (music.paused) {
 
-    music.play()
-      .then(() => {
-        musicBtn.textContent = "🔊";
-      })
-      .catch((error) => {
-        console.error("Music play error:", error);
-      });
+    music.play();
+
+    musicBtn.textContent =
+      "🔊";
 
   } else {
 
     music.pause();
-    musicBtn.textContent = "🔇";
+
+    musicBtn.textContent =
+      "🔇";
 
   }
 
 }
 
-window.toggleMusic = toggleMusic;
+
+window.toggleMusic =
+  toggleMusic;
+
+
+document.addEventListener(
+  "click",
+  function startMusic() {
+
+    music.play()
+      .then(() => {
+
+        musicBtn.textContent =
+          "🔊";
+
+      })
+      .catch(() => {});
+
+    document.removeEventListener(
+      "click",
+      startMusic
+    );
+
+  },
+  {
+    once: true
+  }
+);
 
 </script>
 
