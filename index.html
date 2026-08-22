@@ -1362,13 +1362,10 @@ window.demoLogin =
 <!-- MUSIC -->
 
 <audio id="bgMusic" loop>
-
   <source
     src="Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
     type="audio/mpeg">
-
 </audio>
-
 
 <button
   id="musicBtn"
@@ -1392,73 +1389,33 @@ window.demoLogin =
   🎵
 </button>
 
-
 <script>
 
-const music =
-  document.getElementById("bgMusic");
-
-const musicBtn =
-  document.getElementById("musicBtn");
-
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
 
 function toggleMusic() {
-
-  if (!music) return;
 
   if (music.paused) {
 
     music.play()
       .then(() => {
-
-        if (musicBtn) {
-          musicBtn.textContent = "🔊";
-        }
-
+        musicBtn.textContent = "🔊";
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.error("Music play error:", error);
+      });
 
   } else {
 
     music.pause();
-
-    if (musicBtn) {
-      musicBtn.textContent = "🔇";
-    }
+    musicBtn.textContent = "🔇";
 
   }
 
 }
 
-
-window.toggleMusic =
-  toggleMusic;
-
-
-document.addEventListener(
-  "click",
-  function startMusic() {
-
-    if (!music) return;
-
-    music.play()
-      .then(() => {
-
-        if (musicBtn) {
-          musicBtn.textContent = "🔊";
-        }
-
-      })
-      .catch(() => {});
-
-    document.removeEventListener(
-      "click",
-      startMusic
-    );
-
-  },
-  { once: true }
-);
+window.toggleMusic = toggleMusic;
 
 </script>
 
