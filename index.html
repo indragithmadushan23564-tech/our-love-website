@@ -626,12 +626,81 @@ async function demoLogin() {
         ? "👨 BF Space ❤️"
         : "👩 GF Space ❤️";
 
+    // Show Private Space
     document
       .getElementById("privateSpace")
       .classList.remove("hidden");
 
+    // Load Firestore data ❤️
+    const notesSnapshot =
+      await getDocs(collection(db, "love_notes"));
+
+    const memoriesSnapshot =
+      await getDocs(collection(db, "memories"));
+
+    const photosSnapshot =
+      await getDocs(collection(db, "photos"));
+
+
+    // 💌 Love Notes
+    document.getElementById("privateNotes").innerHTML =
+      notesSnapshot.docs.length
+        ? notesSnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            return `
+              <div class="card" style="margin-bottom:15px;">
+                <h3>💌 Love Note ❤️</h3>
+                <p>${data.message || "No message"}</p>
+              </div>
+            `;
+          }).join("")
+        : "<p>No love notes yet ❤️";
+
+
+    // 💭 Memories
+    document.getElementById("privateMemories").innerHTML =
+      memoriesSnapshot.docs.length
+        ? memoriesSnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            return `
+              <div class="card" style="margin-bottom:15px;">
+                <h3>💭 ${data.title || "Our Memory"}</h3>
+                <p>${data.description || ""}</p>
+              </div>
+            `;
+          }).join("")
+        : "<p>No memories yet ❤️";
+
+
+    // 📸 Photos
+    document.getElementById("privatePhotos").innerHTML =
+      photosSnapshot.docs.length
+        ? photosSnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            return `
+              <div class="card" style="margin-bottom:15px;">
+                <h3>📸 Private Photo ❤️</h3>
+                <img
+                  src="${data.url}"
+                  style="
+                    width:100%;
+                    max-width:400px;
+                    border-radius:15px;
+                    margin-top:10px;
+                  "
+                >
+              </div>
+            `;
+          }).join("")
+        : "<p>No private photos yet ❤️";
+
   } catch (error) {
-    message.textContent = "Login failed: " + error.code;
+    message.textContent =
+      "Login failed: " + (error.code || error.message);
+
     console.error(error);
   }
 }
