@@ -759,6 +759,8 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
+/* DARK MODE */
+
 function toggleDark() {
 
   document.body.classList.toggle("dark");
@@ -766,27 +768,70 @@ function toggleDark() {
 }
 
 
+/* SURPRISE */
+
 function showSurprise() {
 
-  document
-    .getElementById("surpriseText")
-    .classList.remove("hidden");
+  const surpriseText =
+    document.getElementById("surpriseText");
+
+  if (surpriseText) {
+
+    surpriseText.classList.remove("hidden");
+
+  }
 
   createHeart();
 
 }
 
 
+/* SAFE HTML ELEMENT */
+
+function getElement(id) {
+
+  const element =
+    document.getElementById(id);
+
+  if (!element) {
+
+    console.error(
+      "Element not found:",
+      id
+    );
+
+  }
+
+  return element;
+
+}
+
+
+/* LOGIN */
+
 async function demoLogin() {
 
-  const email =
-    document.getElementById("emailInput").value.trim();
+  const emailInput =
+    getElement("emailInput");
 
-  const password =
-    document.getElementById("passwordInput").value;
+  const passwordInput =
+    getElement("passwordInput");
 
   const message =
-    document.getElementById("loginMessage");
+    getElement("loginMessage");
+
+  if (!emailInput || !passwordInput || !message) {
+
+    return;
+
+  }
+
+
+  const email =
+    emailInput.value.trim();
+
+  const password =
+    passwordInput.value;
 
 
   if (!email || !password) {
@@ -799,6 +844,8 @@ async function demoLogin() {
   }
 
 
+  /* FIRST: LOGIN ONLY */
+
   try {
 
     await signInWithEmailAndPassword(
@@ -807,186 +854,429 @@ async function demoLogin() {
       password
     );
 
-
-    const user = auth.currentUser;
-
-    let role = "";
-
-
-    if (
-      user.email ===
-      "indragithmadushan23564@gmail.com"
-    ) {
-
-      role = "BF";
-
-    } else if (
-      user.email ===
-      "dilshanisupunsara92@gmail.com"
-    ) {
-
-      role = "GF";
-
-    }
-
-
-    message.textContent =
-      "Login successful! ❤️ " + role;
-
-
-    document
-      .getElementById("roleTitle")
-      .textContent =
-        role === "BF"
-          ? "👨 BF Space ❤️"
-          : "👩 GF Space ❤️";
-
-
-    document
-      .getElementById("privateSpace")
-      .classList
-      .remove("hidden");
-
-
-    /* LOVE NOTES */
-
-    const notesSnapshot =
-      await getDocs(
-        collection(db, "love_notes")
-      );
-
-
-    document
-      .getElementById("privateNotes")
-      .innerHTML =
-        notesSnapshot.docs.length
-
-        ? notesSnapshot.docs
-            .map(doc => {
-
-              const data = doc.data();
-
-              return `
-                <div
-                  class="card"
-                  style="margin-bottom:15px;"
-                >
-
-                  <h3>💌 Love Note ❤️</h3>
-
-                  <p>
-                    ${data.message || "No message"}
-                  </p>
-
-                </div>
-              `;
-
-            })
-            .join("")
-
-        : "<p>No love notes yet ❤️";
-
-
-    /* MEMORIES */
-
-    const memoriesSnapshot =
-      await getDocs(
-        collection(db, "memories")
-      );
-
-
-    document
-      .getElementById("privateMemories")
-      .innerHTML =
-        memoriesSnapshot.docs.length
-
-        ? memoriesSnapshot.docs
-            .map(doc => {
-
-              const data = doc.data();
-
-              return `
-                <div
-                  class="card"
-                  style="margin-bottom:15px;"
-                >
-
-                  <h3>
-                    💭 ${data.title || "Our Memory"}
-                  </h3>
-
-                  <p>
-                    ${data.description || ""}
-                  </p>
-
-                </div>
-              `;
-
-            })
-            .join("")
-
-        : "<p>No memories yet ❤️";
-
-
-    /* PHOTOS */
-
-    const photosSnapshot =
-      await getDocs(
-        collection(db, "photos")
-      );
-
-
-    document
-      .getElementById("privatePhotos")
-      .innerHTML =
-        photosSnapshot.docs.length
-
-        ? photosSnapshot.docs
-            .map(doc => {
-
-              const data = doc.data();
-
-              return `
-                <div
-                  class="card"
-                  style="margin-bottom:15px;"
-                >
-
-                  <h3>
-                    📸 Private Photo ❤️
-                  </h3>
-
-                  <img
-                    src="${data.url || ""}"
-                    style="
-                      width:100%;
-                      max-width:400px;
-                      border-radius:15px;
-                      margin-top:10px;
-                    "
-                  >
-
-                </div>
-              `;
-
-            })
-            .join("")
-
-        : "<p>No private photos yet ❤️";
-
-
   } catch (error) {
+
+    console.error(
+      "Firebase login error:",
+      error
+    );
 
     message.textContent =
       "Login failed: " +
       (error.code || error.message);
 
-    console.error(error);
+    return;
+
+  }
+
+
+  /* LOGIN SUCCESS */
+
+  const user =
+    auth.currentUser;
+
+  let role = "USER";
+
+
+  if (
+    user &&
+    user.email ===
+    "indragithmadushan23564@gmail.com"
+  ) {
+
+    role = "BF";
+
+  } else if (
+    user &&
+    user.email ===
+    "dilshanisupunsara92@gmail.com"
+  ) {
+
+    role = "GF";
+
+  }
+
+
+  message.textContent =
+    "Login successful! ❤️ " + role;
+
+
+  const roleTitle =
+    getElement("roleTitle");
+
+  if (roleTitle) {
+
+    roleTitle.textContent =
+      role === "BF"
+        ? "👨 BF Space ❤️"
+        : role === "GF"
+        ? "👩 GF Space ❤️"
+        : "❤️ Private Space";
+
+  }
+
+
+  const privateSpace =
+    getElement("privateSpace");
+
+  if (privateSpace) {
+
+    privateSpace.classList.remove("hidden");
+
+    privateSpace.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* FIRESTORE DATA */
+
+  await loadLoveNotes();
+
+  await loadMemories();
+
+  await loadPhotos();
+
+}
+
+
+/* LOVE NOTES */
+
+async function loadLoveNotes() {
+
+  const container =
+    getElement("privateNotes");
+
+  if (!container) {
+
+    console.error(
+      "privateNotes element is missing."
+    );
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    "<p>Loading love notes... ❤️</p>";
+
+
+  try {
+
+    const snapshot =
+      await getDocs(
+        collection(db, "love_notes")
+      );
+
+
+    if (snapshot.empty) {
+
+      container.innerHTML =
+        "<p>No love notes yet ❤️</p>";
+
+      return;
+
+    }
+
+
+    container.innerHTML =
+      snapshot.docs
+        .map(doc => {
+
+          const data =
+            doc.data();
+
+          return `
+            <div
+              class="card"
+              style="margin-bottom:15px;"
+            >
+
+              <h3>💌 Love Note ❤️</h3>
+
+              <p>
+                ${escapeHtml(
+                  data.message ||
+                  "No message"
+                )}
+              </p>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
+
+  } catch (error) {
+
+    console.error(
+      "Love notes error:",
+      error
+    );
+
+    container.innerHTML =
+      `
+        <p>
+          ❤️ Love notes could not be loaded.
+        </p>
+      `;
 
   }
 
 }
 
+
+/* MEMORIES */
+
+async function loadMemories() {
+
+  const container =
+    getElement("privateMemories");
+
+  if (!container) {
+
+    console.error(
+      "privateMemories element is missing."
+    );
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    "<p>Loading memories... ❤️</p>";
+
+
+  try {
+
+    const snapshot =
+      await getDocs(
+        collection(db, "memories")
+      );
+
+
+    if (snapshot.empty) {
+
+      container.innerHTML =
+        "<p>No memories yet ❤️</p>";
+
+      return;
+
+    }
+
+
+    container.innerHTML =
+      snapshot.docs
+        .map(doc => {
+
+          const data =
+            doc.data();
+
+          return `
+            <div
+              class="card"
+              style="margin-bottom:15px;"
+            >
+
+              <h3>
+                💭 ${escapeHtml(
+                  data.title ||
+                  "Our Memory"
+                )}
+              </h3>
+
+              <p>
+                ${escapeHtml(
+                  data.description ||
+                  ""
+                )}
+              </p>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
+
+  } catch (error) {
+
+    console.error(
+      "Memories error:",
+      error
+    );
+
+    container.innerHTML =
+      `
+        <p>
+          ❤️ Memories could not be loaded.
+        </p>
+      `;
+
+  }
+
+}
+
+
+/* PHOTOS */
+
+async function loadPhotos() {
+
+  const container =
+    getElement("privatePhotos");
+
+  if (!container) {
+
+    console.error(
+      "privatePhotos element is missing."
+    );
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    "<p>Loading photos... ❤️</p>";
+
+
+  try {
+
+    const snapshot =
+      await getDocs(
+        collection(db, "photos")
+      );
+
+
+    if (snapshot.empty) {
+
+      container.innerHTML =
+        "<p>No private photos yet ❤️</p>";
+
+      return;
+
+    }
+
+
+    container.innerHTML =
+      snapshot.docs
+        .map(doc => {
+
+          const data =
+            doc.data();
+
+          const url =
+            data.url || "";
+
+
+          if (!url) {
+
+            return `
+              <div
+                class="card"
+                style="margin-bottom:15px;"
+              >
+
+                <h3>
+                  📸 Private Photo ❤️
+                </h3>
+
+                <p>
+                  Photo URL is empty.
+                </p>
+
+              </div>
+            `;
+
+          }
+
+
+          return `
+            <div
+              class="card"
+              style="margin-bottom:15px;"
+            >
+
+              <h3>
+                📸 Private Photo ❤️
+              </h3>
+
+              <img
+                src="${escapeAttribute(url)}"
+                alt="Private Photo"
+                style="
+                  width:100%;
+                  max-width:400px;
+                  border-radius:15px;
+                  margin-top:10px;
+                  display:block;
+                "
+                onerror="
+                  this.style.display='none';
+                  this.nextElementSibling.style.display='block';
+                "
+              >
+
+              <p style="display:none;margin-top:10px;">
+                ❤️ This photo could not be displayed.
+              </p>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
+
+  } catch (error) {
+
+    console.error(
+      "Photos error:",
+      error
+    );
+
+    container.innerHTML =
+      `
+        <p>
+          ❤️ Photos could not be loaded.
+        </p>
+      `;
+
+  }
+
+}
+
+
+/* SECURITY HELPERS */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+}
+
+
+/* FLOATING HEART */
 
 function createHeart() {
 
@@ -1002,7 +1292,9 @@ function createHeart() {
   heart.style.left =
     Math.random() * 100 + "vw";
 
-  document.body.appendChild(heart);
+  document.body.appendChild(
+    heart
+  );
 
 
   setTimeout(() => {
@@ -1041,11 +1333,19 @@ const days =
   );
 
 
-document
-  .getElementById("days")
-  .textContent =
+const daysElement =
+  document.getElementById("days");
+
+
+if (daysElement) {
+
+  daysElement.textContent =
     days + " Days ❤️";
 
+}
+
+
+/* MAKE FUNCTIONS AVAILABLE TO HTML */
 
 window.toggleDark =
   toggleDark;
@@ -1104,11 +1404,17 @@ const musicBtn =
 
 function toggleMusic() {
 
+  if (!music) return;
+
   if (music.paused) {
 
     music.play()
       .then(() => {
-        musicBtn.textContent = "🔊";
+
+        if (musicBtn) {
+          musicBtn.textContent = "🔊";
+        }
+
       })
       .catch(() => {});
 
@@ -1116,8 +1422,9 @@ function toggleMusic() {
 
     music.pause();
 
-    musicBtn.textContent =
-      "🔇";
+    if (musicBtn) {
+      musicBtn.textContent = "🔇";
+    }
 
   }
 
@@ -1132,11 +1439,14 @@ document.addEventListener(
   "click",
   function startMusic() {
 
+    if (!music) return;
+
     music.play()
       .then(() => {
 
-        musicBtn.textContent =
-          "🔊";
+        if (musicBtn) {
+          musicBtn.textContent = "🔊";
+        }
 
       })
       .catch(() => {});
