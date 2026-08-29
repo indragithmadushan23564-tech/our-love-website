@@ -528,7 +528,7 @@ body.dark .data-item{
     <h1>Our Love</h1>
 
     <p>
-      A little place for our memories,
+      A lit>tle place for our memories,
       our story and all the moments
       we never want to forget. ❤️
     </p>
@@ -772,11 +772,43 @@ body.dark .data-item{
 
   <div class="card-grid">
 
-    <div class="card">
-      <h3>💭 My Thoughts</h3>
-      <p>Write your thoughts and feelings here. ❤️</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
-    </div>
+<div class="card">
+  <h3>💭 My Thoughts</h3>
+  <p>Write your thoughts and feelings here. ❤️</p>
+
+  <button
+    class="btn small"
+    id="addThoughtBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div id="thoughtForm" class="hidden" style="margin-top:15px;">
+    <input
+      id="thoughtInput"
+      type="text"
+      placeholder="Write your thought... ❤️"
+    >
+
+    <button
+      class="btn small"
+      id="saveThoughtBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn secondary small"
+      id="cancelThoughtBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p id="thoughtMessage" class="login-message"></p>
+  </div>
+
+  <div id="myThoughtsList" class="data-box"></div>
+</div>
 
     <div class="card">
       <h3>📅 My Day</h3>
@@ -907,9 +939,9 @@ import {
 import {
   getFirestore,
   collection,
-  getDocs
+  getDocs,
+  addDoc
 } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
 
 /* FIREBASE CONFIG */
 
@@ -1231,11 +1263,11 @@ async function loadAllPrivateData(){
   }
 
   await Promise.all([
-    loadLoveNotes(),
-    loadMemories(),
-    loadPhotos()
-  ]);
-
+  loadLoveNotes(),
+  loadMemories(),
+  loadPhotos(),
+  loadMyThoughts()
+]);
 }
 
 
@@ -1662,7 +1694,236 @@ document.getElementById(
   loadAllPrivateData
 );
 
+/* MY THOUGHTS */
 
+const addThoughtBtn =
+  document.getElementById("addThoughtBtn");
+
+const thoughtForm =
+  document.getElementById("thoughtForm");
+
+const thoughtInput =
+  document.getElementById("thoughtInput");
+
+const saveThoughtBtn =
+  document.getElementById("saveThoughtBtn");
+
+const cancelThoughtBtn =
+  document.getElementById("cancelThoughtBtn");
+
+const thoughtMessage =
+  document.getElementById("thoughtMessage");
+
+const myThoughtsList =
+  document.getElementById("myThoughtsList");
+
+
+/* OPEN FORM */
+
+addThoughtBtn.addEventListener(
+  "click",
+  () => {
+
+    thoughtForm.classList.remove("hidden");
+
+    thoughtInput.focus();
+
+    thoughtMessage.textContent = "";
+  }
+);
+
+
+/* CANCEL */
+
+cancelThoughtBtn.addEventListener(
+  "click",
+  () => {
+
+    thoughtForm.classList.add("hidden");
+
+    thoughtInput.value = "";
+
+    thoughtMessage.textContent = "";
+  }
+);
+
+
+/* SAVE */
+
+saveThoughtBtn.addEventListener(
+  "click",
+  async () => {
+
+    const thought =
+      thoughtInput.value.trim();
+
+    if(!thought){
+
+      thoughtMessage.textContent =
+        "Please write something first. ❤️";
+
+      thoughtMessage.className =
+        "login-message error";
+
+      thoughtInput.focus();
+
+      return;
+    }
+
+    if(!auth.currentUser){
+
+      thoughtMessage.textContent =
+        "Please login first. ❤️";
+
+      thoughtMessage.className =
+        "login-message error";
+
+      return;
+    }
+
+    saveThoughtBtn.disabled = true;
+
+    saveThoughtBtn.textContent =
+      "Saving... ⏳";
+
+    try{
+
+      await addDoc(
+        collection(db, "thoughts"),
+        {
+          message: thought,
+          email: auth.currentUser.email,
+          createdAt: new Date().toISOString()
+        }
+      );
+
+      thoughtMessage.textContent =
+        "Thought saved successfully! ❤️";
+
+      thoughtMessage.className =
+        "login-message success";
+
+      thoughtInput.value = "";
+
+      await loadMyThoughts();
+
+      setTimeout(() => {
+
+        thoughtForm.classList.add("hidden");
+
+        thoughtMessage.textContent = "";
+
+      }, 1200);
+
+    }catch(error){
+
+      console.error(
+        "Save thought error:",
+        error
+      );
+
+      thoughtMessage.textContent =
+        "Could not save thought. Please check Firebase Rules. ❤️";
+
+      thoughtMessage.className =
+        "login-message error";
+
+    }finally{
+
+      saveThoughtBtn.disabled = false;
+
+      saveThoughtBtn.textContent =
+        "💾 Save";
+
+    }
+
+  }
+);
+
+
+/* LOAD MY THOUGHTS */
+
+async function loadMyThoughts(){
+
+  if(!auth.currentUser){
+    return;
+  }
+
+  myThoughtsList.innerHTML =
+    `<div class="loading">
+      Loading thoughts... ❤️
+    </div>`;
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db, "thoughts")
+      );
+
+    const myEmail =
+      auth.currentUser.email
+        .trim()
+        .toLowerCase();
+
+    const thoughts =
+      snapshot.docs.filter(doc => {
+
+        const data = doc.data();
+
+        return (
+          String(data.email || "")
+            .trim()
+            .toLowerCase()
+          === myEmail
+        );
+
+      });
+
+    if(thoughts.length === 0){
+
+      myThoughtsList.innerHTML =
+        `<div class="empty">
+          No thoughts yet. ❤️
+        </div>`;
+
+      return;
+    }
+
+    myThoughtsList.innerHTML =
+      thoughts.map(doc => {
+
+        const data =
+          doc.data();
+
+        return `
+          <div class="data-item">
+            <h4>💭 My Thought ❤️</h4>
+            <p>
+              ${escapeHtml(
+                data.message || ""
+              )}
+            </p>
+          </div>
+        `;
+
+      }).join("");
+
+  }catch(error){
+
+    console.error(
+      "Load thoughts error:",
+      error
+    );
+
+    myThoughtsList.innerHTML =
+      `<div class="empty">
+        ❤️ Thoughts could not be loaded.
+      </div>`;
+
+  }
+
+}
 /* COMING SOON */
 
 document.querySelectorAll(
