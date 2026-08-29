@@ -1,4658 +1,1890 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Our Love ❤️</title>
-
-  <meta
-    name="description"
-    content="Our Love ❤️ — our story, memories, photos and special moments."
-  >
-
-  <style>
-
-    /* =========================
-       RESET
-    ========================= */
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-      background: #fff7fa;
-
-      color: #351b24;
-
-      line-height: 1.6;
-
-      overflow-x: hidden;
-
-      transition:
-        background 0.3s ease,
-        color 0.3s ease;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    a {
-      color: inherit;
-    }
-
-
-    /* =========================
-       NAVIGATION
-    ========================= */
-
-    nav {
-      position: fixed;
-
-      top: 0;
-      left: 0;
-      right: 0;
-
-      z-index: 5000;
-
-      padding: 14px 20px;
-
-      background:
-        rgba(255,255,255,0.92);
-
-      backdrop-filter: blur(14px);
-
-      -webkit-backdrop-filter: blur(14px);
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 15px;
-
-      box-shadow:
-        0 2px 15px rgba(0,0,0,0.08);
-    }
-
-    .logo {
-      font-size: 22px;
-
-      font-weight: 800;
-
-      color: #d6336c;
-
-      white-space: nowrap;
-    }
-
-    .nav-actions {
-      display: flex;
-
-      align-items: center;
-
-      gap: 6px;
-    }
-
-    .nav-btn {
-      border: none;
-
-      background: #ffe3ec;
-
-      color: #8f214a;
-
-      padding: 9px 13px;
-
-      border-radius: 22px;
-
-      font-size: 14px;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      transform: translateY(-2px);
-
-      background: #ffd1df;
-    }
-
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-      min-height: 100vh;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
-
-      padding:
-        110px 20px 60px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ffd6e5,
-          #fff0f5,
-          #ffe1ec
-        );
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .hero-content {
-      max-width: 780px;
-
-      position: relative;
-
-      z-index: 2;
-    }
-
-    .heart {
-      font-size: 75px;
-
-      animation:
-        heartbeat 1.4s infinite;
-
-      filter:
-        drop-shadow(
-          0 8px 15px
-          rgba(214,51,108,0.25)
-        );
-    }
-
-    @keyframes heartbeat {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.18);
-      }
-
-    }
-
-    h1 {
-      font-size:
-        clamp(45px,10vw,82px);
-
-      line-height: 1.1;
-
-      color: #c2185b;
-
-      margin: 18px 0;
-    }
-
-    .hero p {
-      font-size:
-        clamp(17px,3vw,21px);
-
-      color: #6d394b;
-
-      max-width: 700px;
-
-      margin: auto;
-    }
-
-
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    .btn {
-      display: inline-flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 8px;
-
-      margin-top: 25px;
-
-      padding: 13px 25px;
-
-      min-height: 46px;
-
-      border: none;
-
-      border-radius: 30px;
-
-      background: #d6336c;
-
-      color: white;
-
-      text-decoration: none;
-
-      font-size: 16px;
-
-      font-weight: 600;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 8px 20px
-        rgba(214,51,108,0.25);
-    }
-
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    .btn.secondary {
-      background: #ffe0eb;
-
-      color: #c2185b;
-    }
-
-    .btn.danger {
-      background: #8f294b;
-    }
-
-    .btn.small {
-      padding: 10px 17px;
-
-      min-height: 40px;
-
-      font-size: 14px;
-
-      margin-top: 15px;
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-
-      cursor: not-allowed;
-
-      transform: none;
-    }
-
-
-    /* =========================
-       SECTIONS
-    ========================= */
-
-    section {
-      width: 100%;
-
-      max-width: 1100px;
-
-      padding: 80px 20px;
-
-      margin: auto;
-    }
-
-    .section-title {
-      text-align: center;
-
-      font-size:
-        clamp(29px,6vw,38px);
-
-      color: #c2185b;
-
-      margin-bottom: 40px;
-
-      line-height: 1.2;
-    }
-
-
-    /* =========================
-       CARDS
-    ========================= */
-
-    .card-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(240px,1fr)
-        );
-
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-
-      padding: 25px;
-
-      border-radius: 20px;
-
-      box-shadow:
-        0 8px 25px
-        rgba(0,0,0,0.08);
-
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-
-      box-shadow:
-        0 12px 30px
-        rgba(0,0,0,0.11);
-    }
-
-    .card h3 {
-      color: #d6336c;
-
-      margin-bottom: 10px;
-    }
-
-
-    /* =========================
-       STORY
-    ========================= */
-
-    .story-card {
-      max-width: 900px;
-
-      margin: auto;
-
-      text-align: center;
-    }
-
-
-    /* =========================
-       TIMELINE
-    ========================= */
-
-    .timeline {
-      border-left:
-        3px solid #f783ac;
-
-      padding-left: 25px;
-
-      max-width: 750px;
-
-      margin: auto;
-    }
-
-    .timeline-item {
-      position: relative;
-
-      background: white;
-
-      padding: 22px;
-
-      margin-bottom: 22px;
-
-      border-radius: 15px;
-
-      box-shadow:
-        0 5px 18px
-        rgba(0,0,0,0.07);
-    }
-
-    .timeline-item::before {
-      content: "";
-
-      position: absolute;
-
-      width: 14px;
-
-      height: 14px;
-
-      border-radius: 50%;
-
-      background: #d6336c;
-
-      left: -34px;
-
-      top: 25px;
-
-      box-shadow:
-        0 0 0 5px #ffe0eb;
-    }
-
-    .timeline-item strong {
-      color: #d6336c;
-
-      font-size: 18px;
-    }
-
-    .timeline-date {
-      display: block;
-
-      margin-top: 5px;
-
-      font-size: 13px;
-
-      color: #9a6879;
-    }
-
-
-    /* =========================
-       PHOTOS
-    ========================= */
-
-    .photo-card {
-      padding: 12px;
-
-      overflow: hidden;
-    }
-
-    .photo-placeholder {
-      height: 220px;
-
-      border-radius: 18px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ffd6e5,
-          #ffeef4
-        );
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-size: 50px;
-    }
-
-    .photo-card img {
-      width: 100%;
-
-      height: 260px;
-
-      object-fit: cover;
-
-      border-radius: 15px;
-
-      display: block;
-    }
-
-
-    /* =========================
-       COUNTER
-    ========================= */
-
-    .counter {
-      text-align: center;
-
-      font-size:
-        clamp(30px,7vw,48px);
-
-      font-weight: bold;
-
-      color: #c2185b;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ffe0eb,
-          #fff5f8
-        );
-
-      border-radius: 25px;
-
-      padding: 50px 20px;
-
-      box-shadow:
-        0 8px 25px
-        rgba(0,0,0,0.06);
-    }
-
-    .counter-subtitle {
-      font-size: 16px;
-
-      font-weight: normal;
-
-      margin-top: 10px;
-
-      color: #7a4a5c;
-    }
-
-
-    /* =========================
-       SURPRISE
-    ========================= */
-
-    .surprise {
-      text-align: center;
-
-      padding: 50px 25px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #ffe0eb,
-          #fff5f8
-        );
-
-      border-radius: 25px;
-    }
-
-    .surprise-message {
-      margin-top: 25px;
-
-      font-size:
-        clamp(20px,5vw,28px);
-
-      font-weight: bold;
-
-      color: #c2185b;
-
-      animation:
-        surpriseIn 0.6s ease;
-    }
-
-    @keyframes surpriseIn {
-
-      from {
-        opacity: 0;
-
-        transform: scale(0.8);
-      }
-
-      to {
-        opacity: 1;
-
-        transform: scale(1);
-      }
-
-    }
-
-
-    /* =========================
-       LOGIN
-    ========================= */
-
-    .login-box {
-      max-width: 440px;
-
-      margin: auto;
-
-      background: white;
-
-      padding: 30px;
-
-      border-radius: 20px;
-
-      box-shadow:
-        0 8px 25px
-        rgba(0,0,0,0.08);
-
-      text-align: center;
-    }
-
-    .login-box h3 {
-      color: #d6336c;
-
-      margin-bottom: 15px;
-    }
-
-    input {
-      width: 100%;
-
-      padding: 13px;
-
-      margin: 8px 0;
-
-      border:
-        1px solid #ddd;
-
-      border-radius: 10px;
-
-      font-size: 16px;
-
-      outline: none;
-
-      background: white;
-
-      color: #351b24;
-
-      transition:
-        border 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    input:focus {
-      border-color: #d6336c;
-
-      box-shadow:
-        0 0 0 3px
-        rgba(214,51,108,0.1);
-    }
-
-    .login-message {
-      min-height: 25px;
-
-      margin-top: 15px;
-
-      font-size: 14px;
-    }
-
-    .success {
-      color: #198754;
-    }
-
-    .error {
-      color: #c2185b;
-    }
-
-
-    /* =========================
-       PRIVATE SPACE
-    ========================= */
-
-    #privateSpace {
-      max-width: 1150px;
-    }
-
-    .private-header {
-      text-align: center;
-
-      margin-bottom: 30px;
-    }
-
-    .role-title {
-      font-size: 26px;
-
-      font-weight: bold;
-
-      color: #d6336c;
-    }
-
-    .private-actions {
-      display: flex;
-
-      justify-content: center;
-
-      flex-wrap: wrap;
-
-      gap: 10px;
-
-      margin-top: 15px;
-    }
-
-    .data-box {
-      margin-top: 25px;
-    }
-
-    .data-item {
-      background: #fff7fa;
-
-      border-radius: 15px;
-
-      padding: 18px;
-
-      margin-bottom: 14px;
-
-      border:
-        1px solid #ffe0eb;
-    }
-
-    .data-item h4 {
-      color: #d6336c;
-
-      margin-bottom: 7px;
-    }
-
-    .private-photo {
-      width: 100%;
-
-      max-width: 500px;
-
-      border-radius: 15px;
-
-      display: block;
-
-      margin-top: 10px;
-
-      box-shadow:
-        0 5px 18px
-        rgba(0,0,0,0.1);
-    }
-
-    .loading {
-      text-align: center;
-
-      padding: 20px;
-
-      color: #9a6879;
-    }
-
-    .empty {
-      text-align: center;
-
-      padding: 20px;
-
-      color: #9a6879;
-    }
-
-
-    /* =========================
-       FLOATING HEARTS
-    ========================= */
-
-    .heart-float {
-      position: fixed;
-
-      bottom: -30px;
-
-      font-size: 22px;
-
-      pointer-events: none;
-
-      animation:
-        floatUp 5s linear forwards;
-
-      z-index: 6000;
-    }
-
-    @keyframes floatUp {
-
-      from {
-        transform:
-          translateY(0)
-          rotate(0deg);
-
-        opacity: 1;
-      }
-
-      to {
-        transform:
-          translateY(-110vh)
-          rotate(25deg);
-
-        opacity: 0;
-      }
-
-    }
-
-
-    /* =========================
-       MUSIC BUTTON
-    ========================= */
-
-    #musicBtn {
-      position: fixed;
-
-      bottom: 20px;
-
-      right: 20px;
-
-      z-index: 5500;
-
-      width: 55px;
-
-      height: 55px;
-
-      border: none;
-
-      border-radius: 50%;
-
-      background: #d6336c;
-
-      color: white;
-
-      font-size: 22px;
-
-      cursor: pointer;
-
-      box-shadow:
-        0 5px 15px
-        rgba(0,0,0,0.2);
-
-      transition:
-        transform 0.2s ease;
-    }
-
-    #musicBtn:hover {
-      transform: scale(1.08);
-    }
-
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-      text-align: center;
-
-      padding: 35px 20px;
-
-      background: #351b24;
-
-      color: white;
-    }
-
-
-    /* =========================
-       HIDDEN
-    ========================= */
-
-    .hidden {
-      display: none !important;
-    }
-
-
-    /* =========================
-       DARK MODE
-    ========================= */
-
-    body.dark {
-      background: #171116;
-
-      color: #f8e9ef;
-    }
-
-    body.dark nav {
-      background:
-        rgba(30,20,25,0.96);
-
-      box-shadow:
-        0 2px 15px
-        rgba(0,0,0,0.3);
-    }
-
-    body.dark .nav-btn {
-      background: #33232b;
-
-      color: #f8dce6;
-    }
-
-    body.dark .hero {
-      background:
-        linear-gradient(
-          135deg,
-          #291621,
-          #171116,
-          #24151d
-        );
-    }
-
-    body.dark .hero p {
-      color: #e7cbd5;
-    }
-
-    body.dark .card,
-    body.dark .timeline-item,
-    body.dark .login-box {
-      background: #261b21;
-
-      color: #f8e9ef;
-    }
-
-    body.dark .counter,
-    body.dark .surprise {
-      background:
-        linear-gradient(
-          135deg,
-          #302029,
-          #21171c
-        );
-    }
-
-    body.dark .counter-subtitle,
-    body.dark .timeline-date {
-      color: #d8b8c5;
-    }
-
-    body.dark input {
-      background: #1e151a;
-
-      color: #fff;
-
-      border-color: #4b3440;
-    }
-
-    body.dark .data-item {
-      background: #21171d;
-
-      border-color: #4b2937;
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width:600px) {
-
-      nav {
-        padding: 10px 12px;
-      }
-
-      .logo {
-        font-size: 18px;
-      }
-
-      .nav-btn {
-        padding: 7px 9px;
-
-        font-size: 12px;
-      }
-
-      section {
-        padding: 60px 15px;
-      }
-
-      .hero {
-        padding:
-          100px 15px 50px;
-      }
-
-      .heart {
-        font-size: 60px;
-      }
-
-      .card {
-        padding: 20px;
-      }
-
-      .timeline {
-        padding-left: 20px;
-      }
-
-      .timeline-item::before {
-        left: -29px;
-      }
-
-      .photo-placeholder {
-        height: 190px;
-      }
-
-      #musicBtn {
-        width: 50px;
-
-        height: 50px;
-
-        right: 15px;
-
-        bottom: 15px;
-      }
-
-    }
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Our Love ❤️</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fff7fa;
+  color:#351b24;
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:.3s;
+}
+
+button,input{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:5000;
+  padding:14px 20px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(14px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  color:#d6336c;
+}
+
+.nav-actions{
+  display:flex;
+  gap:7px;
+}
+
+.nav-btn{
+  border:0;
+  background:#ffe3ec;
+  color:#8f214a;
+  padding:9px 13px;
+  border-radius:22px;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:110px 20px 60px;
+  background:linear-gradient(135deg,#ffd6e5,#fff0f5,#ffe1ec);
+}
+
+.hero-content{
+  max-width:780px;
+}
+
+.heart{
+  font-size:75px;
+  animation:heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.18)}
+}
+
+h1{
+  font-size:clamp(45px,10vw,82px);
+  color:#c2185b;
+  margin:18px 0;
+}
+
+.hero p{
+  font-size:clamp(17px,3vw,21px);
+  color:#6d394b;
+}
+
+/* BUTTON */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:20px;
+  padding:13px 25px;
+  min-height:46px;
+  border:0;
+  border-radius:30px;
+  background:#d6336c;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+}
+
+.btn.secondary{
+  background:#ffe0eb;
+  color:#c2185b;
+}
+
+.btn.danger{
+  background:#8f294b;
+}
+
+.btn.small{
+  padding:10px 17px;
+  min-height:40px;
+  font-size:14px;
+}
+
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+/* SECTIONS */
+section{
+  width:100%;
+  max-width:1100px;
+  padding:80px 20px;
+  margin:auto;
+}
+
+.section-title{
+  text-align:center;
+  font-size:clamp(29px,6vw,38px);
+  color:#c2185b;
+  margin-bottom:40px;
+}
+
+/* CARDS */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.card h3{
+  color:#d6336c;
+  margin-bottom:10px;
+}
+
+/* TIMELINE */
+.timeline{
+  border-left:3px solid #f783ac;
+  padding-left:25px;
+  max-width:750px;
+  margin:auto;
+}
+
+.timeline-item{
+  position:relative;
+  background:white;
+  padding:22px;
+  margin-bottom:22px;
+  border-radius:15px;
+  box-shadow:0 5px 18px rgba(0,0,0,.07);
+}
+
+.timeline-item::before{
+  content:"";
+  position:absolute;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#d6336c;
+  left:-34px;
+  top:25px;
+}
+
+.timeline-item strong{
+  color:#d6336c;
+  font-size:18px;
+}
+
+.timeline-date{
+  display:block;
+  font-size:13px;
+  color:#9a6879;
+}
+
+/* PHOTOS */
+.photo-placeholder{
+  height:220px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#ffd6e5,#ffeef4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:50px;
+}
+
+/* COUNTER */
+.counter{
+  text-align:center;
+  font-size:clamp(30px,7vw,48px);
+  font-weight:bold;
+  color:#c2185b;
+  background:linear-gradient(135deg,#ffe0eb,#fff5f8);
+  border-radius:25px;
+  padding:50px 20px;
+}
+
+.counter-subtitle{
+  font-size:16px;
+  font-weight:normal;
+  margin-top:10px;
+  color:#7a4a5c;
+}
+
+/* SURPRISE */
+.surprise{
+  text-align:center;
+  padding:50px 25px;
+  background:linear-gradient(135deg,#ffe0eb,#fff5f8);
+  border-radius:25px;
+}
+
+.surprise-message{
+  margin-top:25px;
+  font-size:clamp(20px,5vw,28px);
+  font-weight:bold;
+  color:#c2185b;
+}
+
+/* LOGIN */
+.login-box{
+  max-width:440px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  text-align:center;
+}
+
+.login-box h3{
+  color:#d6336c;
+  margin-bottom:15px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:16px;
+  outline:none;
+  background:white;
+  color:#351b24;
+}
+
+input:focus{
+  border-color:#d6336c;
+  box-shadow:0 0 0 3px rgba(214,51,108,.1);
+}
+
+.login-message{
+  min-height:25px;
+  margin-top:15px;
+  font-size:14px;
+}
+
+.success{
+  color:#198754;
+}
+
+.error{
+  color:#c2185b;
+}
+
+/* PRIVATE */
+#privateSpace{
+  max-width:1150px;
+}
+
+.private-header{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.role-title{
+  font-size:26px;
+  font-weight:bold;
+  color:#d6336c;
+}
+
+.private-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:15px;
+}
+
+.data-box{
+  margin-top:25px;
+}
+
+.data-item{
+  background:#fff7fa;
+  border-radius:15px;
+  padding:18px;
+  margin-bottom:14px;
+  border:1px solid #ffe0eb;
+}
+
+.data-item h4{
+  color:#d6336c;
+  margin-bottom:7px;
+}
+
+.private-photo{
+  width:100%;
+  max-width:500px;
+  border-radius:15px;
+  display:block;
+  margin-top:10px;
+}
+
+.loading,
+.empty{
+  text-align:center;
+  padding:20px;
+  color:#9a6879;
+}
+
+/* FLOAT HEART */
+.heart-float{
+  position:fixed;
+  bottom:-30px;
+  font-size:22px;
+  pointer-events:none;
+  animation:floatUp 5s linear forwards;
+  z-index:6000;
+}
+
+@keyframes floatUp{
+  from{
+    transform:translateY(0);
+    opacity:1;
+  }
+  to{
+    transform:translateY(-110vh);
+    opacity:0;
+  }
+}
+
+/* MUSIC */
+#musicBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:5500;
+  width:55px;
+  height:55px;
+  border:0;
+  border-radius:50%;
+  background:#d6336c;
+  color:white;
+  font-size:22px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:35px 20px;
+  background:#351b24;
+  color:white;
+}
+
+/* DARK */
+body.dark{
+  background:#171116;
+  color:#f8e9ef;
+}
+
+body.dark nav{
+  background:rgba(30,20,25,.96);
+}
+
+body.dark .nav-btn{
+  background:#33232b;
+  color:#f8dce6;
+}
+
+body.dark .hero{
+  background:linear-gradient(135deg,#291621,#171116,#24151d);
+}
+
+body.dark .hero p{
+  color:#e7cbd5;
+}
+
+body.dark .card,
+body.dark .timeline-item,
+body.dark .login-box{
+  background:#261b21;
+  color:#f8e9ef;
+}
+
+body.dark .counter,
+body.dark .surprise{
+  background:linear-gradient(135deg,#302029,#21171c);
+}
+
+body.dark input{
+  background:#1e151a;
+  color:white;
+  border-color:#4b3440;
+}
+
+body.dark .data-item{
+  background:#21171d;
+  border-color:#4b2937;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  nav{
+    padding:10px 12px;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .nav-btn{
+    padding:7px 9px;
+    font-size:12px;
+  }
+
+  section{
+    padding:60px 15px;
+  }
+
+  .hero{
+    padding:100px 15px 50px;
+  }
+
+  .heart{
+    font-size:60px;
+  }
+
+  .timeline{
+    padding-left:20px;
+  }
+
+  .timeline-item::before{
+    left:-29px;
+  }
+
+  #musicBtn{
+    width:50px;
+    height:50px;
+    right:15px;
+    bottom:15px;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
-
-  <!-- =========================
-       NAVIGATION
-  ========================= -->
-
-  <nav>
-
-    <div class="logo">
-      Our Love ❤️
-    </div>
-
-    <div class="nav-actions">
-
-      <button
-        class="nav-btn"
-        id="darkBtn"
-        type="button"
-        onclick="toggleDark()"
-        aria-label="Toggle dark mode"
-      >
-        🌙
-      </button>
-
-      <button
-        class="nav-btn"
-        type="button"
-        onclick="scrollToLogin()"
-      >
-        🔐 Login
-      </button>
-
-    </div>
-
-  </nav>
-
-
-  <!-- =========================
-       HERO
-  ========================= -->
-
-  <header class="hero">
-
-    <div class="hero-content">
-
-      <div class="heart">
-        ❤️
-      </div>
-
-      <h1>
-        Our Love
-      </h1>
-
-      <p>
-        A little place for our memories,
-        our story and all the moments
-        we never want to forget.
-      </p>
-
-      <a
-        href="#story"
-        class="btn"
-      >
-        Our Story 💕
-      </a>
-
-    </div>
-
-  </header>
-
-
-  <!-- =========================
-       STORY
-  ========================= -->
-
-  <section id="story">
-
-    <h2 class="section-title">
-      ❤️ Our Story
-    </h2>
-
-    <div class="card story-card">
-
-      <h3>
-        How It All Started
-      </h3>
-
-      <p style="margin-top:10px;">
-
-        Every beautiful story starts somewhere.
-        This is our little place to keep
-        the beginning of our story,
-        our conversations,
-        our special moments
-        and everything that brought us closer. ❤️
-
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       TIMELINE
-  ========================= -->
-
-  <section id="timeline">
-
-    <h2 class="section-title">
-      📅 Our Timeline
-    </h2>
-
-    <div class="timeline">
-
-      <div class="timeline-item">
-
-        <strong>
-          Our First Meeting ❤️
-        </strong>
-
-        <span class="timeline-date">
-          A special day
-        </span>
-
-        <p style="margin-top:10px;">
-          The beginning of something
-          beautiful.
-        </p>
-
-      </div>
-
-
-      <div class="timeline-item">
-
-        <strong>
-          Our First Special Memory 💕
-        </strong>
-
-        <span class="timeline-date">
-          One beautiful moment
-        </span>
-
-        <p style="margin-top:10px;">
-          One of those memories
-          we never want to forget.
-        </p>
-
-      </div>
-
-
-      <div class="timeline-item">
-
-        <strong>
-          Today ❤️
-        </strong>
-
-        <span class="timeline-date">
-          Our story continues
-        </span>
-
-        <p style="margin-top:10px;">
-          And there are still
-          so many beautiful chapters
-          waiting for us.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       MEMORIES
-  ========================= -->
-
-  <section id="memories">
-
-    <h2 class="section-title">
-      💭 Our Memories
-    </h2>
-
-    <div class="card-grid">
-
-      <div class="card">
-
-        <h3>
-          Memory 01 ❤️
-        </h3>
-
-        <p>
-          Our First Memory ❤️
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          Memory 02 💕
-        </h3>
-
-        <p>
-          Another beautiful
-          moment together.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          Memory 03 🌹
-        </h3>
-
-        <p>
-          More beautiful memories
-          coming soon...
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       PHOTOS
-  ========================= -->
-
-  <section id="photos">
-
-    <h2 class="section-title">
-      📸 Our Photos
-    </h2>
-
-    <div class="card-grid">
-
-      <div class="photo-placeholder">
-        📷
-      </div>
-
-      <div class="photo-placeholder">
-        ❤️
-      </div>
-
-      <div class="photo-placeholder">
-        🌹
-      </div>
-
-    </div>
-
-    <p
-      style="
-        text-align:center;
-        margin-top:20px;
-      "
-    >
-      Our photos will appear here. ❤️
-    </p>
-
-  </section>
-
-
-  <!-- =========================
-       LOVE NOTES
-  ========================= -->
-
-  <section id="notes">
-
-    <h2 class="section-title">
-      💌 Love Notes
-    </h2>
-
-    <div class="card-grid">
-
-      <div class="card">
-
-        <h3>
-          Love Note ❤️
-        </h3>
-
-        <p>
-          I love you ❤️
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          Another Note 💕
-        </h3>
-
-        <p>
-          You are special to me.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-    <!-- =========================
-       SONG
-  ========================= -->
-
-  <section id="song">
-
-    <h2 class="section-title">
-      🎵 Our Song
-    </h2>
-
-    <div
-      class="card"
-      style="text-align:center;"
-    >
-
-      <h3>
-        Our Special Song ❤️
-      </h3>
-
-      <p style="margin-top:10px;">
-        A song that belongs
-        to our little story.
-      </p>
-
-      <button
-        class="btn"
-        type="button"
-        onclick="toggleMusic()"
-      >
-        🎵 Play / Pause
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       REASONS I LOVE YOU
-  ========================= -->
-
-  <section id="reasons">
-
-    <h2 class="section-title">
-      🌹 Reasons I Love You
-    </h2>
-
-    <div class="card-grid">
-
-      <div class="card">
-
-        <h3>
-          01 ❤️
-        </h3>
-
-        <p>
-          Your smile.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          02 💕
-        </h3>
-
-        <p>
-          The way you make me happy.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          03 🌹
-        </h3>
-
-        <p>
-          Because you are
-          special to me.
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          04 💖
-        </h3>
-
-        <p>
-          Simply because
-          you are you.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       LOVE COUNTER
-  ========================= -->
-
-  <section id="counter">
-
-    <h2 class="section-title">
-      💖 Our Love Counter
-    </h2>
-
-    <div class="counter">
-
-      <div id="days">
-        0 Days ❤️
-      </div>
-
-      <div class="counter-subtitle">
-        Together and counting... 💕
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       SURPRISE
-  ========================= -->
-
-  <section id="surprise">
-
-    <div class="surprise">
-
-      <h2 class="section-title">
-        🎁 Special Surprise
-      </h2>
-
-      <p>
-        Some surprises are meant
-        to stay hidden until
-        the perfect moment. ❤️
-      </p>
-
-      <button
-        class="btn"
-        type="button"
-        onclick="showSurprise()"
-      >
-        Open Surprise 🎁
-      </button>
-
-      <div
-        id="surpriseText"
-        class="hidden surprise-message"
-      >
-        You are one of the most
-        beautiful parts of my story. ❤️
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       LOGIN
-  ========================= -->
-
-  <section id="login">
-
-    <h2 class="section-title">
-      🔐 Private Login
-    </h2>
-
-    <div class="login-box">
-
-      <h3>
-        Our Private Space ❤️
-      </h3>
-
-      <input
-        id="emailInput"
-        type="email"
-        autocomplete="email"
-        placeholder="Email"
-      >
-
-      <input
-        id="passwordInput"
-        type="password"
-        autocomplete="current-password"
-        placeholder="Password"
-      >
-
-      <button
-        id="loginBtn"
-        class="btn"
-        type="button"
-        onclick="demoLogin()"
-      >
-        Login 🔐
-      </button>
-
-      <p
-        id="loginMessage"
-        class="login-message"
-      ></p>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       PRIVATE SPACE
-  ========================= -->
-
-  <section
-    id="privateSpace"
-    class="hidden"
-  >
-
-    <div class="private-header">
-
-      <h2 class="section-title">
-        🔐 Our Private Space ❤️
-      </h2>
-
-      <div
-        id="roleTitle"
-        class="role-title"
-      >
-        ❤️ Welcome
-      </div>
-
-      <div class="private-actions">
-
-        <button
-          class="btn secondary small"
-          type="button"
-          onclick="loadAllPrivateData()"
-        >
-          🔄 Refresh
-        </button>
-
-        <button
-          class="btn danger small"
-          type="button"
-          onclick="logoutUser()"
-        >
-          🚪 Logout
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- PRIVATE CARDS -->
-
-    <div class="card-grid">
-
-      <div class="card">
-
-        <h3>
-          💭 My Thoughts
-        </h3>
-
-        <p>
-          Write your thoughts
-          and feelings here. ❤️
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('My Thoughts')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          📅 My Day
-        </h3>
-
-        <p>
-          Tell about your day. 💕
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('My Day')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          ❤️ My List
-        </h3>
-
-        <p>
-          Your special list. 🌹
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('My List')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          📸 My Photos
-        </h3>
-
-        <p>
-          Your private photos. 📷
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('My Photos')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          🎂 Birthdays
-        </h3>
-
-        <p>
-          Special birthdays
-          and dates. 🎉
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('Birthdays')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          💍 Anniversaries
-        </h3>
-
-        <p>
-          Your special
-          anniversaries. ❤️
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('Anniversaries')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- LOVE NOTES -->
-
-    <div class="card data-box">
-
-      <h3>
-        💌 Love Notes
-      </h3>
-
-      <div id="privateNotes">
-
-        <p class="loading">
-          Login to load love notes... ❤️
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <!-- MEMORIES -->
-
-    <div class="card data-box">
-
-      <h3>
-        💭 Our Memories
-      </h3>
-
-      <div id="privateMemories">
-
-        <p class="loading">
-          Login to load memories... ❤️
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <!-- PHOTOS -->
-
-    <div class="card data-box">
-
-      <h3>
-        📸 Private Photos
-      </h3>
-
-      <div id="privatePhotos">
-
-        <p class="loading">
-          Login to load photos... ❤️
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <!-- SHARED SPACE -->
-
-    <div style="margin-top:40px;">
-
-      <h2 class="section-title">
-        ❤️ Our Shared Space
-      </h2>
-
-
-      <div class="card">
-
-        <h3>
-          👩 GF's Space ❤️
-        </h3>
-
-        <p>
-          View your girlfriend's
-          special memories,
-          thoughts and lists.
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('GF Space')"
-        >
-          View GF's Space 👩❤️
-        </button>
-
-      </div>
-
-
-      <div
-        class="card"
-        style="margin-top:20px;"
-      >
-
-        <h3>
-          👨 BF's Space ❤️
-        </h3>
-
-        <p>
-          View your boyfriend's
-          special memories,
-          thoughts and lists.
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showComingSoon('BF Space')"
-        >
-          View BF's Space 👨❤️
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       FOOTER
-  ========================= -->
-
-  <footer>
+<!-- NAV -->
+<nav>
+  <div class="logo">Our Love ❤️</div>
+
+  <div class="nav-actions">
+    <button class="nav-btn" id="darkBtn" type="button">🌙</button>
+
+    <button class="nav-btn" id="loginNavBtn" type="button">
+      🔐 Login
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="heart">❤️</div>
+
+    <h1>Our Love</h1>
 
     <p>
-      Made with ❤️ for Our Love
+      A little place for our memories,
+      our story and all the moments
+      we never want to forget. ❤️
     </p>
 
-    <p style="margin-top:8px;">
-      Forever & Always 💕
+    <a href="#story" class="btn">
+      Our Story 💕
+    </a>
+  </div>
+</header>
+
+<!-- STORY -->
+<section id="story">
+  <h2 class="section-title">❤️ Our Story</h2>
+
+  <div class="card" style="text-align:center;max-width:900px;margin:auto;">
+    <h3>How It All Started</h3>
+
+    <p>
+      Every beautiful story starts somewhere.
+      This is our little place to keep the beginning
+      of our story, our conversations, our special
+      moments and everything that brought us closer. ❤️
+    </p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <h2 class="section-title">📅 Our Timeline</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <strong>Our First Meeting ❤️</strong>
+      <span class="timeline-date">A special day</span>
+      <p> The beginning of something beautiful. </p>
+    </div>
+
+    <div class="timeline-item">
+      <strong>Our First Special Memory 💕</strong>
+      <span class="timeline-date">One beautiful moment</span>
+      <p>One of those memories we never want to forget.</p>
+    </div>
+
+    <div class="timeline-item">
+      <strong>Today ❤️</strong>
+      <span class="timeline-date">Our story continues</span>
+      <p>There are still so many beautiful chapters waiting for us.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- MEMORIES -->
+<section>
+  <h2 class="section-title">💭 Our Memories</h2>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <h3>Memory 01 ❤️</h3>
+      <p>Our First Memory ❤️</p>
+    </div>
+
+    <div class="card">
+      <h3>Memory 02 💕</h3>
+      <p>Another beautiful moment together.</p>
+    </div>
+
+    <div class="card">
+      <h3>Memory 03 🌹</h3>
+      <p>More beautiful memories coming soon...</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section>
+  <h2 class="section-title">📸 Our Photos</h2>
+
+  <div class="card-grid">
+    <div class="photo-placeholder">📷</div>
+    <div class="photo-placeholder">❤️</div>
+    <div class="photo-placeholder">🌹</div>
+  </div>
+</section>
+
+<!-- LOVE NOTES -->
+<section>
+  <h2 class="section-title">💌 Love Notes</h2>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <h3>Love Note ❤️</h3>
+      <p>I love you ❤️</p>
+    </div>
+
+    <div class="card">
+      <h3>Another Note 💕</h3>
+      <p>You are special to me.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- REASONS -->
+<section>
+  <h2 class="section-title">🌹 Reasons I Love You</h2>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <h3>01 ❤️</h3>
+      <p>Your smile.</p>
+    </div>
+
+    <div class="card">
+      <h3>02 💕</h3>
+      <p>The way you make me happy.</p>
+    </div>
+
+    <div class="card">
+      <h3>03 🌹</h3>
+      <p>Because you are special to me.</p>
+    </div>
+
+    <div class="card">
+      <h3>04 💖</h3>
+      <p>Simply because you are you.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- COUNTER -->
+<section>
+  <h2 class="section-title">💖 Our Love Counter</h2>
+
+  <div class="counter">
+    <div id="days">0 Days ❤️</div>
+
+    <div class="counter-subtitle">
+      Together and counting... 💕
+    </div>
+  </div>
+</section>
+
+<!-- SURPRISE -->
+<section>
+  <div class="surprise">
+
+    <h2 class="section-title">🎁 Special Surprise</h2>
+
+    <p>
+      Some surprises are meant to stay hidden
+      until the perfect moment. ❤️
     </p>
 
-  </footer>
+    <button class="btn" id="surpriseBtn" type="button">
+      Open Surprise 🎁
+    </button>
 
+    <div id="surpriseText" class="hidden surprise-message">
+      You are one of the most beautiful parts of my story. ❤️
+    </div>
 
-  <!-- =========================
-       BACKGROUND MUSIC
-  ========================= -->
+  </div>
+</section>
 
-  <audio
-    id="bgMusic"
-    loop
-    preload="none"
-  >
+<!-- LOGIN -->
+<section id="login">
 
-    <source
-      src="https://raw.githubusercontent.com/indragithmadushan23564-tech/our-love-website/main/Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%20%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
-      type="audio/mpeg"
+  <h2 class="section-title">🔐 Private Login</h2>
+
+  <div class="login-box">
+
+    <h3>Our Private Space ❤️</h3>
+
+    <input
+      id="emailInput"
+      type="email"
+      placeholder="Email"
+      autocomplete="email"
     >
 
-  </audio>
-
-
-  <!-- =========================
-       MUSIC BUTTON
-  ========================= -->
-
-  <button
-    id="musicBtn"
-    type="button"
-    onclick="toggleMusic()"
-    aria-label="Play or pause music"
-  >
-    🎵
-  </button>
-
-
-  <!-- =========================
-       FIREBASE SCRIPT START
-  ========================= -->
-
-  <script type="module">
-
-    import {
-      initializeApp
-    }
-    from
-      "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-
-
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut
-    }
-    from
-      "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-    import {
-      getFirestore,
-      collection,
-      getDocs
-    }
-    from
-      "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-
-    /* =========================
-       FIREBASE CONFIG
-    ========================= */
-
-    const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyAQXFOHrnrprEuqNwJidbtq1Yopgy608gc",
-
-      authDomain:
-        "our-love-1fb6a.firebaseapp.com",
-
-      projectId:
-        "our-love-1fb6a",
-
-      storageBucket:
-        "our-love-1fb6a.firebasestorage.app",
-
-      messagingSenderId:
-        "804339150204",
-
-      appId:
-        "1:804339150204:web:b3ae23cffaf3200d0dc8f9"
-
-    };
-
-
-    /* =========================
-       INITIALIZE FIREBASE
-    ========================= */
-
-    const app =
-      initializeApp(firebaseConfig);
-
-    const auth =
-      getAuth(app);
-
-    const db =
-      getFirestore(app);
-
-
-    /* =========================
-       ROLE EMAILS
-    ========================= */
-
-    const BF_EMAIL =
-      "indragithmadushan23564@gmail.com";
-
-    const GF_EMAIL =
-      "dilshanisupunsara92@gmail.com";
-
-
-    /* =========================
-       GET ROLE
-    ========================= */
-
-    function getUserRole(user) {
-
-      if (!user || !user.email) {
-
-        return "USER";
-
-      }
-
-      const email =
-        user.email
-          .trim()
-          .toLowerCase();
-
-
-      if (
-        email ===
-        BF_EMAIL.toLowerCase()
-      ) {
-
-        return "BF";
-
-      }
-
-
-      if (
-        email ===
-        GF_EMAIL.toLowerCase()
-      ) {
-
-        return "GF";
-
-      }
-
-
-      return "USER";
-
-    }
-
-
-    /* =========================
-       SAFE ELEMENT
-    ========================= */
-
-    function getElement(id) {
-
-      const element =
-        document.getElementById(id);
-
-
-      if (!element) {
-
-        console.error(
-          "Element not found:",
-          id
-        );
-
-      }
-
-
-      return element;
-
-    }
-
-
-    /* =========================
-       SCROLL LOGIN
-    ========================= */
-
-    function scrollToLogin() {
-
-      const login =
-        getElement("login");
-
-
-      if (!login) {
-
-        return;
-
-      }
-
-
-      login.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-    }
-
-
-    /* =========================
-       DARK MODE
-    ========================= */
-
-    function toggleDark() {
-
-      document.body.classList.toggle(
-        "dark"
-      );
-
-
-      const isDark =
-        document.body.classList.contains(
-          "dark"
-        );
-
-
-      const darkBtn =
-        getElement("darkBtn");
-
-
-      if (darkBtn) {
-
-        darkBtn.textContent =
-          isDark
-            ? "☀️"
-            : "🌙";
-
-      }
-
-
-      try {
-
-        localStorage.setItem(
-          "ourLoveDarkMode",
-          isDark
-            ? "true"
-            : "false"
-        );
-
-      } catch (error) {
-
-        console.warn(
-          "Could not save dark mode:",
-          error
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       LOAD DARK MODE
-    ========================= */
-
-    function loadDarkMode() {
-
-      try {
-
-        const saved =
-          localStorage.getItem(
-            "ourLoveDarkMode"
-          );
-
-
-        if (saved === "true") {
-
-          document.body.classList.add(
-            "dark"
-          );
-
-
-          const darkBtn =
-            getElement("darkBtn");
-
-
-          if (darkBtn) {
-
-            darkBtn.textContent =
-              "☀️";
-
-          }
-
-        }
-
-      } catch (error) {
-
-        console.warn(
-          "Could not load dark mode:",
-          error
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       SURPRISE
-    ========================= */
-
-    function showSurprise() {
-
-      const surpriseText =
-        getElement("surpriseText");
-
-
-      if (surpriseText) {
-
-        surpriseText.classList.remove(
-          "hidden"
-        );
-
-      }
-
-
-      for (
-        let i = 0;
-        i < 6;
-        i++
-      ) {
-
-        setTimeout(
-          createHeart,
-          i * 150
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       FLOATING HEART
-    ========================= */
-
-    function createHeart() {
-
-      const heart =
-        document.createElement("div");
-
-
-      heart.className =
-        "heart-float";
-
-
-      heart.textContent =
-        "❤️";
-
-
-      heart.style.left =
-        Math.random() * 100 +
-        "vw";
-
-
-      heart.style.fontSize =
-        (16 + Math.random() * 16) +
-        "px";
-
-
-      document.body.appendChild(
-        heart
-      );
-
-
-      setTimeout(
-        () => heart.remove(),
-        5000
-      );
-
-    }
-
-
-    /* =========================
-       LOGIN
-    ========================= */
-
-    async function demoLogin() {
-
-      const emailInput =
-        getElement("emailInput");
-
-      const passwordInput =
-        getElement("passwordInput");
-
-      const message =
-        getElement("loginMessage");
-
-      const loginBtn =
-        getElement("loginBtn");
-
-
-      if (
-        !emailInput ||
-        !passwordInput ||
-        !message
-      ) {
-
-        return;
-
-      }
-
-
-      const email =
-        emailInput.value
-          .trim();
-
-      const password =
-        passwordInput.value;
-
-
-      message.className =
-        "login-message";
-
-
-      if (!email || !password) {
-
-        message.textContent =
-          "Please enter email and password ❤️";
-
-        message.classList.add(
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      if (loginBtn) {
-
-        loginBtn.disabled = true;
-
-        loginBtn.textContent =
-          "Logging in... ⏳";
-
-      }
-
-
-      try {
-
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-
-        message.textContent =
-          "Login successful! ❤️";
-
-        message.classList.add(
-          "success"
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "Firebase login error:",
-          error
-        );
-
-
-        message.textContent =
-          getLoginErrorMessage(
-            error
-          );
-
-        message.classList.add(
-          "error"
-        );
-
-
-      } finally {
-
-        if (loginBtn) {
-
-          loginBtn.disabled = false;
-
-          loginBtn.textContent =
-            "Login 🔐";
-
-        }
-
-      }
-
-    }
-
-
-    /* =========================
-       LOGIN ERROR MESSAGE
-    ========================= */
-
-    function getLoginErrorMessage(
-      error
-    ) {
-
-      const code =
-        error &&
-        error.code
-          ? error.code
-          : "";
-
-
-      switch (code) {
-
-        case "auth/invalid-credential":
-
-          return "Email or password is incorrect. ❤️";
-
-
-        case "auth/invalid-email":
-
-          return "Please enter a valid email. ❤️";
-
-
-        case "auth/user-not-found":
-
-          return "No account found for this email. ❤️";
-
-
-        case "auth/wrong-password":
-
-          return "Incorrect password. ❤️";
-
-
-        case "auth/too-many-requests":
-
-          return "Too many attempts. Please try again later. ❤️";
-
-
-        case "auth/network-request-failed":
-
-          return "Network error. Check your internet connection. ❤️";
-
-
-        default:
-
-          return "Login failed. Please check your email and password. ❤️";
-
-      }
-
-    }
-
-
-    /* =========================
-       AUTH STATE
-    ========================= */
-
-    onAuthStateChanged(
-      auth,
-      async (user) => {
-
-        if (user) {
-
-          await showPrivateSpace(
-            user
-          );
-
-        } else {
-
-          hidePrivateSpace();
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       SHOW PRIVATE SPACE
-    ========================= */
-
-    async function showPrivateSpace(
-      user
-    ) {
-
-      const privateSpace =
-        getElement("privateSpace");
-
-      const roleTitle =
-        getElement("roleTitle");
-
-      const message =
-        getElement("loginMessage");
-
-
-      if (!privateSpace) {
-
-        return;
-
-      }
-
-
-      const role =
-        getUserRole(user);
-
-
-      if (roleTitle) {
-
-        if (role === "BF") {
-
-          roleTitle.textContent =
-            "👨 BF Space ❤️";
-
-        } else if (role === "GF") {
-
-          roleTitle.textContent =
-            "👩 GF Space ❤️";
-
-        } else {
-
-          roleTitle.textContent =
-            "❤️ Private Space";
-
-        }
-
-      }
-
-
-      if (message) {
-
-        message.textContent =
-          "Logged in successfully ❤️";
-
-        message.className =
-          "login-message success";
-
-      }
-
-
-      privateSpace.classList.remove(
-        "hidden"
-      );
-
-
-      await loadAllPrivateData();
-
-    }
-
-
-    /* =========================
-       HIDE PRIVATE SPACE
-    ========================= */
-
-    function hidePrivateSpace() {
-
-      const privateSpace =
-        getElement("privateSpace");
-
-
-      if (privateSpace) {
-
-        privateSpace.classList.add(
-          "hidden"
-        );
-
-      }
-
-
-      const roleTitle =
-        getElement("roleTitle");
-
-
-      if (roleTitle) {
-
-        roleTitle.textContent =
-          "❤️ Welcome";
-
-      }
-
-    }
-
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    async function logoutUser() {
-
-      try {
-
-        await signOut(auth);
-
-
-        const message =
-          getElement("loginMessage");
-
-
-        if (message) {
-
-          message.textContent =
-            "Logged out successfully ❤️";
-
-          message.className =
-            "login-message success";
-
-        }
-
-
-        scrollToLogin();
-
-
-      } catch (error) {
-
-        console.error(
-          "Logout error:",
-          error
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       LOAD ALL DATA
-    ========================= */
-
-    async function loadAllPrivateData() {
-
-      if (!auth.currentUser) {
-
-        return;
-
-      }
-
-
-      await Promise.all([
-        loadLoveNotes(),
-        loadMemories(),
-        loadPhotos()
-      ]);
-
-    }
-
-
-    /* =========================
-       LOVE NOTES
-    ========================= */
-
-    async function loadLoveNotes() {
-
-      const container =
-        getElement("privateNotes");
-
-
-      if (!container) {
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        '<p class="loading">Loading love notes... ❤️</p>';
-
-
-      try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "love_notes"
-            )
-          );
-
-
-        if (snapshot.empty) {
-
-          container.innerHTML =
-            '<p class="empty">No love notes yet ❤️</p>';
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          snapshot.docs
-            .map(
-              doc => {
-
-                const data =
-                  doc.data();
-
-
-                return `
-                  <div class="data-item">
-
-                    <h4>
-                      💌 Love Note ❤️
-                    </h4>
-
-                    <p>
-                      ${escapeHtml(
-                        data.message ||
-                        "No message"
-                      )}
-                    </p>
-
-                  </div>
-                `;
-
-              }
-            )
-            .join("");
-
-
-      } catch (error) {
-
-        console.error(
-          "Love notes error:",
-          error
-        );
-
-
-        container.innerHTML =
-          `
-            <p class="empty">
-              ❤️ Love notes could not be loaded.
-            </p>
-          `;
-
-      }
-
-    }
-
-
-    /* =========================
-       MEMORIES
-    ========================= */
-
-    async function loadMemories() {
-
-      const container =
-        getElement("privateMemories");
-
-
-      if (!container) {
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        '<p class="loading">Loading memories... ❤️</p>';
-
-
-      try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "memories"
-            )
-          );
-
-
-        if (snapshot.empty) {
-
-          container.innerHTML =
-            '<p class="empty">No memories yet ❤️</p>';
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          snapshot.docs
-            .map(
-              doc => {
-
-                const data =
-                  doc.data();
-
-
-                return `
-                  <div class="data-item">
-
-                    <h4>
-                      💭 ${escapeHtml(
-                        data.title ||
-                        "Our Memory"
-                      )}
-                    </h4>
-
-                    <p>
-                      ${escapeHtml(
-                        data.description ||
-                        ""
-                      )}
-                    </p>
-
-                  </div>
-                `;
-
-              }
-            )
-            .join("");
-
-
-      } catch (error) {
-
-        console.error(
-          "Memories error:",
-          error
-        );
-
-
-        container.innerHTML =
-          `
-            <p class="empty">
-              ❤️ Memories could not be loaded.
-            </p>
-          `;
-
-      }
-
-    }
-
-
-    /* =========================
-       PHOTOS
-    ========================= */
-
-    async function loadPhotos() {
-
-      const container =
-        getElement("privatePhotos");
-
-
-      if (!container) {
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        '<p class="loading">Loading photos... ❤️</p>';
-
-
-      try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "photos"
-            )
-          );
-
-
-        if (snapshot.empty) {
-
-          container.innerHTML =
-            '<p class="empty">No private photos yet ❤️</p>';
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          snapshot.docs
-            .map(
-              doc => {
-
-                const data =
-                  doc.data();
-
-                const url =
-                  data.url || "";
-
-
-                if (!url) {
-
-                  return `
-                    <div class="data-item">
-
-                      <h4>
-                        📸 Private Photo ❤️
-                      </h4>
-
-                      <p>
-                        Photo URL is empty.
-                      </p>
-
-                    </div>
-                  `;
-
-                }
-
-
-                return `
-                  <div class="data-item">
-
-                    <h4>
-                      📸 Private Photo ❤️
-                    </h4>
-
-                    <img
-                      class="private-photo"
-                      src="${escapeAttribute(url)}"
-                      alt="Private Photo"
-                      loading="lazy"
-                      onerror="
-                        this.style.display='none';
-                        this.nextElementSibling.classList.remove('hidden');
-                      "
-                    >
-
-                    <p
-                      class="hidden"
-                      style="margin-top:10px;"
-                    >
-                      ❤️ This photo could not be displayed.
-                    </p>
-
-                  </div>
-                `;
-
-              }
-            )
-            .join("");
-
-
-      } catch (error) {
-
-        console.error(
-          "Photos error:",
-          error
-        );
-
-
-        container.innerHTML =
-          `
-            <p class="empty">
-              ❤️ Photos could not be loaded.
-            </p>
-          `;
-
-      }
-
-    }
-      <!-- =========================
-       COUNTER
-  ========================= -->
-
-  <section id="counter">
+    <input
+      id="passwordInput"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button
+      id="loginBtn"
+      class="btn"
+      type="button"
+    >
+      Login 🔐
+    </button>
+
+    <p id="loginMessage" class="login-message"></p>
+
+  </div>
+</section>
+
+<!-- PRIVATE SPACE -->
+<section id="privateSpace" class="hidden">
+
+  <div class="private-header">
 
     <h2 class="section-title">
-      💖 Our Love Counter
+      🔐 Our Private Space ❤️
     </h2>
 
-    <div class="counter">
-
-      <div id="days">
-        0 Days ❤️
-      </div>
-
-      <div class="counter-subtitle">
-        Together and counting... 💕
-      </div>
-
+    <div id="roleTitle" class="role-title">
+      ❤️ Welcome
     </div>
 
-  </section>
-
-
-  <!-- =========================
-       SURPRISE
-  ========================= -->
-
-  <section id="surprise">
-
-    <div class="surprise">
-
-      <h2 class="section-title">
-        🎁 Special Surprise
-      </h2>
-
-      <p>
-        Some surprises are meant to stay hidden
-        until the perfect moment. ❤️
-      </p>
+    <div class="private-actions">
 
       <button
-        class="btn"
+        id="refreshBtn"
+        class="btn secondary small"
         type="button"
-        onclick="showSurprise()"
       >
-        Open Surprise 🎁
+        🔄 Refresh
       </button>
-
-      <p
-        id="surpriseText"
-        class="hidden surprise-message"
-      >
-        You are one of the most beautiful
-        parts of my story. ❤️
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       LOGIN
-  ========================= -->
-
-  <section id="login">
-
-    <h2 class="section-title">
-      🔐 Private Login
-    </h2>
-
-    <div class="login-box">
-
-      <h3>
-        Our Private Space ❤️
-      </h3>
-
-      <input
-        id="emailInput"
-        type="email"
-        placeholder="Email"
-        autocomplete="email"
-      >
-
-      <input
-        id="passwordInput"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-      >
 
       <button
-        id="loginBtn"
-        class="btn"
+        id="logoutBtn"
+        class="btn danger small"
         type="button"
-        onclick="demoLogin()"
       >
-        Login 🔐
+        🚪 Logout
       </button>
 
-      <p
-        id="loginMessage"
-        class="login-message"
-      ></p>
+    </div>
+  </div>
 
+  <div class="card-grid">
+
+    <div class="card">
+      <h3>💭 My Thoughts</h3>
+      <p>Write your thoughts and feelings here. ❤️</p>
+      <button class="btn small comingSoon" type="button">➕ Add</button>
     </div>
 
-  </section>
+    <div class="card">
+      <h3>📅 My Day</h3>
+      <p>Tell about your day. 💕</p>
+      <button class="btn small comingSoon" type="button">➕ Add</button>
+    </div>
 
+    <div class="card">
+      <h3>❤️ My List</h3>
+      <p>Your special list. 🌹</p>
+      <button class="btn small comingSoon" type="button">➕ Add</button>
+    </div>
 
-  <!-- =========================
-       PRIVATE SPACE
-  ========================= -->
+    <div class="card">
+      <h3>📸 My Photos</h3>
+      <p>Your private photos. 📷</p>
+      <button class="btn small comingSoon" type="button">➕ Add</button>
+    </div>
 
-  <section
-    id="privateSpace"
-    class="hidden"
-  >
+    <div class="card">
+      <h3>🎂 Birthdays</h3>
+      <p>Special birthdays and dates. 🎉</p>
+      <button class="btn small comingSoon" type="button">➕ Add</button>
+    </div>
 
-    <div class="private-header">
+    <div class="card">
+      <h3>💍 Anniversaries</h3>
+      <p>Your special anniversaries. ❤️</p>
+      <button class="btn small comingSoon" type="button">➕ Add</button>
+    </div>
 
-      <h2 class="section-title">
-        🔐 Our Private Space ❤️
-      </h2>
+  </div>
 
-      <div
-        id="roleTitle"
-        class="role-title"
+  <!-- NOTES -->
+  <div class="card data-box">
+    <h3>💌 Love Notes</h3>
+    <div id="privateNotes">
+      <div class="loading">Login to load love notes... ❤️</div>
+    </div>
+  </div>
+
+  <!-- MEMORIES -->
+  <div class="card data-box">
+    <h3>💭 Our Memories</h3>
+    <div id="privateMemories">
+      <div class="loading">Login to load memories... ❤️</div>
+    </div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="card data-box">
+    <h3>📸 Private Photos</h3>
+    <div id="privatePhotos">
+      <div class="loading">Login to load photos... ❤️</div>
+    </div>
+  </div>
+
+  <!-- ROLE -->
+  <div style="margin-top:40px;">
+
+    <h2 class="section-title">❤️ Our Shared Space</h2>
+
+    <div class="card">
+      <h3>👩 GF's Space ❤️</h3>
+      <p>View your girlfriend's special memories, thoughts and lists.</p>
+
+      <button
+        class="btn small"
+        id="gfSpaceBtn"
+        type="button"
       >
-        ❤️ Welcome
-      </div>
-
-      <div class="private-actions">
-
-        <button
-          class="btn small secondary"
-          type="button"
-          onclick="loadAllPrivateData()"
-        >
-          🔄 Refresh
-        </button>
-
-        <button
-          class="btn small danger"
-          type="button"
-          onclick="logoutUser()"
-        >
-          🚪 Logout
-        </button>
-
-      </div>
-
+        View GF's Space 👩❤️
+      </button>
     </div>
 
-
-    <!-- PRIVATE FEATURES -->
-
-    <div class="card-grid">
-
-      <div class="card">
-
-        <h3>
-          💭 My Thoughts
-        </h3>
-
-        <p>
-          Write your thoughts and feelings here. ❤️
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="alert('Thought feature coming soon ❤️')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          📅 My Day
-        </h3>
-
-        <p>
-          Tell about your day. 💕
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="alert('My Day feature coming soon ❤️')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          ❤️ My List
-        </h3>
-
-        <p>
-          Your special list. 🌹
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="alert('My List feature coming soon ❤️')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          📸 My Photos
-        </h3>
-
-        <p>
-          Your private photos. 📷
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="alert('Photo upload is not enabled because this project stays on Firebase Spark ❤️')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          🎂 Birthdays
-        </h3>
-
-        <p>
-          Special birthdays and dates. 🎉
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="alert('Birthday feature coming soon ❤️')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          💍 Anniversaries
-        </h3>
-
-        <p>
-          Your special anniversaries. ❤️
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="alert('Anniversary feature coming soon ❤️')"
-        >
-          ➕ Add
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- LOVE NOTES -->
-
-    <div
-      class="card data-box"
-    >
-
-      <h3>
-        💌 Love Notes
-      </h3>
-
-      <div id="privateNotes">
-
-        <div class="loading">
-          Login to load love notes... ❤️
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- MEMORIES -->
-
-    <div
-      class="card data-box"
-    >
-
-      <h3>
-        💭 Our Memories
-      </h3>
-
-      <div id="privateMemories">
-
-        <div class="loading">
-          Login to load memories... ❤️
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- PHOTOS -->
-
-    <div
-      class="card data-box"
-    >
-
-      <h3>
-        📸 Private Photos
-      </h3>
-
-      <div id="privatePhotos">
-
-        <div class="loading">
-          Login to load photos... ❤️
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- SHARED SPACE -->
-
-    <div
-      style="margin-top:50px;"
-    >
-
-      <h2 class="section-title">
-        ❤️ Our Shared Space
-      </h2>
-
-
-      <div class="card">
-
-        <h3>
-          👩 GF's Space ❤️
-        </h3>
-
-        <p>
-          View your girlfriend's special
-          memories, thoughts and lists.
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showRoleSpace('GF')"
-        >
-          View GF's Space 👩❤️
-        </button>
-
-      </div>
-
-
-      <div
-        class="card"
-        style="margin-top:20px;"
+    <div class="card" style="margin-top:20px;">
+      <h3>👨 BF's Space ❤️</h3>
+      <p>View your boyfriend's special memories, thoughts and lists.</p>
+
+      <button
+        class="btn small"
+        id="bfSpaceBtn"
+        type="button"
       >
-
-        <h3>
-          👨 BF's Space ❤️
-        </h3>
-
-        <p>
-          View your boyfriend's special
-          memories, thoughts and lists.
-        </p>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="showRoleSpace('BF')"
-        >
-          View BF's Space 👨❤️
-        </button>
-
-      </div>
-
+        View BF's Space 👨❤️
+      </button>
     </div>
-
-
-    <!-- ROLE MESSAGE -->
 
     <div
       id="roleSpaceMessage"
       class="card hidden"
-      style="
-        margin-top:20px;
-        text-align:center;
-      "
+      style="margin-top:20px;text-align:center;"
     ></div>
 
-  </section>
+  </div>
 
+</section>
 
-  <!-- =========================
-       FOOTER
-  ========================= -->
+<footer>
+  <p>Made with ❤️ for Our Love</p>
+  <p style="margin-top:8px;">Forever & Always 💕</p>
+</footer>
 
-  <footer>
-
-    <p>
-      Made with ❤️ for Our Love
-    </p>
-
-    <p style="margin-top:8px;">
-      Forever & Always 💕
-    </p>
-
-  </footer>
-
-
-  <!-- =========================
-       MUSIC
-  ========================= -->
-
-  <audio
-    id="bgMusic"
-    loop
-    preload="none"
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="none">
+  <source
+    src="https://raw.githubusercontent.com/indragithmadushan23564-tech/our-love-website/main/Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%20%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
+    type="audio/mpeg"
   >
+</audio>
 
-    <source
-      src="https://raw.githubusercontent.com/indragithmadushan23564-tech/our-love-website/main/Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%20%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
-      type="audio/mpeg"
-    >
+<button id="musicBtn" type="button">🎵</button>
 
-  </audio>
+<!-- FIREBASE -->
+<script type="module">
 
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
-  <button
-    id="musicBtn"
-    type="button"
-    onclick="toggleMusic()"
-    aria-label="Play or pause music"
-  >
-    🎵
-  </button>
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-
-  <!-- =========================
-       FIREBASE
-       ========================= -->
-
-  <script type="module">
-
-    import {
-      initializeApp
-    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+  apiKey:"AIzaSyAQXFOHrnrprEuqNwJidbtq1Yopgy608gc",
+  authDomain:"our-love-1fb6a.firebaseapp.com",
+  projectId:"our-love-1fb6a",
+  storageBucket:"our-love-1fb6a.firebasestorage.app",
+  messagingSenderId:"804339150204",
+  appId:"1:804339150204:web:b3ae23cffaf3200d0dc8f9"
+};
 
 
-    import {
-      getFirestore,
-      collection,
-      getDocs
-    } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+/* INITIALIZE */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 
-    /* =========================
-       FIREBASE CONFIG
-    ========================= */
+/* ELEMENTS */
 
-    const firebaseConfig = {
-
-      apiKey:
-        "AIzaSyAQXFOHrnrprEuqNwJidbtq1Yopgy608gc",
-
-      authDomain:
-        "our-love-1fb6a.firebaseapp.com",
-
-      projectId:
-        "our-love-1fb6a",
-
-      storageBucket:
-        "our-love-1fb6a.firebasestorage.app",
-
-      messagingSenderId:
-        "804339150204",
-
-      appId:
-        "1:804339150204:web:b3ae23cffaf3200d0dc8f9"
-
-    };
+const emailInput = document.getElementById("emailInput");
+const passwordInput = document.getElementById("passwordInput");
+const loginBtn = document.getElementById("loginBtn");
+const loginMessage = document.getElementById("loginMessage");
+const privateSpace = document.getElementById("privateSpace");
+const roleTitle = document.getElementById("roleTitle");
 
 
-    /* =========================
-       INITIALIZE FIREBASE
-    ========================= */
+/* EMAIL ROLES */
 
-    const app =
-      initializeApp(firebaseConfig);
+const BF_EMAIL =
+  "indragithmadushan23564@gmail.com";
 
-    const auth =
-      getAuth(app);
-
-    const db =
-      getFirestore(app);
+const GF_EMAIL =
+  "dilshanisupunsara92@gmail.com";
 
 
-    /* =========================
-       SAFE ELEMENT
-    ========================= */
+/* ROLE */
 
-    function getElement(id) {
+function getUserRole(user){
 
-      return document.getElementById(id);
+  if(!user || !user.email){
+    return "USER";
+  }
 
-    }
+  const email =
+    user.email.trim().toLowerCase();
+
+  if(email === BF_EMAIL.toLowerCase()){
+    return "BF";
+  }
+
+  if(email === GF_EMAIL.toLowerCase()){
+    return "GF";
+  }
+
+  return "USER";
+}
 
 
-    /* =========================
-       DARK MODE
-    ========================= */
+/* LOGIN MESSAGE */
 
-    function toggleDark() {
+function setLoginMessage(text,type=""){
 
-      document.body.classList.toggle("dark");
+  loginMessage.className =
+    "login-message " + type;
 
-      const darkBtn =
-        getElement("darkBtn");
+  loginMessage.textContent = text;
+}
 
-      const isDark =
-        document.body.classList.contains("dark");
 
-      if (darkBtn) {
+/* LOGIN */
 
-        darkBtn.textContent =
-          isDark ? "☀️" : "🌙";
+async function login(){
 
-      }
+  const email =
+    emailInput.value.trim();
 
-      localStorage.setItem(
-        "ourLoveDarkMode",
-        isDark ? "1" : "0"
+  const password =
+    passwordInput.value;
+
+
+  if(!email){
+
+    setLoginMessage(
+      "Please enter your email. ❤️",
+      "error"
+    );
+
+    emailInput.focus();
+    return;
+  }
+
+
+  if(!password){
+
+    setLoginMessage(
+      "Please enter your password. ❤️",
+      "error"
+    );
+
+    passwordInput.focus();
+    return;
+  }
+
+
+  loginBtn.disabled = true;
+
+  loginBtn.textContent =
+    "Logging in... ⏳";
+
+  setLoginMessage(
+    "Connecting to Firebase... ❤️"
+  );
+
+
+  try{
+
+    const result =
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
-    }
 
+    const role =
+      getUserRole(result.user);
 
-    function loadDarkMode() {
 
-      const saved =
-        localStorage.getItem(
-          "ourLoveDarkMode"
-        );
-
-      if (saved === "1") {
-
-        document.body.classList.add("dark");
-
-        const darkBtn =
-          getElement("darkBtn");
-
-        if (darkBtn) {
-
-          darkBtn.textContent =
-            "☀️";
-
-        }
-
-      }
-
-    }
-
-
-    /* =========================
-       LOGIN SCROLL
-    ========================= */
-
-    function scrollToLogin() {
-
-      const login =
-        getElement("login");
-
-      if (!login) return;
-
-      login.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-    }
-
-
-    /* =========================
-       SURPRISE
-    ========================= */
-
-    function showSurprise() {
-
-      const text =
-        getElement("surpriseText");
-
-      if (text) {
-
-        text.classList.remove("hidden");
-
-      }
-
-      for (
-        let i = 0;
-        i < 6;
-        i++
-      ) {
-
-        setTimeout(
-          createHeart,
-          i * 150
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       LOGIN
-    ========================= */
-
-    async function demoLogin() {
-
-      const emailInput =
-        getElement("emailInput");
-
-      const passwordInput =
-        getElement("passwordInput");
-
-      const message =
-        getElement("loginMessage");
-
-      const loginBtn =
-        getElement("loginBtn");
-
-
-      if (
-        !emailInput ||
-        !passwordInput ||
-        !message
-      ) {
-
-        return;
-
-      }
-
-
-      const email =
-        emailInput.value.trim();
-
-      const password =
-        passwordInput.value;
-
-
-      if (!email || !password) {
-
-        message.className =
-          "login-message error";
-
-        message.textContent =
-          "Please enter email and password ❤️";
-
-        return;
-
-      }
-
-
-      if (loginBtn) {
-
-        loginBtn.disabled = true;
-
-        loginBtn.textContent =
-          "Logging in... ⏳";
-
-      }
-
-
-      message.className =
-        "login-message";
-
-      message.textContent =
-        "Please wait... ❤️";
-
-
-      try {
-
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-
-        message.className =
-          "login-message success";
-
-        message.textContent =
-          "Login successful! ❤️";
-
-
-      } catch (error) {
-
-        console.error(
-          "Firebase login error:",
-          error
-        );
-
-
-        message.className =
-          "login-message error";
-
-
-        let errorText =
-          "Login failed. Please check your email and password.";
-
-
-        if (
-          error.code ===
-          "auth/invalid-credential"
-        ) {
-
-          errorText =
-            "Email or password is incorrect. ❤️";
-
-        } else if (
-          error.code ===
-          "auth/invalid-email"
-        ) {
-
-          errorText =
-            "Please enter a valid email address. ❤️";
-
-        } else if (
-          error.code ===
-          "auth/too-many-requests"
-        ) {
-
-          errorText =
-            "Too many attempts. Please try again later. ❤️";
-
-        }
-
-
-        message.textContent =
-          errorText;
-
-
-      } finally {
-
-        if (loginBtn) {
-
-          loginBtn.disabled = false;
-
-          loginBtn.textContent =
-            "Login 🔐";
-
-        }
-
-      }
-
-    }
-
-
-    /* =========================
-       AUTH STATE
-    ========================= */
-
-    onAuthStateChanged(
-      auth,
-      async (user) => {
-
-        if (user) {
-
-          await handleLoggedInUser(user);
-
-        } else {
-
-          handleLoggedOutUser();
-
-        }
-
-      }
+    setLoginMessage(
+      "Login successful! ❤️",
+      "success"
     );
 
 
-    async function handleLoggedInUser(user) {
+    showPrivateSpace(
+      result.user,
+      role
+    );
 
-      const privateSpace =
-        getElement("privateSpace");
 
-      const roleTitle =
-        getElement("roleTitle");
+  }catch(error){
 
-      const message =
-        getElement("loginMessage");
+    console.error(
+      "LOGIN ERROR:",
+      error
+    );
 
+
+    let message =
+      "Login failed. Please check your email and password. ❤️";
+
+
+    if(
+      error.code ===
+      "auth/invalid-credential"
+    ){
+      message =
+        "Email or password is incorrect. ❤️";
+    }
+
+    else if(
+      error.code ===
+      "auth/invalid-email"
+    ){
+      message =
+        "Please enter a valid email address. ❤️";
+    }
+
+    else if(
+      error.code ===
+      "auth/user-not-found"
+    ){
+      message =
+        "No account found for this email. ❤️";
+    }
+
+    else if(
+      error.code ===
+      "auth/wrong-password"
+    ){
+      message =
+        "Incorrect password. ❤️";
+    }
+
+    else if(
+      error.code ===
+      "auth/too-many-requests"
+    ){
+      message =
+        "Too many attempts. Try again later. ❤️";
+    }
+
+    else if(
+      error.code ===
+      "auth/network-request-failed"
+    ){
+      message =
+        "Network error. Check your internet connection. ❤️";
+    }
+
+
+    setLoginMessage(
+      message,
+      "error"
+    );
+
+
+  }finally{
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent =
+      "Login 🔐";
+
+  }
+
+}
+
+
+/* SHOW PRIVATE */
+
+async function showPrivateSpace(user,role){
+
+  if(!privateSpace){
+    return;
+  }
+
+
+  privateSpace.classList.remove(
+    "hidden"
+  );
+
+
+  if(role === "BF"){
+
+    roleTitle.textContent =
+      "👨 BF Space ❤️";
+
+  }
+
+  else if(role === "GF"){
+
+    roleTitle.textContent =
+      "👩 GF Space ❤️";
+
+  }
+
+  else{
+
+    roleTitle.textContent =
+      "❤️ Private Space";
+
+  }
+
+
+  privateSpace.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+
+  await loadAllPrivateData();
+
+}
+
+
+/* HIDE PRIVATE */
+
+function hidePrivateSpace(){
+
+  privateSpace.classList.add(
+    "hidden"
+  );
+
+  roleTitle.textContent =
+    "❤️ Welcome";
+
+}
+
+
+/* AUTH STATE */
+
+onAuthStateChanged(
+  auth,
+  async user => {
+
+    if(user){
 
       const role =
         getUserRole(user);
 
+      await showPrivateSpace(
+        user,
+        role
+      );
 
-      if (roleTitle) {
+    }else{
 
-        if (role === "BF") {
-
-          roleTitle.textContent =
-            "👨 BF Space ❤️";
-
-        } else if (role === "GF") {
-
-          roleTitle.textContent =
-            "👩 GF Space ❤️";
-
-        } else {
-
-          roleTitle.textContent =
-            "❤️ Private Space";
-
-        }
-
-      }
-
-
-      if (message) {
-
-        message.className =
-          "login-message success";
-
-        message.textContent =
-          "Logged in as " +
-          (user.email || "user") +
-          " ❤️";
-
-      }
-
-
-      if (privateSpace) {
-
-        privateSpace.classList.remove(
-          "hidden"
-        );
-
-      }
-
-
-      await loadAllPrivateData();
+      hidePrivateSpace();
 
     }
 
+  }
+);
 
-    function handleLoggedOutUser() {
 
-      const privateSpace =
-        getElement("privateSpace");
+/* LOAD ALL */
 
-      const message =
-        getElement("loginMessage");
+async function loadAllPrivateData(){
 
+  if(!auth.currentUser){
 
-      if (privateSpace) {
+    return;
 
-        privateSpace.classList.add(
-          "hidden"
-        );
+  }
 
-      }
+  await Promise.all([
+    loadLoveNotes(),
+    loadMemories(),
+    loadPhotos()
+  ]);
 
+}
 
-      if (message) {
 
-        message.className =
-          "login-message";
+/* LOVE NOTES */
 
-        message.textContent =
-          "";
+async function loadLoveNotes(){
 
-      }
+  const box =
+    document.getElementById(
+      "privateNotes"
+    );
 
-    }
+  box.innerHTML =
+    `<div class="loading">
+      Loading love notes... ❤️
+    </div>`;
 
 
-    /* =========================
-       USER ROLE
-    ========================= */
+  try{
 
-    function getUserRole(user) {
-
-      if (!user || !user.email) {
-
-        return "USER";
-
-      }
-
-
-      const email =
-        user.email.toLowerCase();
-
-
-      if (
-        email ===
-        "indragithmadushan23564@gmail.com"
-      ) {
-
-        return "BF";
-
-      }
-
-
-      if (
-        email ===
-        "dilshanisupunsara92@gmail.com"
-      ) {
-
-        return "GF";
-
-      }
-
-
-      return "USER";
-
-    }
-
-
-    /* =========================
-       LOAD ALL DATA
-    ========================= */
-
-    async function loadAllPrivateData() {
-
-      if (!auth.currentUser) {
-
-        return;
-
-      }
-
-
-      await Promise.all([
-        loadLoveNotes(),
-        loadMemories(),
-        loadPhotos()
-      ]);
-
-    }
-
-
-    /* =========================
-       LOVE NOTES
-    ========================= */
-
-    async function loadLoveNotes() {
-
-      const container =
-        getElement("privateNotes");
-
-
-      if (!container) return;
-
-
-      container.innerHTML =
-        `<div class="loading">
-          Loading love notes... ❤️
-        </div>`;
-
-
-      try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "love_notes"
-            )
-          );
-
-
-        if (snapshot.empty) {
-
-          container.innerHTML =
-            `<div class="empty">
-              No love notes yet ❤️
-            </div>`;
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          snapshot.docs
-            .map(doc => {
-
-              const data =
-                doc.data();
-
-
-              return `
-                <div class="data-item">
-
-                  <h4>
-                    💌 Love Note ❤️
-                  </h4>
-
-                  <p>
-                    ${escapeHtml(
-                      data.message ||
-                      "No message"
-                    )}
-                  </p>
-
-                </div>
-              `;
-
-            })
-            .join("");
-
-
-      } catch (error) {
-
-        console.error(
-          "Love notes error:",
-          error
-        );
-
-
-        container.innerHTML =
-          `<div class="empty">
-            ❤️ Love notes could not be loaded.
-          </div>`;
-
-      }
-
-    }
-
-
-    /* =========================
-       MEMORIES
-    ========================= */
-
-    async function loadMemories() {
-
-      const container =
-        getElement("privateMemories");
-
-
-      if (!container) return;
-
-
-      container.innerHTML =
-        `<div class="loading">
-          Loading memories... ❤️
-        </div>`;
-
-
-      try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "memories"
-            )
-          );
-
-
-        if (snapshot.empty) {
-
-          container.innerHTML =
-            `<div class="empty">
-              No memories yet ❤️
-            </div>`;
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          snapshot.docs
-            .map(doc => {
-
-              const data =
-                doc.data();
-
-
-              return `
-                <div class="data-item">
-
-                  <h4>
-                    💭 ${escapeHtml(
-                      data.title ||
-                      "Our Memory"
-                    )}
-                  </h4>
-
-                  <p>
-                    ${escapeHtml(
-                      data.description ||
-                      data.message ||
-                      ""
-                    )}
-                  </p>
-
-                </div>
-              `;
-
-            })
-            .join("");
-
-
-      } catch (error) {
-
-        console.error(
-          "Memories error:",
-          error
-        );
-
-
-        container.innerHTML =
-          `<div class="empty">
-            ❤️ Memories could not be loaded.
-          </div>`;
-
-      }
-
-    }
-
-
-    /* =========================
-       PHOTOS
-    ========================= */
-
-    async function loadPhotos() {
-
-      const container =
-        getElement("privatePhotos");
-
-
-      if (!container) return;
-
-
-      container.innerHTML =
-        `<div class="loading">
-          Loading photos... ❤️
-        </div>`;
-
-
-      try {
-
-        const snapshot =
-          await getDocs(
-            collection(
-              db,
-              "photos"
-            )
-          );
-
-
-        if (snapshot.empty) {
-
-          container.innerHTML =
-            `<div class="empty">
-              No private photos yet ❤️
-            </div>`;
-
-          return;
-
-        }
-
-
-        container.innerHTML =
-          snapshot.docs
-            .map(doc => {
-
-              const data =
-                doc.data();
-
-              const url =
-                data.url || "";
-
-
-              if (!url) {
-
-                return `
-                  <div class="data-item">
-
-                    <h4>
-                      📸 Private Photo ❤️
-                    </h4>
-
-                    <p>
-                      Photo URL is empty.
-                    </p>
-
-                  </div>
-                `;
-
-              }
-
-
-              return `
-                <div class="data-item">
-
-                  <h4>
-                    📸 Private Photo ❤️
-                  </h4>
-
-                  <img
-                    class="private-photo"
-                    src="${escapeAttribute(url)}"
-                    alt="Private Photo"
-                    loading="lazy"
-                    onerror="
-                      this.style.display='none';
-                      this.nextElementSibling.classList.remove('hidden');
-                    "
-                  >
-
-                  <p class="hidden">
-                    ❤️ This photo could not be displayed.
-                  </p>
-
-                </div>
-              `;
-
-            })
-            .join("");
-
-
-      } catch (error) {
-
-        console.error(
-          "Photos error:",
-          error
-        );
-
-
-        container.innerHTML =
-          `<div class="empty">
-            ❤️ Photos could not be loaded.
-          </div>`;
-
-      }
-
-    }
-
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    async function logoutUser() {
-
-      try {
-
-        await signOut(auth);
-
-
-        const message =
-          getElement("loginMessage");
-
-
-        if (message) {
-
-          message.className =
-            "login-message success";
-
-          message.textContent =
-            "Logged out successfully ❤️";
-
-        }
-
-
-        scrollToLogin();
-
-
-      } catch (error) {
-
-        console.error(
-          "Logout error:",
-          error
-        );
-
-      }
-
-    }
-
-
-    /* =========================
-       SHARED ROLE SPACE
-    ========================= */
-
-    function showRoleSpace(role) {
-
-      const box =
-        getElement("roleSpaceMessage");
-
-
-      if (!box) return;
-
-
-      box.classList.remove(
-        "hidden"
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "love_notes"
+        )
       );
 
 
-      if (role === "GF") {
+    if(snapshot.empty){
 
-        box.innerHTML = `
-          <h3>
-            👩 GF's Space ❤️
-          </h3>
+      box.innerHTML =
+        `<div class="empty">
+          No love notes yet ❤️
+        </div>`;
 
-          <p style="margin-top:10px;">
-            This is the shared girlfriend
-            space. More private features
-            can be added here later. 💕
-          </p>
+      return;
+    }
+
+
+    box.innerHTML =
+      snapshot.docs.map(doc => {
+
+        const data =
+          doc.data();
+
+        return `
+          <div class="data-item">
+            <h4>💌 Love Note ❤️</h4>
+            <p>${escapeHtml(
+              data.message ||
+              "No message"
+            )}</p>
+          </div>
         `;
 
-      } else {
-
-        box.innerHTML = `
-          <h3>
-            👨 BF's Space ❤️
-          </h3>
-
-          <p style="margin-top:10px;">
-            This is the shared boyfriend
-            space. More private features
-            can be added here later. 💕
-          </p>
-        `;
-
-      }
+      }).join("");
 
 
-      box.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+  }catch(error){
 
-    }
+    console.error(
+      "Love notes:",
+      error
+    );
+
+    box.innerHTML =
+      `<div class="empty">
+        ❤️ Love notes could not be loaded.
+      </div>`;
+
+  }
+
+}
 
 
-    /* =========================
-       SECURITY HELPERS
-    ========================= */
+/* MEMORIES */
 
-    function escapeHtml(value) {
+async function loadMemories(){
 
-      return String(value)
+  const box =
+    document.getElementById(
+      "privateMemories"
+    );
 
-        .replace(
-          /&/g,
-          "&amp;"
+  box.innerHTML =
+    `<div class="loading">
+      Loading memories... ❤️
+    </div>`;
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "memories"
         )
-
-        .replace(
-          /</g,
-          "&lt;"
-        )
-
-        .replace(
-          />/g,
-          "&gt;"
-        )
-
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-    function escapeAttribute(value) {
-
-      return String(value)
-
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-
-        .replace(
-          /</g,
-          "&lt;"
-        )
-
-        .replace(
-          />/g,
-          "&gt;"
-        );
-
-    }
-
-
-    /* =========================
-       FLOATING HEART
-    ========================= */
-
-    function createHeart() {
-
-      const heart =
-        document.createElement("div");
-
-
-      heart.className =
-        "heart-float";
-
-
-      heart.textContent =
-        "❤️";
-
-
-      heart.style.left =
-        Math.random() * 100 + "vw";
-
-
-      heart.style.fontSize =
-        (18 + Math.random() * 14) + "px";
-
-
-      document.body.appendChild(
-        heart
       );
 
+
+    if(snapshot.empty){
+
+      box.innerHTML =
+        `<div class="empty">
+          No memories yet ❤️
+        </div>`;
+
+      return;
+    }
+
+
+    box.innerHTML =
+      snapshot.docs.map(doc => {
+
+        const data =
+          doc.data();
+
+        return `
+          <div class="data-item">
+            <h4>
+              💭 ${escapeHtml(
+                data.title ||
+                "Our Memory"
+              )}
+            </h4>
+
+            <p>
+              ${escapeHtml(
+                data.description ||
+                data.message ||
+                ""
+              )}
+            </p>
+          </div>
+        `;
+
+      }).join("");
+
+
+  }catch(error){
+
+    console.error(
+      "Memories:",
+      error
+    );
+
+    box.innerHTML =
+      `<div class="empty">
+        ❤️ Memories could not be loaded.
+      </div>`;
+
+  }
+
+}
+
+
+/* PHOTOS */
+
+async function loadPhotos(){
+
+  const box =
+    document.getElementById(
+      "privatePhotos"
+    );
+
+  box.innerHTML =
+    `<div class="loading">
+      Loading photos... ❤️
+    </div>`;
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "photos"
+        )
+      );
+
+
+    if(snapshot.empty){
+
+      box.innerHTML =
+        `<div class="empty">
+          No private photos yet ❤️
+        </div>`;
+
+      return;
+    }
+
+
+    box.innerHTML =
+      snapshot.docs.map(doc => {
+
+        const data =
+          doc.data();
+
+        const url =
+          data.url || "";
+
+
+        if(!url){
+
+          return `
+            <div class="data-item">
+              <h4>📸 Private Photo ❤️</h4>
+              <p>Photo URL is empty.</p>
+            </div>
+          `;
+
+        }
+
+
+        return `
+          <div class="data-item">
+
+            <h4>📸 Private Photo ❤️</h4>
+
+            <img
+              class="private-photo"
+              src="${escapeAttribute(url)}"
+              alt="Private Photo"
+              loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');"
+            >
+
+            <p class="hidden">
+              ❤️ This photo could not be displayed.
+            </p>
+
+          </div>
+        `;
+
+      }).join("");
+
+
+  }catch(error){
+
+    console.error(
+      "Photos:",
+      error
+    );
+
+    box.innerHTML =
+      `<div class="empty">
+        ❤️ Photos could not be loaded.
+      </div>`;
+
+  }
+
+}
+
+
+/* LOGOUT */
+
+async function logout(){
+
+  try{
+
+    await signOut(auth);
+
+    setLoginMessage(
+      "Logged out successfully ❤️",
+      "success"
+    );
+
+    hidePrivateSpace();
+
+    document.getElementById(
+      "login"
+    ).scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }catch(error){
+
+    console.error(
+      "Logout:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ESCAPE */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+function escapeAttribute(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+
+}
+
+
+/* DARK MODE */
+
+document.getElementById(
+  "darkBtn"
+).addEventListener(
+  "click",
+  () => {
+
+    document.body.classList.toggle(
+      "dark"
+    );
+
+    const dark =
+      document.body.classList.contains(
+        "dark"
+      );
+
+    document.getElementById(
+      "darkBtn"
+    ).textContent =
+      dark ? "☀️" : "🌙";
+
+    localStorage.setItem(
+      "ourLoveDarkMode",
+      dark ? "1" : "0"
+    );
+
+  }
+);
+
+
+/* LOAD DARK */
+
+if(
+  localStorage.getItem(
+    "ourLoveDarkMode"
+  ) === "1"
+){
+
+  document.body.classList.add(
+    "dark"
+  );
+
+  document.getElementById(
+    "darkBtn"
+  ).textContent =
+    "☀️";
+
+}
+
+
+/* LOGIN NAV */
+
+document.getElementById(
+  "loginNavBtn"
+).addEventListener(
+  "click",
+  () => {
+
+    document.getElementById(
+      "login"
+    ).scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+);
+
+
+/* LOGIN BUTTON */
+
+loginBtn.addEventListener(
+  "click",
+  login
+);
+
+
+/* ENTER KEY LOGIN */
+
+passwordInput.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+
+      login();
+
+    }
+
+  }
+);
+
+
+/* LOGOUT BUTTON */
+
+document.getElementById(
+  "logoutBtn"
+).addEventListener(
+  "click",
+  logout
+);
+
+
+/* REFRESH */
+
+document.getElementById(
+  "refreshBtn"
+).addEventListener(
+  "click",
+  loadAllPrivateData
+);
+
+
+/* COMING SOON */
+
+document.querySelectorAll(
+  ".comingSoon"
+).forEach(button => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      alert(
+        "This feature is coming soon ❤️"
+      );
+
+    }
+  );
+
+});
+
+
+/* ROLE BUTTONS */
+
+document.getElementById(
+  "gfSpaceBtn"
+).addEventListener(
+  "click",
+  () => showRoleSpace("GF")
+);
+
+document.getElementById(
+  "bfSpaceBtn"
+).addEventListener(
+  "click",
+  () => showRoleSpace("BF")
+);
+
+
+function showRoleSpace(role){
+
+  const box =
+    document.getElementById(
+      "roleSpaceMessage"
+    );
+
+  box.classList.remove(
+    "hidden"
+  );
+
+
+  if(role === "GF"){
+
+    box.innerHTML = `
+      <h3>👩 GF's Space ❤️</h3>
+      <p style="margin-top:10px;">
+        This is the shared girlfriend space. 💕
+      </p>
+    `;
+
+  }else{
+
+    box.innerHTML = `
+      <h3>👨 BF's Space ❤️</h3>
+      <p style="margin-top:10px;">
+        This is the shared boyfriend space. 💕
+      </p>
+    `;
+
+  }
+
+}
+
+
+/* SURPRISE */
+
+document.getElementById(
+  "surpriseBtn"
+).addEventListener(
+  "click",
+  () => {
+
+    document.getElementById(
+      "surpriseText"
+    ).classList.remove(
+      "hidden"
+    );
+
+    for(let i=0;i<6;i++){
 
       setTimeout(
-        () => heart.remove(),
-        5000
+        createHeart,
+        i*150
       );
 
     }
 
-
-    /* =========================
-       LOVE COUNTER
-    ========================= */
-
-    const relationshipDate =
-      new Date("2026-01-01T00:00:00");
+  }
+);
 
 
-    function updateLoveCounter() {
+/* HEART */
 
-      const now =
-        new Date();
+function createHeart(){
 
-
-      const difference =
-        now -
-        relationshipDate;
-
-
-      const days =
-        Math.max(
-          0,
-          Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-          )
-        );
-
-
-      const daysElement =
-        getElement("days");
-
-
-      if (daysElement) {
-
-        daysElement.textContent =
-          days + " Days ❤️";
-
-      }
-
-    }
-
-
-    /* =========================
-       STARTUP
-    ========================= */
-
-    loadDarkMode();
-
-    updateLoveCounter();
-
-
-    setInterval(
-      updateLoveCounter,
-      60000
+  const heart =
+    document.createElement(
+      "div"
     );
 
+  heart.className =
+    "heart-float";
 
-    setInterval(
-      createHeart,
-      3500
+  heart.textContent =
+    "❤️";
+
+  heart.style.left =
+    Math.random()*100 + "vw";
+
+  document.body.appendChild(
+    heart
+  );
+
+  setTimeout(
+    () => heart.remove(),
+    5000
+  );
+
+}
+
+
+/* COUNTER */
+
+const relationshipDate =
+  new Date(
+    "2026-01-01T00:00:00"
+  );
+
+function updateCounter(){
+
+  const difference =
+    new Date() -
+    relationshipDate;
+
+  const days =
+    Math.max(
+      0,
+      Math.floor(
+        difference /
+        86400000
+      )
     );
 
+  document.getElementById(
+    "days"
+  ).textContent =
+    days + " Days ❤️";
 
-    /* =========================
-       GLOBAL FUNCTIONS
-    ========================= */
+}
 
-    window.toggleDark =
-      toggleDark;
+updateCounter();
 
-    window.scrollToLogin =
-      scrollToLogin;
+setInterval(
+  updateCounter,
+  60000
+);
 
-    window.showSurprise =
-      showSurprise;
+setInterval(
+  createHeart,
+  3500
+);
 
-    window.demoLogin =
-      demoLogin;
+</script>
 
-    window.logoutUser =
-      logoutUser;
+<!-- MUSIC SCRIPT -->
+<script>
 
-    window.loadAllPrivateData =
-      loadAllPrivateData;
+const music =
+  document.getElementById(
+    "bgMusic"
+  );
 
-    window.showRoleSpace =
-      showRoleSpace;
-
-  </script>
-
-
-  <!-- =========================
-       MUSIC SCRIPT
-  ========================= -->
-
-  <script>
-
-    const music =
-      document.getElementById(
-        "bgMusic"
-      );
+const musicBtn =
+  document.getElementById(
+    "musicBtn"
+  );
 
 
-    const musicBtn =
-      document.getElementById(
-        "musicBtn"
-      );
+function updateMusic(){
+
+  if(!music) return;
+
+  musicBtn.textContent =
+    music.paused
+      ? "🎵"
+      : "🔊";
+
+}
 
 
-    function updateMusicButton() {
+musicBtn.addEventListener(
+  "click",
+  () => {
 
-      if (!music || !musicBtn) {
+    if(music.paused){
 
-        return;
+      music.play()
+        .then(updateMusic)
+        .catch(updateMusic);
 
-      }
+    }else{
 
+      music.pause();
 
-      musicBtn.textContent =
-        music.paused
-          ? "🎵"
-          : "🔊";
-
-    }
-
-
-    function toggleMusic() {
-
-      if (!music) {
-
-        return;
-
-      }
-
-
-      if (music.paused) {
-
-        music.play()
-          .then(() => {
-
-            updateMusicButton();
-
-          })
-          .catch(error => {
-
-            console.log(
-              "Music could not start:",
-              error
-            );
-
-            updateMusicButton();
-
-          });
-
-      } else {
-
-        music.pause();
-
-        updateMusicButton();
-
-      }
+      updateMusic();
 
     }
 
+  }
+);
 
-    window.toggleMusic =
-      toggleMusic;
+updateMusic();
 
-
-    if (music) {
-
-      music.addEventListener(
-        "play",
-        updateMusicButton
-      );
-
-
-      music.addEventListener(
-        "pause",
-        updateMusicButton
-      );
-
-    }
-
-
-    /*
-      Browsers block automatic audio
-      until the user interacts.
-
-      After the first user interaction,
-      we try to start the music.
-    */
-
-    let musicStarted =
-      false;
-
-
-    document.addEventListener(
-      "click",
-      function startMusicAfterInteraction() {
-
-        if (
-          musicStarted ||
-          !music
-        ) {
-
-          return;
-
-        }
-
-
-        musicStarted =
-          true;
-
-
-        music.play()
-          .then(() => {
-
-            updateMusicButton();
-
-          })
-          .catch(() => {
-
-            updateMusicButton();
-
-          });
-
-      },
-      {
-        once: true
-      }
-    );
-
-
-    updateMusicButton();
-
-  </script>
-
+</script>
 
 </body>
-
 </html>
-    
-    
