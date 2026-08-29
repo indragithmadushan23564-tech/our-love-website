@@ -26,7 +26,7 @@ body{
   transition:.3s;
 }
 
-button,input{
+button,input,textarea{
   font-family:inherit;
 }
 
@@ -283,7 +283,8 @@ section{
   margin-bottom:15px;
 }
 
-input{
+input,
+textarea{
   width:100%;
   padding:13px;
   margin:8px 0;
@@ -295,7 +296,13 @@ input{
   color:#351b24;
 }
 
-input:focus{
+textarea{
+  min-height:130px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus{
   border-color:#d6336c;
   box-shadow:0 0 0 3px rgba(214,51,108,.1);
 }
@@ -449,7 +456,8 @@ body.dark .surprise{
   background:linear-gradient(135deg,#302029,#21171c);
 }
 
-body.dark input{
+body.dark input,
+body.dark textarea{
   background:#1e151a;
   color:white;
   border-color:#4b3440;
@@ -564,7 +572,7 @@ body.dark .data-item{
     <div class="timeline-item">
       <strong>Our First Meeting ❤️</strong>
       <span class="timeline-date">A special day</span>
-      <p> The beginning of something beautiful. </p>
+      <p>The beginning of something beautiful.</p>
     </div>
 
     <div class="timeline-item">
@@ -772,76 +780,154 @@ body.dark .data-item{
 
   <div class="card-grid">
 
+    <!-- MY THOUGHTS -->
     <div class="card">
       <h3>💭 My Thoughts</h3>
       <p>Write your thoughts and feelings here. ❤️</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
+
+      <button
+        class="btn small"
+        id="thoughtAddBtn"
+        type="button"
+      >
+        ➕ Add
+      </button>
     </div>
 
+    <!-- MY DAY -->
     <div class="card">
       <h3>📅 My Day</h3>
       <p>Tell about your day. 💕</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
+
+      <button
+        class="btn small comingSoon"
+        type="button"
+      >
+        ➕ Add
+      </button>
     </div>
 
+    <!-- MY LIST -->
     <div class="card">
       <h3>❤️ My List</h3>
       <p>Your special list. 🌹</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
+
+      <button
+        class="btn small comingSoon"
+        type="button"
+      >
+        ➕ Add
+      </button>
     </div>
 
+    <!-- MY PHOTOS -->
     <div class="card">
       <h3>📸 My Photos</h3>
       <p>Your private photos. 📷</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
+
+      <button
+        class="btn small comingSoon"
+        type="button"
+      >
+        ➕ Add
+      </button>
     </div>
 
+    <!-- BIRTHDAYS -->
     <div class="card">
       <h3>🎂 Birthdays</h3>
       <p>Special birthdays and dates. 🎉</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
+
+      <button
+        class="btn small comingSoon"
+        type="button"
+      >
+        ➕ Add
+      </button>
     </div>
 
+    <!-- ANNIVERSARIES -->
     <div class="card">
       <h3>💍 Anniversaries</h3>
       <p>Your special anniversaries. ❤️</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
+
+      <button
+        class="btn small comingSoon"
+        type="button"
+      >
+        ➕ Add
+      </button>
+    </div>
+
+  </div>
+
+  <!-- MY THOUGHTS DATA -->
+  <div class="card data-box">
+
+    <h3>💭 My Thoughts</h3>
+
+    <div id="privateThoughts">
+      <div class="loading">
+        Login to load your thoughts... ❤️
+      </div>
     </div>
 
   </div>
 
   <!-- NOTES -->
   <div class="card data-box">
+
     <h3>💌 Love Notes</h3>
+
     <div id="privateNotes">
-      <div class="loading">Login to load love notes... ❤️</div>
+      <div class="loading">
+        Login to load love notes... ❤️
+      </div>
     </div>
+
   </div>
 
   <!-- MEMORIES -->
   <div class="card data-box">
+
     <h3>💭 Our Memories</h3>
+
     <div id="privateMemories">
-      <div class="loading">Login to load memories... ❤️</div>
+      <div class="loading">
+        Login to load memories... ❤️
+      </div>
     </div>
+
   </div>
 
   <!-- PHOTOS -->
   <div class="card data-box">
+
     <h3>📸 Private Photos</h3>
+
     <div id="privatePhotos">
-      <div class="loading">Login to load photos... ❤️</div>
+      <div class="loading">
+        Login to load photos... ❤️
+      </div>
     </div>
+
   </div>
 
   <!-- ROLE -->
   <div style="margin-top:40px;">
 
-    <h2 class="section-title">❤️ Our Shared Space</h2>
+    <h2 class="section-title">
+      ❤️ Our Shared Space
+    </h2>
 
     <div class="card">
+
       <h3>👩 GF's Space ❤️</h3>
-      <p>View your girlfriend's special memories, thoughts and lists.</p>
+
+      <p>
+        View your girlfriend's special memories,
+        thoughts and lists.
+      </p>
 
       <button
         class="btn small"
@@ -850,11 +936,17 @@ body.dark .data-item{
       >
         View GF's Space 👩❤️
       </button>
+
     </div>
 
     <div class="card" style="margin-top:20px;">
+
       <h3>👨 BF's Space ❤️</h3>
-      <p>View your boyfriend's special memories, thoughts and lists.</p>
+
+      <p>
+        View your boyfriend's special memories,
+        thoughts and lists.
+      </p>
 
       <button
         class="btn small"
@@ -863,6 +955,7 @@ body.dark .data-item{
       >
         View BF's Space 👨❤️
       </button>
+
     </div>
 
     <div
@@ -882,10 +975,12 @@ body.dark .data-item{
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop preload="none">
+
   <source
     src="https://raw.githubusercontent.com/indragithmadushan23564-tech/our-love-website/main/Ahi%20Dara%20Pawa%20-%20%E0%B6%87%E0%B7%84%20%E0%B6%AF%E0%B6%BB%20%E0%B6%B4%E0%B7%80%20%28SlowedReverb%29.mp3"
     type="audio/mpeg"
   >
+
 </audio>
 
 <button id="musicBtn" type="button">🎵</button>
@@ -907,37 +1002,88 @@ import {
 import {
   getFirestore,
   collection,
-  getDocs
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 
 /* FIREBASE CONFIG */
 
 const firebaseConfig = {
-  apiKey:"AIzaSyAQXFOHrnrprEuqNwJidbtq1Yopgy608gc",
-  authDomain:"our-love-1fb6a.firebaseapp.com",
-  projectId:"our-love-1fb6a",
-  storageBucket:"our-love-1fb6a.firebasestorage.app",
-  messagingSenderId:"804339150204",
-  appId:"1:804339150204:web:b3ae23cffaf3200d0dc8f9"
+
+  apiKey:
+    "AIzaSyAQXFOHrnrprEuQnJwidbtq1Yopgy608gc",
+
+  authDomain:
+    "our-love-1fb6a.firebaseapp.com",
+
+  projectId:
+    "our-love-1fb6a",
+
+  storageBucket:
+    "our-love-1fb6a.firebasestorage.app",
+
+  messagingSenderId:
+    "804339150204",
+
+  appId:
+    "1:804339150204:web:b3ae23cffaf3200d0dc8f9"
+
 };
 
 
 /* INITIALIZE */
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app =
+  initializeApp(firebaseConfig);
+
+const auth =
+  getAuth(app);
+
+const db =
+  getFirestore(app);
 
 
 /* ELEMENTS */
 
-const emailInput = document.getElementById("emailInput");
-const passwordInput = document.getElementById("passwordInput");
-const loginBtn = document.getElementById("loginBtn");
-const loginMessage = document.getElementById("loginMessage");
-const privateSpace = document.getElementById("privateSpace");
-const roleTitle = document.getElementById("roleTitle");
+const emailInput =
+  document.getElementById(
+    "emailInput"
+  );
+
+const passwordInput =
+  document.getElementById(
+    "passwordInput"
+  );
+
+const loginBtn =
+  document.getElementById(
+    "loginBtn"
+  );
+
+const loginMessage =
+  document.getElementById(
+    "loginMessage"
+  );
+
+const privateSpace =
+  document.getElementById(
+    "privateSpace"
+  );
+
+const roleTitle =
+  document.getElementById(
+    "roleTitle"
+  );
+
+const thoughtAddBtn =
+  document.getElementById(
+    "thoughtAddBtn"
+  );
 
 
 /* EMAIL ROLES */
@@ -954,32 +1100,52 @@ const GF_EMAIL =
 function getUserRole(user){
 
   if(!user || !user.email){
+
     return "USER";
+
   }
 
   const email =
-    user.email.trim().toLowerCase();
+    user.email
+      .trim()
+      .toLowerCase();
 
-  if(email === BF_EMAIL.toLowerCase()){
+  if(
+    email ===
+    BF_EMAIL.toLowerCase()
+  ){
+
     return "BF";
+
   }
 
-  if(email === GF_EMAIL.toLowerCase()){
+  if(
+    email ===
+    GF_EMAIL.toLowerCase()
+  ){
+
     return "GF";
+
   }
 
   return "USER";
+
 }
 
 
 /* LOGIN MESSAGE */
 
-function setLoginMessage(text,type=""){
+function setLoginMessage(
+  text,
+  type=""
+){
 
   loginMessage.className =
     "login-message " + type;
 
-  loginMessage.textContent = text;
+  loginMessage.textContent =
+    text;
+
 }
 
 
@@ -1002,7 +1168,9 @@ async function login(){
     );
 
     emailInput.focus();
+
     return;
+
   }
 
 
@@ -1014,14 +1182,18 @@ async function login(){
     );
 
     passwordInput.focus();
+
     return;
+
   }
 
 
-  loginBtn.disabled = true;
+  loginBtn.disabled =
+    true;
 
   loginBtn.textContent =
     "Logging in... ⏳";
+
 
   setLoginMessage(
     "Connecting to Firebase... ❤️"
@@ -1039,7 +1211,9 @@ async function login(){
 
 
     const role =
-      getUserRole(result.user);
+      getUserRole(
+        result.user
+      );
 
 
     setLoginMessage(
@@ -1070,48 +1244,60 @@ async function login(){
       error.code ===
       "auth/invalid-credential"
     ){
+
       message =
         "Email or password is incorrect. ❤️";
+
     }
 
     else if(
       error.code ===
       "auth/invalid-email"
     ){
+
       message =
         "Please enter a valid email address. ❤️";
+
     }
 
     else if(
       error.code ===
       "auth/user-not-found"
     ){
+
       message =
         "No account found for this email. ❤️";
+
     }
 
     else if(
       error.code ===
       "auth/wrong-password"
     ){
+
       message =
         "Incorrect password. ❤️";
+
     }
 
     else if(
       error.code ===
       "auth/too-many-requests"
     ){
+
       message =
         "Too many attempts. Try again later. ❤️";
+
     }
 
     else if(
       error.code ===
       "auth/network-request-failed"
     ){
+
       message =
         "Network error. Check your internet connection. ❤️";
+
     }
 
 
@@ -1123,7 +1309,8 @@ async function login(){
 
   }finally{
 
-    loginBtn.disabled = false;
+    loginBtn.disabled =
+      false;
 
     loginBtn.textContent =
       "Login 🔐";
@@ -1135,10 +1322,15 @@ async function login(){
 
 /* SHOW PRIVATE */
 
-async function showPrivateSpace(user,role){
+async function showPrivateSpace(
+  user,
+  role
+){
 
   if(!privateSpace){
+
     return;
+
   }
 
 
@@ -1231,10 +1423,258 @@ async function loadAllPrivateData(){
   }
 
   await Promise.all([
+
+    loadThoughts(),
+
     loadLoveNotes(),
+
     loadMemories(),
+
     loadPhotos()
+
   ]);
+
+}
+
+
+/* =========================
+   MY THOUGHTS
+========================= */
+
+async function loadThoughts(){
+
+  const box =
+    document.getElementById(
+      "privateThoughts"
+    );
+
+
+  if(!box){
+
+    return;
+
+  }
+
+
+  box.innerHTML =
+    `<div class="loading">
+      Loading thoughts... ❤️
+    </div>`;
+
+
+  if(!auth.currentUser){
+
+    box.innerHTML =
+      `<div class="empty">
+        Please login first. ❤️
+      </div>`;
+
+    return;
+
+  }
+
+
+  try{
+
+    const thoughtsQuery =
+      query(
+
+        collection(
+          db,
+          "thoughts"
+        ),
+
+        where(
+          "userId",
+          "==",
+          auth.currentUser.uid
+        ),
+
+        orderBy(
+          "createdAt",
+          "desc"
+        )
+
+      );
+
+
+    const snapshot =
+      await getDocs(
+        thoughtsQuery
+      );
+
+
+    if(snapshot.empty){
+
+      box.innerHTML =
+        `<div class="empty">
+          No thoughts yet. ❤️
+        </div>`;
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      snapshot.docs
+        .map(doc => {
+
+          const data =
+            doc.data();
+
+
+          return `
+
+            <div class="data-item">
+
+              <h4>
+                💭 My Thought ❤️
+              </h4>
+
+              <p>
+                ${escapeHtml(
+                  data.message ||
+                  ""
+                )}
+              </p>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+
+  }catch(error){
+
+    console.error(
+      "Thoughts:",
+      error
+    );
+
+
+    box.innerHTML =
+      `<div class="empty">
+        ❤️ Thoughts could not be loaded.
+      </div>`;
+
+  }
+
+}
+
+
+/* ADD THOUGHT */
+
+async function addThought(){
+
+  if(!auth.currentUser){
+
+    alert(
+      "Please login first. ❤️"
+    );
+
+    return;
+
+  }
+
+
+  const message =
+    prompt(
+      "Write your thought or feeling ❤️"
+    );
+
+
+  if(
+    message === null
+  ){
+
+    return;
+
+  }
+
+
+  const cleanMessage =
+    message.trim();
+
+
+  if(!cleanMessage){
+
+    alert(
+      "Please write something first. ❤️"
+    );
+
+    return;
+
+  }
+
+
+  thoughtAddBtn.disabled =
+    true;
+
+  thoughtAddBtn.textContent =
+    "Saving... ⏳";
+
+
+  try{
+
+    await addDoc(
+
+      collection(
+        db,
+        "thoughts"
+      ),
+
+      {
+
+        userId:
+          auth.currentUser.uid,
+
+        userEmail:
+          auth.currentUser.email,
+
+        message:
+          cleanMessage,
+
+        createdAt:
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    alert(
+      "Your thought was saved ❤️"
+    );
+
+
+    await loadThoughts();
+
+
+  }catch(error){
+
+    console.error(
+      "ADD THOUGHT ERROR:",
+      error
+    );
+
+
+    alert(
+      "Could not save your thought. Please check Firebase Firestore rules. ❤️"
+    );
+
+
+  }finally{
+
+    thoughtAddBtn.disabled =
+      false;
+
+    thoughtAddBtn.textContent =
+      "➕ Add";
+
+  }
 
 }
 
@@ -1247,6 +1687,7 @@ async function loadLoveNotes(){
     document.getElementById(
       "privateNotes"
     );
+
 
   box.innerHTML =
     `<div class="loading">
@@ -1273,26 +1714,39 @@ async function loadLoveNotes(){
         </div>`;
 
       return;
+
     }
 
 
     box.innerHTML =
-      snapshot.docs.map(doc => {
+      snapshot.docs
+        .map(doc => {
 
-        const data =
-          doc.data();
+          const data =
+            doc.data();
 
-        return `
-          <div class="data-item">
-            <h4>💌 Love Note ❤️</h4>
-            <p>${escapeHtml(
-              data.message ||
-              "No message"
-            )}</p>
-          </div>
-        `;
 
-      }).join("");
+          return `
+
+            <div class="data-item">
+
+              <h4>
+                💌 Love Note ❤️
+              </h4>
+
+              <p>
+                ${escapeHtml(
+                  data.message ||
+                  "No message"
+                )}
+              </p>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
 
 
   }catch(error){
@@ -1301,6 +1755,7 @@ async function loadLoveNotes(){
       "Love notes:",
       error
     );
+
 
     box.innerHTML =
       `<div class="empty">
@@ -1320,6 +1775,7 @@ async function loadMemories(){
     document.getElementById(
       "privateMemories"
     );
+
 
   box.innerHTML =
     `<div class="loading">
@@ -1346,35 +1802,43 @@ async function loadMemories(){
         </div>`;
 
       return;
+
     }
 
 
     box.innerHTML =
-      snapshot.docs.map(doc => {
+      snapshot.docs
+        .map(doc => {
 
-        const data =
-          doc.data();
+          const data =
+            doc.data();
 
-        return `
-          <div class="data-item">
-            <h4>
-              💭 ${escapeHtml(
-                data.title ||
-                "Our Memory"
-              )}
-            </h4>
 
-            <p>
-              ${escapeHtml(
-                data.description ||
-                data.message ||
-                ""
-              )}
-            </p>
-          </div>
-        `;
+          return `
 
-      }).join("");
+            <div class="data-item">
+
+              <h4>
+                💭 ${escapeHtml(
+                  data.title ||
+                  "Our Memory"
+                )}
+              </h4>
+
+              <p>
+                ${escapeHtml(
+                  data.description ||
+                  data.message ||
+                  ""
+                )}
+              </p>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
 
 
   }catch(error){
@@ -1383,6 +1847,7 @@ async function loadMemories(){
       "Memories:",
       error
     );
+
 
     box.innerHTML =
       `<div class="empty">
@@ -1402,6 +1867,7 @@ async function loadPhotos(){
     document.getElementById(
       "privatePhotos"
     );
+
 
   box.innerHTML =
     `<div class="loading">
@@ -1428,52 +1894,69 @@ async function loadPhotos(){
         </div>`;
 
       return;
+
     }
 
 
     box.innerHTML =
-      snapshot.docs.map(doc => {
+      snapshot.docs
+        .map(doc => {
 
-        const data =
-          doc.data();
-
-        const url =
-          data.url || "";
+          const data =
+            doc.data();
 
 
-        if(!url){
+          const url =
+            data.url || "";
+
+
+          if(!url){
+
+            return `
+
+              <div class="data-item">
+
+                <h4>
+                  📸 Private Photo ❤️
+                </h4>
+
+                <p>
+                  Photo URL is empty.
+                </p>
+
+              </div>
+
+            `;
+
+          }
+
 
           return `
+
             <div class="data-item">
-              <h4>📸 Private Photo ❤️</h4>
-              <p>Photo URL is empty.</p>
+
+              <h4>
+                📸 Private Photo ❤️
+              </h4>
+
+              <img
+                class="private-photo"
+                src="${escapeAttribute(url)}"
+                alt="Private Photo"
+                loading="lazy"
+                onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');"
+              >
+
+              <p class="hidden">
+                ❤️ This photo could not be displayed.
+              </p>
+
             </div>
+
           `;
 
-        }
-
-
-        return `
-          <div class="data-item">
-
-            <h4>📸 Private Photo ❤️</h4>
-
-            <img
-              class="private-photo"
-              src="${escapeAttribute(url)}"
-              alt="Private Photo"
-              loading="lazy"
-              onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');"
-            >
-
-            <p class="hidden">
-              ❤️ This photo could not be displayed.
-            </p>
-
-          </div>
-        `;
-
-      }).join("");
+        })
+        .join("");
 
 
   }catch(error){
@@ -1482,6 +1965,7 @@ async function loadPhotos(){
       "Photos:",
       error
     );
+
 
     box.innerHTML =
       `<div class="empty">
@@ -1499,20 +1983,26 @@ async function logout(){
 
   try{
 
-    await signOut(auth);
+    await signOut(
+      auth
+    );
+
 
     setLoginMessage(
       "Logged out successfully ❤️",
       "success"
     );
 
+
     hidePrivateSpace();
+
 
     document.getElementById(
       "login"
     ).scrollIntoView({
       behavior:"smooth"
     });
+
 
   }catch(error){
 
@@ -1531,21 +2021,58 @@ async function logout(){
 function escapeHtml(value){
 
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
+
 
 function escapeAttribute(value){
 
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    );
 
 }
 
@@ -1562,15 +2089,20 @@ document.getElementById(
       "dark"
     );
 
+
     const dark =
       document.body.classList.contains(
         "dark"
       );
 
+
     document.getElementById(
       "darkBtn"
     ).textContent =
-      dark ? "☀️" : "🌙";
+      dark
+        ? "☀️"
+        : "🌙";
+
 
     localStorage.setItem(
       "ourLoveDarkMode",
@@ -1592,6 +2124,7 @@ if(
   document.body.classList.add(
     "dark"
   );
+
 
   document.getElementById(
     "darkBtn"
@@ -1633,7 +2166,10 @@ passwordInput.addEventListener(
   "keydown",
   event => {
 
-    if(event.key === "Enter"){
+    if(
+      event.key ===
+      "Enter"
+    ){
 
       login();
 
@@ -1663,24 +2199,34 @@ document.getElementById(
 );
 
 
+/* MY THOUGHTS ADD */
+
+thoughtAddBtn.addEventListener(
+  "click",
+  addThought
+);
+
+
 /* COMING SOON */
 
 document.querySelectorAll(
   ".comingSoon"
-).forEach(button => {
+).forEach(
+  button => {
 
-  button.addEventListener(
-    "click",
-    () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-      alert(
-        "This feature is coming soon ❤️"
-      );
+        alert(
+          "This feature is coming soon ❤️"
+        );
 
-    }
-  );
+      }
+    );
 
-});
+  }
+);
 
 
 /* ROLE BUTTONS */
@@ -1691,6 +2237,7 @@ document.getElementById(
   "click",
   () => showRoleSpace("GF")
 );
+
 
 document.getElementById(
   "bfSpaceBtn"
@@ -1707,6 +2254,7 @@ function showRoleSpace(role){
       "roleSpaceMessage"
     );
 
+
   box.classList.remove(
     "hidden"
   );
@@ -1715,19 +2263,29 @@ function showRoleSpace(role){
   if(role === "GF"){
 
     box.innerHTML = `
-      <h3>👩 GF's Space ❤️</h3>
+
+      <h3>
+        👩 GF's Space ❤️
+      </h3>
+
       <p style="margin-top:10px;">
         This is the shared girlfriend space. 💕
       </p>
+
     `;
 
   }else{
 
     box.innerHTML = `
-      <h3>👨 BF's Space ❤️</h3>
+
+      <h3>
+        👨 BF's Space ❤️
+      </h3>
+
       <p style="margin-top:10px;">
         This is the shared boyfriend space. 💕
       </p>
+
     `;
 
   }
@@ -1749,11 +2307,16 @@ document.getElementById(
       "hidden"
     );
 
-    for(let i=0;i<6;i++){
+
+    for(
+      let i = 0;
+      i < 6;
+      i++
+    ){
 
       setTimeout(
         createHeart,
-        i*150
+        i * 150
       );
 
     }
@@ -1771,18 +2334,25 @@ function createHeart(){
       "div"
     );
 
+
   heart.className =
     "heart-float";
+
 
   heart.textContent =
     "❤️";
 
+
   heart.style.left =
-    Math.random()*100 + "vw";
+    Math.random() *
+    100 +
+    "vw";
+
 
   document.body.appendChild(
     heart
   );
+
 
   setTimeout(
     () => heart.remove(),
@@ -1799,11 +2369,13 @@ const relationshipDate =
     "2026-01-01T00:00:00"
   );
 
+
 function updateCounter(){
 
   const difference =
     new Date() -
     relationshipDate;
+
 
   const days =
     Math.max(
@@ -1814,19 +2386,24 @@ function updateCounter(){
       )
     );
 
+
   document.getElementById(
     "days"
   ).textContent =
-    days + " Days ❤️";
+    days +
+    " Days ❤️";
 
 }
 
+
 updateCounter();
+
 
 setInterval(
   updateCounter,
   60000
 );
+
 
 setInterval(
   createHeart,
@@ -1843,6 +2420,7 @@ const music =
     "bgMusic"
   );
 
+
 const musicBtn =
   document.getElementById(
     "musicBtn"
@@ -1851,7 +2429,12 @@ const musicBtn =
 
 function updateMusic(){
 
-  if(!music) return;
+  if(!music){
+
+    return;
+
+  }
+
 
   musicBtn.textContent =
     music.paused
@@ -1865,11 +2448,19 @@ musicBtn.addEventListener(
   "click",
   () => {
 
-    if(music.paused){
+    if(
+      music.paused
+    ){
 
       music.play()
-        .then(updateMusic)
-        .catch(updateMusic);
+
+        .then(
+          updateMusic
+        )
+
+        .catch(
+          updateMusic
+        );
 
     }else{
 
@@ -1881,6 +2472,7 @@ musicBtn.addEventListener(
 
   }
 );
+
 
 updateMusic();
 
