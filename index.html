@@ -2257,6 +2257,96 @@ saveMyListBtn.addEventListener("click", async () => {
   }
 
 });
+
+  /* LOAD MY LIST */
+
+async function loadMyList() {
+
+  if (!auth.currentUser) {
+    return;
+  }
+
+  const myListCard = document.getElementById("myListForm").parentElement;
+
+  let myListBox = document.getElementById("myListItems");
+
+  if (!myListBox) {
+    myListBox = document.createElement("div");
+    myListBox.id = "myListItems";
+    myListBox.className = "data-box";
+    myListCard.appendChild(myListBox);
+  }
+
+  myListBox.innerHTML = `
+    <div class="empty">
+      Loading your list... ❤️
+    </div>
+  `;
+
+  try {
+
+    const snapshot = await getDocs(
+      collection(db, "my_list")
+    );
+
+    const myEmail =
+      auth.currentUser.email
+        .trim()
+        .toLowerCase();
+
+    const items = snapshot.docs.filter(doc => {
+
+      const data = doc.data();
+
+      return (
+        String(data.email || "")
+          .trim()
+          .toLowerCase()
+        === myEmail
+      );
+
+    });
+
+    if (items.length === 0) {
+
+      myListBox.innerHTML = `
+        <div class="empty">
+          No list items yet. ❤️
+        </div>
+      `;
+
+      return;
+    }
+
+    myListBox.innerHTML = items.map(doc => {
+
+      const data = doc.data();
+
+      return `
+        <div class="data-item">
+          <h4>❤️ My List</h4>
+          <p>
+            ${escapeHtml(data.message || "")}
+          </p>
+        </div>
+      `;
+
+    }).join("");
+
+  } catch (error) {
+
+    console.error(
+      "Load my list error:",
+      error
+    );
+
+    myListBox.innerHTML = `
+      <div class="empty">
+        ❤️ My List could not be loaded.
+      </div>
+    `;
+  }
+}
   
 /* COMING SOON */
 
