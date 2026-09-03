@@ -857,16 +857,47 @@ body.dark .data-item{
   </div>
     </div>
     
-    <div class="card">
-      <h3>❤️ My List</h3>
-      <p>Your special list. 🌹</p>
-      <button
-  class="btn small"
-  id="addMyListBtn"
-  type="button">
-  ➕ Add
-</button>
-    </div>
+<div class="card">
+  <h3>❤️ My List</h3>
+  <p>Your special list. 🌹</p>
+
+  <button
+    class="btn small"
+    id="addMyListBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div
+    id="myListForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="myListInput"
+      type="text"
+      placeholder="Add something to your special list... ❤️">
+
+    <button
+      class="btn small"
+      id="saveMyListBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn secondary small"
+      id="cancelMyListBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="myListMessage"
+      class="login-message">
+    </p>
+  </div>
+</div>
 
     <div class="card">
       <h3>📸 My Photos</h3>
