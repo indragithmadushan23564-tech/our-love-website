@@ -2157,6 +2157,43 @@ async function loadMyDays() {
     `;
   }
 }
+
+  /* MY LIST */
+
+const addMyListBtn =
+  document.getElementById("addMyListBtn");
+
+const myListForm =
+  document.getElementById("myListForm");
+
+const myListInput =
+  document.getElementById("myListInput");
+
+const cancelMyListBtn =
+  document.getElementById("cancelMyListBtn");
+
+const myListMessage =
+  document.getElementById("myListMessage");
+
+
+addMyListBtn.addEventListener("click", () => {
+
+  myListForm.classList.remove("hidden");
+
+  myListInput.focus();
+
+});
+
+
+cancelMyListBtn.addEventListener("click", () => {
+
+  myListInput.value = "";
+
+  myListMessage.textContent = "";
+
+  myListForm.classList.add("hidden");
+
+});
   
 /* COMING SOON */
 
