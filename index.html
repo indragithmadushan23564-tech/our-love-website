@@ -2158,7 +2158,7 @@ async function loadMyDays() {
   }
 }
 
-  /* MY LIST */
+/* MY LIST */
 
 const addMyListBtn =
   document.getElementById("addMyListBtn");
@@ -2168,6 +2168,9 @@ const myListForm =
 
 const myListInput =
   document.getElementById("myListInput");
+
+const saveMyListBtn =
+  document.getElementById("saveMyListBtn");
 
 const cancelMyListBtn =
   document.getElementById("cancelMyListBtn");
@@ -2192,6 +2195,66 @@ cancelMyListBtn.addEventListener("click", () => {
   myListMessage.textContent = "";
 
   myListForm.classList.add("hidden");
+
+});
+
+
+saveMyListBtn.addEventListener("click", async () => {
+
+  const listText =
+    myListInput.value.trim();
+
+  if (!listText) {
+
+    myListMessage.textContent =
+      "Please write something ❤️";
+
+    return;
+
+  }
+
+  if (!auth.currentUser) {
+
+    myListMessage.textContent =
+      "Please login first ❤️";
+
+    return;
+
+  }
+
+  try {
+
+    saveMyListBtn.disabled = true;
+
+    myListMessage.textContent =
+      "Saving... ❤️";
+
+    await addDoc(
+      collection(db, "my_list"),
+      {
+        message: listText,
+        email: auth.currentUser.email,
+        createdAt: new Date().toISOString()
+      }
+    );
+
+    myListInput.value = "";
+
+    myListMessage.textContent =
+      "Saved successfully ❤️";
+
+  } catch (error) {
+
+    console.error(error);
+
+    myListMessage.textContent =
+      "Could not save your list ❌";
+
+  } finally {
+
+    saveMyListBtn.disabled = false;
+
+  }
 
 });
   
