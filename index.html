@@ -811,11 +811,52 @@ body.dark .data-item{
 </div>
 
     <div class="card">
-      <h3>📅 My Day</h3>
-      <p>Tell about your day. 💕</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
-    </div>
+  <h3>📅 My Day</h3>
+  <p>Tell about your day. 💕</p>
 
+  <button
+    class="btn small"
+    id="addMyDayBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div
+    id="myDayForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="myDayInput"
+      type="text"
+      placeholder="Tell about your day... ❤️">
+
+    <button
+      class="btn small"
+      id="saveMyDayBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn secondary small"
+      id="cancelMyDayBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="myDayMessage"
+      class="login-message">
+    </p>
+  </div>
+
+  <div
+    id="myDaysList"
+    class="data-box">
+  </div>
+    </div>
+    
     <div class="card">
       <h3>❤️ My List</h3>
       <p>Your special list. 🌹</p>
@@ -1924,6 +1965,78 @@ async function loadMyThoughts(){
   }
 
 }
+  /* MY DAY */
+
+const addMyDayBtn = document.getElementById("addMyDayBtn");
+const myDayForm = document.getElementById("myDayForm");
+const myDayInput = document.getElementById("myDayInput");
+const saveMyDayBtn = document.getElementById("saveMyDayBtn");
+const cancelMyDayBtn = document.getElementById("cancelMyDayBtn");
+const myDayMessage = document.getElementById("myDayMessage");
+
+addMyDayBtn.addEventListener("click", () => {
+  myDayForm.classList.remove("hidden");
+  myDayInput.focus();
+});
+
+cancelMyDayBtn.addEventListener("click", () => {
+  myDayInput.value = "";
+  myDayMessage.textContent = "";
+  myDayForm.classList.add("hidden");
+});
+
+saveMyDayBtn.addEventListener("click", async () => {
+
+  const dayText = myDayInput.value.trim();
+
+  if (!dayText) {
+    myDayMessage.textContent = "Please write something ❤️";
+    return;
+  }
+
+  if (!auth.currentUser) {
+    myDayMessage.textContent = "Please login first ❤️";
+    return;
+  }
+
+  try {
+
+    saveMyDayBtn.disabled = true;
+    myDayMessage.textContent = "Saving... ❤️";
+
+    await addDoc(
+      collection(db, "my_days"),
+      {
+        message: dayText,
+        email: auth.currentUser.email,
+        createdAt: new Date().toISOString()
+      }
+    );
+
+    myDayInput.value = "";
+    myDayMessage.textContent = "Saved successfully ❤️";
+
+    await loadMyDays();
+
+    setTimeout(() => {
+      myDayForm.classList.add("hidden");
+      myDayMessage.textContent = "";
+    }, 1000);
+
+  } catch (error) {
+
+    console.error(error);
+    myDayMessage.textContent =
+      "Could not save your day ❌";
+
+  } finally {
+
+    saveMyDayBtn.disabled = false;
+
+  }
+
+});
+  
 /* COMING SOON */
 
 document.querySelectorAll(
