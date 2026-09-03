@@ -2036,6 +2036,90 @@ saveMyDayBtn.addEventListener("click", async () => {
   }
 
 });
+
+  /* LOAD MY DAYS */
+
+async function loadMyDays() {
+
+  if (!auth.currentUser) {
+    return;
+  }
+
+  const myDaysList =
+    document.getElementById("myDaysList");
+
+  myDaysList.innerHTML = `
+    <div class="empty">
+      Loading your days... ❤️
+    </div>
+  `;
+
+  try {
+
+    const snapshot = await getDocs(
+      collection(db, "my_days")
+    );
+
+    const myEmail =
+      auth.currentUser.email
+        .trim()
+        .toLowerCase();
+
+    const days =
+      snapshot.docs.filter(doc => {
+
+        const data = doc.data();
+
+        return (
+          String(data.email || "")
+            .trim()
+            .toLowerCase()
+          === myEmail
+        );
+
+      });
+
+    if (days.length === 0) {
+
+      myDaysList.innerHTML = `
+        <div class="empty">
+          No days yet. ❤️
+        </div>
+      `;
+
+      return;
+    }
+
+    myDaysList.innerHTML =
+      days.map(doc => {
+
+        const data = doc.data();
+
+        return `
+          <div class="data-item">
+            <h4>📅 My Day ❤️</h4>
+            <p>
+              ${escapeHtml(data.message || "")}
+            </p>
+          </div>
+        `;
+
+      }).join("");
+
+  } catch (error) {
+
+    console.error(
+      "Load my days error:",
+      error
+    );
+
+    myDaysList.innerHTML = `
+      <div class="empty">
+        ❤️ My Days could not be loaded.
+      </div>
+    `;
+  }
+}
   
 /* COMING SOON */
 
