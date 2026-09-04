@@ -1545,7 +1545,6 @@ async function loadMemories(){
 
 }
 
-
 /* PHOTOS */
 
 async function loadPhotos(){
@@ -1560,7 +1559,6 @@ async function loadPhotos(){
       Loading photos... ❤️
     </div>`;
 
-
   try{
 
     const snapshot =
@@ -1570,7 +1568,6 @@ async function loadPhotos(){
           "photos"
         )
       );
-
 
     if(snapshot.empty){
 
@@ -1582,7 +1579,6 @@ async function loadPhotos(){
       return;
     }
 
-
     box.innerHTML =
       snapshot.docs.map(doc => {
 
@@ -1592,18 +1588,19 @@ async function loadPhotos(){
         const url =
           data.url || "";
 
+        const caption =
+          data.caption || "";
 
         if(!url){
 
           return `
             <div class="data-item">
               <h4>📸 Private Photo ❤️</h4>
-              <p>Photo URL is empty.</p>
+              <p>Photo is empty.</p>
             </div>
           `;
 
         }
-
 
         return `
           <div class="data-item">
@@ -1622,11 +1619,18 @@ async function loadPhotos(){
               ❤️ This photo could not be displayed.
             </p>
 
+            ${
+              caption
+                ? `<p style="margin-top:10px;">
+                    ❤️ ${escapeAttribute(caption)}
+                   </p>`
+                : ""
+            }
+
           </div>
         `;
 
       }).join("");
-
 
   }catch(error){
 
@@ -1643,7 +1647,6 @@ async function loadPhotos(){
   }
 
 }
-
 
 /* LOGOUT */
 
@@ -2390,7 +2393,7 @@ async function loadMyList() {
   }
 }
 
-  /* MY PHOTOS */
+/* MY PHOTOS */
 
 const addMyPhotoBtn =
   document.getElementById("addMyPhotoBtn");
@@ -2398,8 +2401,14 @@ const addMyPhotoBtn =
 const myPhotoForm =
   document.getElementById("myPhotoForm");
 
-const myPhotoUrlInput =
-  document.getElementById("myPhotoUrlInput");
+const myPhotoFileInput =
+  document.getElementById("myPhotoFileInput");
+
+const myPhotoCaptionInput =
+  document.getElementById("myPhotoCaptionInput");
+
+const myPhotoPreview =
+  document.getElementById("myPhotoPreview");
 
 const saveMyPhotoBtn =
   document.getElementById("saveMyPhotoBtn");
@@ -2410,24 +2419,70 @@ const cancelMyPhotoBtn =
 const myPhotoMessage =
   document.getElementById("myPhotoMessage");
 
-const myPhotosList =
-  document.getElementById("myPhotosList");
-
 
 addMyPhotoBtn.addEventListener("click", () => {
 
   myPhotoForm.classList.remove("hidden");
 
-  myPhotoUrlInput.focus();
-
   myPhotoMessage.textContent = "";
+
+  myPhotoPreview.innerHTML = "";
+
+});
+
+
+myPhotoFileInput.addEventListener("change", () => {
+
+  const file =
+    myPhotoFileInput.files[0];
+
+  myPhotoPreview.innerHTML = "";
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+
+    myPhotoMessage.textContent =
+      "Please select an image. ❤️";
+
+    myPhotoFileInput.value = "";
+
+    return;
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload = () => {
+
+    myPhotoPreview.innerHTML = `
+      <img
+        src="${reader.result}"
+        alt="Photo Preview"
+        style="
+          width:100%;
+          max-width:400px;
+          border-radius:15px;
+          margin-top:10px;
+        ">
+    `;
+
+  };
+
+  reader.readAsDataURL(file);
 
 });
 
 
 cancelMyPhotoBtn.addEventListener("click", () => {
 
-  myPhotoUrlInput.value = "";
+  myPhotoFileInput.value = "";
+
+  myPhotoCaptionInput.value = "";
+
+  myPhotoPreview.innerHTML = "";
 
   myPhotoMessage.textContent = "";
 
@@ -2438,17 +2493,22 @@ cancelMyPhotoBtn.addEventListener("click", () => {
 
 saveMyPhotoBtn.addEventListener("click", async () => {
 
-  const photoUrl =
-    myPhotoUrlInput.value.trim();
+  const file =
+    myPhotoFileInput.files[0];
 
-  if (!photoUrl) {
+  const caption =
+    myPhotoCaptionInput.value.trim();
+
+
+  if (!file) {
 
     myPhotoMessage.textContent =
-      "Please paste a photo URL. ❤️";
+      "Please select a photo. ❤️";
 
     return;
 
   }
+
 
   if (!auth.currentUser) {
 
@@ -2459,28 +2519,46 @@ saveMyPhotoBtn.addEventListener("click", async () => {
 
   }
 
+
   try {
 
     saveMyPhotoBtn.disabled = true;
 
     myPhotoMessage.textContent =
-      "Saving... ❤️";
+      "Preparing photo... ❤️";
+
+
+    const compressedImage =
+      await compressMyPhoto(file);
+
+
+    myPhotoMessage.textContent =
+      "Saving photo... ❤️";
+
 
     await addDoc(
       collection(db, "photos"),
       {
-        url: photoUrl,
+        url: compressedImage,
+        caption: caption,
         email: auth.currentUser.email,
         createdAt: new Date().toISOString()
       }
     );
 
-    myPhotoUrlInput.value = "";
+
+    myPhotoFileInput.value = "";
+
+    myPhotoCaptionInput.value = "";
+
+    myPhotoPreview.innerHTML = "";
 
     myPhotoMessage.textContent =
       "Photo saved successfully! ❤️";
 
+
     await loadPhotos();
+
 
     setTimeout(() => {
 
@@ -2490,6 +2568,7 @@ saveMyPhotoBtn.addEventListener("click", async () => {
 
     }, 1200);
 
+
   } catch(error) {
 
     console.error(
@@ -2498,7 +2577,7 @@ saveMyPhotoBtn.addEventListener("click", async () => {
     );
 
     myPhotoMessage.textContent =
-      "Could not save photo. Please check Firebase Rules. ❤️";
+      "Could not save photo. Please try again. ❤️";
 
   } finally {
 
@@ -2507,6 +2586,155 @@ saveMyPhotoBtn.addEventListener("click", async () => {
   }
 
 });
+
+
+function compressMyPhoto(file){
+
+  return new Promise((resolve, reject) => {
+
+    const reader =
+      new FileReader();
+
+    reader.onload = event => {
+
+      const img =
+        new Image();
+
+      img.onload = () => {
+
+        const maxSize = 1000;
+
+        let width =
+          img.width;
+
+        let height =
+          img.height;
+
+
+        if (width > height && width > maxSize) {
+
+          height =
+            Math.round(
+              height * maxSize / width
+            );
+
+          width =
+            maxSize;
+
+        } else if (
+          height >= width &&
+          height > maxSize
+        ) {
+
+          width =
+            Math.round(
+              width * maxSize / height
+            );
+
+          height =
+            maxSize;
+
+        }
+
+
+        const canvas =
+          document.createElement("canvas");
+
+        canvas.width =
+          width;
+
+        canvas.height =
+          height;
+
+
+        const ctx =
+          canvas.getContext("2d");
+
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        let quality = 0.75;
+
+        let result =
+          canvas.toDataURL(
+            "image/jpeg",
+            quality
+          );
+
+
+        while (
+          result.length > 900000 &&
+          quality > 0.4
+        ) {
+
+          quality -= 0.05;
+
+          result =
+            canvas.toDataURL(
+              "image/jpeg",
+              quality
+            );
+
+        }
+
+
+        if (result.length > 900000) {
+
+          reject(
+            new Error(
+              "Image is too large"
+            )
+          );
+
+          return;
+
+        }
+
+
+        resolve(result);
+
+      };
+
+
+      img.onerror = () => {
+
+        reject(
+          new Error(
+            "Could not read image"
+          )
+        );
+
+      };
+
+
+      img.src =
+        event.target.result;
+
+    };
+
+
+    reader.onerror = () => {
+
+      reject(
+        new Error(
+          "Could not load file"
+        )
+      );
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
   
 /* COMING SOON */
 
