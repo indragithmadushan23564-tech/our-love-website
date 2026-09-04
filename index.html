@@ -1340,12 +1340,13 @@ async function loadAllPrivateData(){
   }
 
   await Promise.all([
-  loadLoveNotes(),
-  loadMemories(),
-  loadPhotos(),
-  loadMyThoughts(),
-  loadMyDays()
-]);
+    loadLoveNotes(),
+    loadMemories(),
+    loadPhotos(),
+    loadMyThoughts(),
+    loadMyDays(),
+    loadMyList()
+  ]);
 }
 
 
