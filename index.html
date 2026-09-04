@@ -899,7 +899,7 @@ body.dark .data-item{
   </div>
 </div>
 
-    <div class="card">
+<div class="card">
   <h3>📸 My Photos</h3>
   <p>Your private photos. 📷</p>
 
@@ -916,9 +916,17 @@ body.dark .data-item{
     style="margin-top:15px;">
 
     <input
-      id="myPhotoUrlInput"
-      type="url"
-      placeholder="Paste photo URL here... 📸">
+      id="myPhotoFileInput"
+      type="file"
+      accept="image/*"
+      style="padding:10px;">
+
+    <input
+      id="myPhotoCaptionInput"
+      type="text"
+      placeholder="Write something about this photo... ❤️">
+
+    <div id="myPhotoPreview"></div>
 
     <button
       class="btn small"
@@ -938,6 +946,7 @@ body.dark .data-item{
       id="myPhotoMessage"
       class="login-message">
     </p>
+
   </div>
 
   <div
