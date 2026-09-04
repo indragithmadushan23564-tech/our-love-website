@@ -1558,15 +1558,27 @@ async function loadMemories(){
 
 async function loadPhotos(){
 
-  const box =
+  const myPhotosBox =
+    document.getElementById(
+      "myPhotosList"
+    );
+
+  const privatePhotosBox =
     document.getElementById(
       "privatePhotos"
     );
 
-  box.innerHTML =
+
+  myPhotosBox.innerHTML =
     `<div class="loading">
       Loading photos... ❤️
     </div>`;
+
+  privatePhotosBox.innerHTML =
+    `<div class="loading">
+      Loading photos... ❤️
+    </div>`;
+
 
   try{
 
@@ -1578,9 +1590,15 @@ async function loadPhotos(){
         )
       );
 
+
     if(snapshot.empty){
 
-      box.innerHTML =
+      myPhotosBox.innerHTML =
+        `<div class="empty">
+          No private photos yet ❤️
+        </div>`;
+
+      privatePhotosBox.innerHTML =
         `<div class="empty">
           No private photos yet ❤️
         </div>`;
@@ -1588,7 +1606,8 @@ async function loadPhotos(){
       return;
     }
 
-    box.innerHTML =
+
+    const photosHTML =
       snapshot.docs.map(doc => {
 
         const data =
@@ -1611,6 +1630,7 @@ async function loadPhotos(){
 
         }
 
+
         return `
           <div class="data-item">
 
@@ -1631,7 +1651,7 @@ async function loadPhotos(){
             ${
               caption
                 ? `<p style="margin-top:10px;">
-                    ❤️ ${escapeAttribute(caption)}
+                    ❤️ ${escapeHtml(caption)}
                    </p>`
                 : ""
             }
@@ -1641,6 +1661,14 @@ async function loadPhotos(){
 
       }).join("");
 
+
+    myPhotosBox.innerHTML =
+      photosHTML;
+
+    privatePhotosBox.innerHTML =
+      photosHTML;
+
+
   }catch(error){
 
     console.error(
@@ -1648,7 +1676,13 @@ async function loadPhotos(){
       error
     );
 
-    box.innerHTML =
+
+    myPhotosBox.innerHTML =
+      `<div class="empty">
+        ❤️ Photos could not be loaded.
+      </div>`;
+
+    privatePhotosBox.innerHTML =
       `<div class="empty">
         ❤️ Photos could not be loaded.
       </div>`;
