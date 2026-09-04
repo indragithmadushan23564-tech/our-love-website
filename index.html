@@ -1563,18 +1563,8 @@ async function loadPhotos(){
       "myPhotosList"
     );
 
-  const privatePhotosBox =
-    document.getElementById(
-      "privatePhotos"
-    );
-
 
   myPhotosBox.innerHTML =
-    `<div class="loading">
-      Loading photos... ❤️
-    </div>`;
-
-  privatePhotosBox.innerHTML =
     `<div class="loading">
       Loading photos... ❤️
     </div>`;
@@ -1598,11 +1588,6 @@ async function loadPhotos(){
           No private photos yet ❤️
         </div>`;
 
-      privatePhotosBox.innerHTML =
-        `<div class="empty">
-          No private photos yet ❤️
-        </div>`;
-
       return;
     }
 
@@ -1619,12 +1604,18 @@ async function loadPhotos(){
         const caption =
           data.caption || "";
 
+
         if(!url){
 
           return `
             <div class="data-item">
+
               <h4>📸 Private Photo ❤️</h4>
-              <p>Photo is empty.</p>
+
+              <p>
+                Photo is empty.
+              </p>
+
             </div>
           `;
 
@@ -1665,9 +1656,6 @@ async function loadPhotos(){
     myPhotosBox.innerHTML =
       photosHTML;
 
-    privatePhotosBox.innerHTML =
-      photosHTML;
-
 
   }catch(error){
 
@@ -1678,11 +1666,6 @@ async function loadPhotos(){
 
 
     myPhotosBox.innerHTML =
-      `<div class="empty">
-        ❤️ Photos could not be loaded.
-      </div>`;
-
-    privatePhotosBox.innerHTML =
       `<div class="empty">
         ❤️ Photos could not be loaded.
       </div>`;
