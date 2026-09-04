@@ -901,7 +901,7 @@ body.dark .data-item{
 
     <div class="card">
   <h3>📸 My Photos</h3>
-  <p>Add your special photos with a little message. ❤️</p>
+  <p>Your private photos. 📷</p>
 
   <button
     class="btn small"
@@ -916,21 +916,9 @@ body.dark .data-item{
     style="margin-top:15px;">
 
     <input
-      id="myPhotoFileInput"
-      type="file"
-      accept="image/*">
-
-    <input
-      id="myPhotoCaptionInput"
-      type="text"
-      placeholder="Write something about this photo... ❤️"
-      maxlength="200"
-      style="margin-top:10px;">
-
-    <div
-      id="myPhotoPreview"
-      style="margin-top:12px;">
-    </div>
+      id="myPhotoUrlInput"
+      type="url"
+      placeholder="Paste photo URL here... 📸">
 
     <button
       class="btn small"
@@ -1627,100 +1615,12 @@ async function loadPhotos(){
               src="${escapeAttribute(url)}"
               alt="Private Photo"
               loading="lazy"
-/* PHOTOS */
-
-async function loadPhotos(){
-
-  const box =
-    document.getElementById(
-      "privatePhotos"
-    );
-
-  box.innerHTML =
-    `<div class="loading">
-      Loading photos... ❤️
-    </div>`;
-
-
-  try{
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "photos"
-        )
-      );
-
-
-    if(snapshot.empty){
-
-      box.innerHTML =
-        `<div class="empty">
-          No private photos yet ❤️
-        </div>`;
-
-      return;
-    }
-
-
-    box.innerHTML =
-      snapshot.docs.map(doc => {
-
-        const data =
-          doc.data();
-
-        const url =
-          data.url || "";
-
-        const caption =
-          data.caption || "";
-
-
-        if(!url){
-
-          return `
-            <div class="data-item">
-              <h4>📸 Private Photo ❤️</h4>
-              <p>Photo URL is empty.</p>
-            </div>
-          `;
-
-        }
-
-
-        return `
-          <div class="data-item">
-
-            <h4>📸 Private Photo ❤️</h4>
-
-            <img
-              class="private-photo"
-              src="${escapeAttribute(url)}"
-              alt="Private Photo"
-              loading="lazy"
               onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');"
             >
 
             <p class="hidden">
               ❤️ This photo could not be displayed.
             </p>
-
-            ${
-              caption
-                ? `
-                  <p
-                    style="
-                      margin-top:10px;
-                      text-align:center;
-                      font-size:15px;
-                    "
-                  >
-                    ❤️ ${escapeAttribute(caption)}
-                  </p>
-                `
-                : ""
-            }
 
           </div>
         `;
@@ -1743,6 +1643,7 @@ async function loadPhotos(){
   }
 
 }
+
 
 /* LOGOUT */
 
@@ -2497,14 +2398,8 @@ const addMyPhotoBtn =
 const myPhotoForm =
   document.getElementById("myPhotoForm");
 
-const myPhotoFileInput =
-  document.getElementById("myPhotoFileInput");
-
-const myPhotoCaptionInput =
-  document.getElementById("myPhotoCaptionInput");
-
-const myPhotoPreview =
-  document.getElementById("myPhotoPreview");
+const myPhotoUrlInput =
+  document.getElementById("myPhotoUrlInput");
 
 const saveMyPhotoBtn =
   document.getElementById("saveMyPhotoBtn");
@@ -2523,68 +2418,16 @@ addMyPhotoBtn.addEventListener("click", () => {
 
   myPhotoForm.classList.remove("hidden");
 
-  myPhotoFileInput.focus();
+  myPhotoUrlInput.focus();
 
   myPhotoMessage.textContent = "";
-
-});
-
-
-myPhotoFileInput.addEventListener("change", () => {
-
-  const file =
-    myPhotoFileInput.files[0];
-
-  myPhotoPreview.innerHTML = "";
-
-  myPhotoMessage.textContent = "";
-
-  if (!file) {
-    return;
-  }
-
-  if (!file.type.startsWith("image/")) {
-
-    myPhotoMessage.textContent =
-      "Please select an image. ❤️";
-
-    myPhotoFileInput.value = "";
-
-    return;
-  }
-
-  const reader =
-    new FileReader();
-
-  reader.onload = () => {
-
-    myPhotoPreview.innerHTML = `
-      <img
-        src="${reader.result}"
-        alt="Photo preview"
-        style="
-          width:100%;
-          max-width:300px;
-          border-radius:15px;
-          display:block;
-          margin:auto;
-        ">
-    `;
-
-  };
-
-  reader.readAsDataURL(file);
 
 });
 
 
 cancelMyPhotoBtn.addEventListener("click", () => {
 
-  myPhotoFileInput.value = "";
-
-  myPhotoCaptionInput.value = "";
-
-  myPhotoPreview.innerHTML = "";
+  myPhotoUrlInput.value = "";
 
   myPhotoMessage.textContent = "";
 
@@ -2593,233 +2436,77 @@ cancelMyPhotoBtn.addEventListener("click", () => {
 });
 
 
-function compressMyPhoto(file) {
+saveMyPhotoBtn.addEventListener("click", async () => {
 
-  return new Promise((resolve, reject) => {
+  const photoUrl =
+    myPhotoUrlInput.value.trim();
 
-    const reader =
-      new FileReader();
+  if (!photoUrl) {
 
-    reader.onload = () => {
+    myPhotoMessage.textContent =
+      "Please paste a photo URL. ❤️";
 
-      const img =
-        new Image();
-
-      img.onload = () => {
-
-        const maxSize = 1000;
-
-        let width = img.width;
-        let height = img.height;
-
-        if (
-          width > height &&
-          width > maxSize
-        ) {
-
-          height =
-            Math.round(
-              height * maxSize / width
-            );
-
-          width = maxSize;
-
-        } else if (
-          height > maxSize
-        ) {
-
-          width =
-            Math.round(
-              width * maxSize / height
-            );
-
-          height = maxSize;
-
-        }
-
-        const canvas =
-          document.createElement("canvas");
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx =
-          canvas.getContext("2d");
-
-        ctx.drawImage(
-          img,
-          0,
-          0,
-          width,
-          height
-        );
-
-        let quality = 0.75;
-
-        const tryCompress = () => {
-
-          const dataUrl =
-            canvas.toDataURL(
-              "image/jpeg",
-              quality
-            );
-
-          const sizeInBytes =
-            Math.ceil(
-              (dataUrl.length * 3) / 4
-            );
-
-          if (
-            sizeInBytes < 900000 ||
-            quality <= 0.4
-          ) {
-
-            resolve(dataUrl);
-
-            return;
-          }
-
-          quality -= 0.05;
-
-          tryCompress();
-
-        };
-
-        tryCompress();
-
-      };
-
-      img.onerror = () => {
-
-        reject(
-          new Error(
-            "Could not load image."
-          )
-        );
-
-      };
-
-      img.src = reader.result;
-
-    };
-
-    reader.onerror = () => {
-
-      reject(
-        new Error(
-          "Could not read image."
-        )
-      );
-
-    };
-
-    reader.readAsDataURL(file);
-
-  });
-
-}
-
-
-saveMyPhotoBtn.addEventListener(
-  "click",
-  async () => {
-
-    const file =
-      myPhotoFileInput.files[0];
-
-    const caption =
-      myPhotoCaptionInput.value.trim();
-
-
-    if (!file) {
-
-      myPhotoMessage.textContent =
-        "Please select a photo first. 📷";
-
-      return;
-
-    }
-
-
-    if (!auth.currentUser) {
-
-      myPhotoMessage.textContent =
-        "Please login first. ❤️";
-
-      return;
-
-    }
-
-
-    try {
-
-      saveMyPhotoBtn.disabled = true;
-
-      myPhotoMessage.textContent =
-        "Preparing photo... ❤️";
-
-
-      const photoData =
-        await compressMyPhoto(file);
-
-
-      myPhotoMessage.textContent =
-        "Saving photo... ❤️";
-
-
-      await addDoc(
-        collection(db, "photos"),
-        {
-          url: photoData,
-          caption: caption,
-          email: auth.currentUser.email,
-          createdAt:
-            new Date().toISOString()
-        }
-      );
-
-
-      myPhotoFileInput.value = "";
-
-      myPhotoCaptionInput.value = "";
-
-      myPhotoPreview.innerHTML = "";
-
-      myPhotoMessage.textContent =
-        "Photo saved successfully! ❤️";
-
-
-      await loadPhotos();
-
-
-      setTimeout(() => {
-
-        myPhotoForm.classList.add("hidden");
-
-        myPhotoMessage.textContent = "";
-
-      }, 1200);
-
-
-    } catch(error) {
-
-      console.error(
-        "Save photo error:",
-        error
-      );
-
-      myPhotoMessage.textContent =
-        "Could not save photo. Please try a smaller photo. ❤️";
-
-
-    } finally {
-
-      saveMyPhotoBtn.disabled = false;
-
-    }
+    return;
 
   }
-);
+
+  if (!auth.currentUser) {
+
+    myPhotoMessage.textContent =
+      "Please login first. ❤️";
+
+    return;
+
+  }
+
+  try {
+
+    saveMyPhotoBtn.disabled = true;
+
+    myPhotoMessage.textContent =
+      "Saving... ❤️";
+
+    await addDoc(
+      collection(db, "photos"),
+      {
+        url: photoUrl,
+        email: auth.currentUser.email,
+        createdAt: new Date().toISOString()
+      }
+    );
+
+    myPhotoUrlInput.value = "";
+
+    myPhotoMessage.textContent =
+      "Photo saved successfully! ❤️";
+
+    await loadPhotos();
+
+    setTimeout(() => {
+
+      myPhotoForm.classList.add("hidden");
+
+      myPhotoMessage.textContent = "";
+
+    }, 1200);
+
+  } catch(error) {
+
+    console.error(
+      "Save photo error:",
+      error
+    );
+
+    myPhotoMessage.textContent =
+      "Could not save photo. Please check Firebase Rules. ❤️";
+
+  } finally {
+
+    saveMyPhotoBtn.disabled = false;
+
+  }
+
+});
   
 /* COMING SOON */
 
