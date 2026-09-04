@@ -900,10 +900,51 @@ body.dark .data-item{
 </div>
 
     <div class="card">
-      <h3>📸 My Photos</h3>
-      <p>Your private photos. 📷</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
-    </div>
+  <h3>📸 My Photos</h3>
+  <p>Your private photos. 📷</p>
+
+  <button
+    class="btn small"
+    id="addMyPhotoBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div
+    id="myPhotoForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="myPhotoUrlInput"
+      type="url"
+      placeholder="Paste photo URL here... 📸">
+
+    <button
+      class="btn small"
+      id="saveMyPhotoBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn secondary small"
+      id="cancelMyPhotoBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="myPhotoMessage"
+      class="login-message">
+    </p>
+  </div>
+
+  <div
+    id="myPhotosList"
+    class="data-box">
+  </div>
+</div>
 
     <div class="card">
       <h3>🎂 Birthdays</h3>
@@ -2348,6 +2389,124 @@ async function loadMyList() {
     `;
   }
 }
+
+  /* MY PHOTOS */
+
+const addMyPhotoBtn =
+  document.getElementById("addMyPhotoBtn");
+
+const myPhotoForm =
+  document.getElementById("myPhotoForm");
+
+const myPhotoUrlInput =
+  document.getElementById("myPhotoUrlInput");
+
+const saveMyPhotoBtn =
+  document.getElementById("saveMyPhotoBtn");
+
+const cancelMyPhotoBtn =
+  document.getElementById("cancelMyPhotoBtn");
+
+const myPhotoMessage =
+  document.getElementById("myPhotoMessage");
+
+const myPhotosList =
+  document.getElementById("myPhotosList");
+
+
+addMyPhotoBtn.addEventListener("click", () => {
+
+  myPhotoForm.classList.remove("hidden");
+
+  myPhotoUrlInput.focus();
+
+  myPhotoMessage.textContent = "";
+
+});
+
+
+cancelMyPhotoBtn.addEventListener("click", () => {
+
+  myPhotoUrlInput.value = "";
+
+  myPhotoMessage.textContent = "";
+
+  myPhotoForm.classList.add("hidden");
+
+});
+
+
+saveMyPhotoBtn.addEventListener("click", async () => {
+
+  const photoUrl =
+    myPhotoUrlInput.value.trim();
+
+  if (!photoUrl) {
+
+    myPhotoMessage.textContent =
+      "Please paste a photo URL. ❤️";
+
+    return;
+
+  }
+
+  if (!auth.currentUser) {
+
+    myPhotoMessage.textContent =
+      "Please login first. ❤️";
+
+    return;
+
+  }
+
+  try {
+
+    saveMyPhotoBtn.disabled = true;
+
+    myPhotoMessage.textContent =
+      "Saving... ❤️";
+
+    await addDoc(
+      collection(db, "photos"),
+      {
+        url: photoUrl,
+        email: auth.currentUser.email,
+        createdAt: new Date().toISOString()
+      }
+    );
+
+    myPhotoUrlInput.value = "";
+
+    myPhotoMessage.textContent =
+      "Photo saved successfully! ❤️";
+
+    await loadPhotos();
+
+    setTimeout(() => {
+
+      myPhotoForm.classList.add("hidden");
+
+      myPhotoMessage.textContent = "";
+
+    }, 1200);
+
+  } catch(error) {
+
+    console.error(
+      "Save photo error:",
+      error
+    );
+
+    myPhotoMessage.textContent =
+      "Could not save photo. Please check Firebase Rules. ❤️";
+
+  } finally {
+
+    saveMyPhotoBtn.disabled = false;
+
+  }
+
+});
   
 /* COMING SOON */
 
