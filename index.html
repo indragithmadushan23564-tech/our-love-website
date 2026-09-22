@@ -956,10 +956,70 @@ body.dark .data-item{
 </div>
 
     <div class="card">
-      <h3>🎂 Birthdays</h3>
-      <p>Special birthdays and dates. 🎉</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
-    </div>
+
+  <h3>🎂 Birthdays</h3>
+
+  <p>Special birthdays and dates. 🎉</p>
+
+  <button
+    class="btn small"
+    id="addBirthdayBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div
+    id="birthdayForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="birthdayName"
+      type="text"
+      placeholder="Birthday person name ❤️"
+      style="width:100%; margin-bottom:10px;"
+    >
+
+    <input
+      id="birthdayDate"
+      type="date"
+      style="width:100%; margin-bottom:10px;"
+    >
+
+    <input
+      id="birthdayNote"
+      type="text"
+      placeholder="Note (optional) 🎉"
+      style="width:100%; margin-bottom:10px;"
+    >
+
+    <button
+      class="btn small"
+      id="saveBirthdayBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn small"
+      id="cancelBirthdayBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="birthdayMessage"
+      style="margin-top:10px;">
+    </p>
+
+  </div>
+
+  <div
+    id="birthdaysList"
+    style="margin-top:15px;">
+  </div>
+
+</div>
 
     <div class="card">
       <h3>💍 Anniversaries</h3>
@@ -1390,13 +1450,14 @@ async function loadAllPrivateData(){
   }
 
   await Promise.all([
-    loadLoveNotes(),
-    loadMemories(),
-    loadPhotos(),
-    loadMyThoughts(),
-    loadMyDays(),
-    loadMyList()
-  ]);
+  loadLoveNotes(),
+  loadMemories(),
+  loadPhotos(),
+  loadMyThoughts(),
+  loadMyDays(),
+  loadMyList(),
+  loadBirthdays()
+]);
 }
 
 
@@ -1553,6 +1614,300 @@ async function loadMemories(){
   }
 
 }
+
+    }
+
+}
+
+
+/* BIRTHDAYS */
+
+async function loadBirthdays(){
+
+  const birthdaysList =
+    document.getElementById("birthdaysList");
+
+  if(!birthdaysList){
+    return;
+  }
+
+  birthdaysList.innerHTML =
+    `<div class="loading">
+      Loading birthdays... ❤️
+    </div>`;
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "birthdays"
+        )
+      );
+
+    if(snapshot.empty){
+
+      birthdaysList.innerHTML =
+        `<div class="empty">
+          No birthdays added yet ❤️
+        </div>`;
+
+      return;
+    }
+
+    birthdaysList.innerHTML =
+      snapshot.docs.map(doc => {
+
+        const data =
+          doc.data();
+
+        const name =
+          data.name || "";
+
+        const date =
+          data.date || "";
+
+        const note =
+          data.note || "";
+
+        return `
+          <div class="data-item">
+
+            <h4>🎂 ${escapeHtml(name)}</h4>
+
+            <p>
+              📅 ${escapeHtml(date)}
+            </p>
+
+            ${
+              note
+                ? `<p>
+                    ❤️ ${escapeHtml(note)}
+                   </p>`
+                : ""
+            }
+
+          </div>
+        `;
+
+      }).join("");
+
+  }catch(error){
+
+    console.error(
+      "Birthdays:",
+      error
+    );
+
+    birthdaysList.innerHTML =
+      `<div class="empty">
+        ❤️ Birthdays could not be loaded.
+      </div>`;
+
+  }
+
+}
+
+
+/* BIRTHDAY FORM */
+
+const addBirthdayBtn =
+  document.getElementById(
+    "addBirthdayBtn"
+  );
+
+const birthdayForm =
+  document.getElementById(
+    "birthdayForm"
+  );
+
+const saveBirthdayBtn =
+  document.getElementById(
+    "saveBirthdayBtn"
+  );
+
+const cancelBirthdayBtn =
+  document.getElementById(
+    "cancelBirthdayBtn"
+  );
+
+
+if(addBirthdayBtn){
+
+  addBirthdayBtn.addEventListener(
+    "click",
+    () => {
+
+      birthdayForm.classList.remove(
+        "hidden"
+      );
+
+      addBirthdayBtn.classList.add(
+        "hidden"
+      );
+
+    }
+  );
+
+}
+
+
+if(cancelBirthdayBtn){
+
+  cancelBirthdayBtn.addEventListener(
+    "click",
+    () => {
+
+      birthdayForm.classList.add(
+        "hidden"
+      );
+
+      addBirthdayBtn.classList.remove(
+        "hidden"
+      );
+
+      document.getElementById(
+        "birthdayName"
+      ).value = "";
+
+      document.getElementById(
+        "birthdayDate"
+      ).value = "";
+
+      document.getElementById(
+        "birthdayNote"
+      ).value = "";
+
+      document.getElementById(
+        "birthdayMessage"
+      ).textContent = "";
+
+    }
+  );
+
+}
+
+
+if(saveBirthdayBtn){
+
+  saveBirthdayBtn.addEventListener(
+    "click",
+    async () => {
+
+      const name =
+        document.getElementById(
+          "birthdayName"
+        ).value.trim();
+
+      const date =
+        document.getElementById(
+          "birthdayDate"
+        ).value;
+
+      const note =
+        document.getElementById(
+          "birthdayNote"
+        ).value.trim();
+
+      const message =
+        document.getElementById(
+          "birthdayMessage"
+        );
+
+
+      if(!name || !date){
+
+        message.textContent =
+          "Please enter name and birthday date. ❤️";
+
+        return;
+      }
+
+
+      if(!auth.currentUser){
+
+        message.textContent =
+          "Please login first. ❤️";
+
+        return;
+      }
+
+
+      saveBirthdayBtn.disabled = true;
+
+      message.textContent =
+        "Saving... ❤️";
+
+
+      try{
+
+        await addDoc(
+          collection(
+            db,
+            "birthdays"
+          ),
+          {
+            name: name,
+            date: date,
+            note: note,
+            email:
+              auth.currentUser.email,
+            createdAt:
+              new Date().toISOString()
+          }
+        );
+
+
+        message.textContent =
+          "Birthday saved successfully! ❤️";
+
+
+        document.getElementById(
+          "birthdayName"
+        ).value = "";
+
+        document.getElementById(
+          "birthdayDate"
+        ).value = "";
+
+        document.getElementById(
+          "birthdayNote"
+        ).value = "";
+
+
+        await loadBirthdays();
+
+
+        birthdayForm.classList.add(
+          "hidden"
+        );
+
+        addBirthdayBtn.classList.remove(
+          "hidden"
+        );
+
+
+      }catch(error){
+
+        console.error(
+          "Save birthday:",
+          error
+        );
+
+        message.textContent =
+          "Could not save birthday. Please check Firebase Rules. ❤️";
+
+      }
+
+
+      saveBirthdayBtn.disabled = false;
+
+    }
+  );
+
+}
+
 
 /* PHOTOS */
 
