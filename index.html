@@ -1509,7 +1509,8 @@ async function loadAllPrivateData(){
   loadMyThoughts(),
   loadMyDays(),
   loadMyList(),
-  loadBirthdays()
+  loadBirthdays(),
+  loadAnniversaries(),
 ]);
   
 }
@@ -1802,7 +1803,166 @@ if(saveBirthdayBtn){
 
 }
 
+// 💍 Anniversaries
+async function loadAnniversaries(){
+  const anniversariesList = document.getElementById("anniversariesList");
+  if(!anniversariesList) return;
 
+  anniversariesList.innerHTML =
+    `<div class="loading">Loading anniversaries... ❤️</div>`;
+
+  try{
+    const snapshot = await getDocs(
+      collection(db, "anniversaries")
+    );
+
+    if(snapshot.empty){
+      anniversariesList.innerHTML =
+        `<div class="empty">No anniversaries added yet ❤️</div>`;
+      return;
+    }
+
+    anniversariesList.innerHTML = snapshot.docs.map(doc => {
+      const data = doc.data();
+
+      const name = data.name || "";
+      const date = data.date || "";
+      const note = data.note || "";
+
+      return `
+        <div class="data-item">
+          <h4>💍 ${escapeHtml(name)}</h4>
+          <p>📅 ${escapeHtml(date)}</p>
+          ${note ? `<p>❤️ ${escapeHtml(note)}</p>` : ""}
+        </div>
+      `;
+    }).join("");
+
+  }catch(error){
+    console.error("Anniversaries:", error);
+
+    anniversariesList.innerHTML =
+      `<div class="empty">❤️ Anniversaries could not be loaded.</div>`;
+  }
+}
+
+
+const addAnniversaryBtn =
+  document.getElementById("addAnniversaryBtn");
+
+const anniversaryForm =
+  document.getElementById("anniversaryForm");
+
+const saveAnniversaryBtn =
+  document.getElementById("saveAnniversaryBtn");
+
+const cancelAnniversaryBtn =
+  document.getElementById("cancelAnniversaryBtn");
+
+
+if(addAnniversaryBtn){
+  addAnniversaryBtn.addEventListener("click", () => {
+
+    anniversaryForm.classList.remove("hidden");
+    addAnniversaryBtn.classList.add("hidden");
+
+  });
+}
+
+
+if(cancelAnniversaryBtn){
+  cancelAnniversaryBtn.addEventListener("click", () => {
+
+    anniversaryForm.classList.add("hidden");
+    addAnniversaryBtn.classList.remove("hidden");
+
+    document.getElementById("anniversaryName").value = "";
+    document.getElementById("anniversaryDate").value = "";
+    document.getElementById("anniversaryNote").value = "";
+
+    document.getElementById("anniversaryMessage").textContent = "";
+
+  });
+}
+
+
+if(saveAnniversaryBtn){
+  saveAnniversaryBtn.addEventListener("click", async () => {
+
+    const name =
+      document.getElementById("anniversaryName").value.trim();
+
+    const date =
+      document.getElementById("anniversaryDate").value;
+
+    const note =
+      document.getElementById("anniversaryNote").value.trim();
+
+    const message =
+      document.getElementById("anniversaryMessage");
+
+
+    if(!name || !date){
+      message.textContent =
+        "Please enter anniversary name and date. ❤️";
+      return;
+    }
+
+
+    if(!auth.currentUser){
+      message.textContent =
+        "Please login first. ❤️";
+      return;
+    }
+
+
+    saveAnniversaryBtn.disabled = true;
+    message.textContent = "Saving... ❤️";
+
+
+    try{
+
+      await addDoc(
+        collection(db, "anniversaries"),
+        {
+          name: name,
+          date: date,
+          note: note,
+          email: auth.currentUser.email,
+          createdAt: new Date().toISOString()
+        }
+      );
+
+
+      message.textContent =
+        "Anniversary saved successfully! ❤️";
+
+
+      document.getElementById("anniversaryName").value = "";
+      document.getElementById("anniversaryDate").value = "";
+      document.getElementById("anniversaryNote").value = "";
+
+
+      await loadAnniversaries();
+
+
+      anniversaryForm.classList.add("hidden");
+      addAnniversaryBtn.classList.remove("hidden");
+
+    }catch(error){
+
+      console.error("Save anniversary:", error);
+
+      message.textContent =
+        "Could not save anniversary. Please check Firebase Rules. ❤️";
+    }
+
+
+    saveAnniversaryBtn.disabled = false;
+
+  });
+}
+  
 /* LOVE NOTES */
 
 async function loadLoveNotes(){
