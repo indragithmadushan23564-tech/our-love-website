@@ -639,7 +639,7 @@ body.dark .data-item{
 <section>
   <h2 class="section-title">🧠 Our Memories</h2>
 
-  <div class="card-grid">
+  <div class="card-grid" id="memoriesList">
 
     <div class="card">
       <h3>Memory 01 ❤️</h3>
@@ -655,6 +655,60 @@ body.dark .data-item{
       <h3>Memory 03 🌹</h3>
       <p>More beautiful memories coming soon...</p>
     </div>
+
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+
+    <button
+      class="btn small"
+      id="addMemoryBtn"
+      type="button">
+      ➕ Add Memory
+    </button>
+
+  </div>
+
+  <div
+    id="memoryForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="memoryTitle"
+      type="text"
+      placeholder="Memory title ❤️"
+      style="width:100%; margin-bottom:10px;">
+
+    <input
+      id="memoryDate"
+      type="date"
+      style="width:100%; margin-bottom:10px;">
+
+    <textarea
+      id="memoryDescription"
+      placeholder="Write about this beautiful memory... 💕"
+      rows="4"
+      style="width:100%; margin-bottom:10px;"></textarea>
+
+    <button
+      class="btn small"
+      id="saveMemoryBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn small"
+      id="cancelMemoryBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="memoryMessage"
+      style="margin-top:10px;">
+    </p>
 
   </div>
 </section>
