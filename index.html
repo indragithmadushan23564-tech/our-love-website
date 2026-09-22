@@ -1544,7 +1544,156 @@ onAuthStateChanged(
   }
 );
 
+// 📅 Our Timeline
+async function loadTimeline(){
+  const timelineList = document.getElementById("timelineList");
+  if(!timelineList) return;
 
+  try{
+    const snapshot = await getDocs(
+      collection(db, "timeline")
+    );
+
+    if(snapshot.empty){
+      return;
+    }
+
+    const savedItems = snapshot.docs.map(doc => {
+      const data = doc.data();
+
+      return `
+        <div class="timeline-item">
+          <strong>${escapeHtml(data.title || "")}</strong>
+          <span class="timeline-date">
+            ${escapeHtml(data.date || "")}
+          </span>
+          <p>${escapeHtml(data.description || "")}</p>
+        </div>
+      `;
+    }).join("");
+
+    timelineList.insertAdjacentHTML("beforeend", savedItems);
+
+  }catch(error){
+    console.error("Timeline:", error);
+  }
+}
+
+
+const addTimelineBtn =
+  document.getElementById("addTimelineBtn");
+
+const timelineForm =
+  document.getElementById("timelineForm");
+
+const saveTimelineBtn =
+  document.getElementById("saveTimelineBtn");
+
+const cancelTimelineBtn =
+  document.getElementById("cancelTimelineBtn");
+
+
+if(addTimelineBtn){
+  addTimelineBtn.addEventListener("click", () => {
+    timelineForm.classList.remove("hidden");
+    addTimelineBtn.classList.add("hidden");
+  });
+}
+
+
+if(cancelTimelineBtn){
+  cancelTimelineBtn.addEventListener("click", () => {
+
+    timelineForm.classList.add("hidden");
+    addTimelineBtn.classList.remove("hidden");
+
+    document.getElementById("timelineTitle").value = "";
+    document.getElementById("timelineDate").value = "";
+    document.getElementById("timelineDescription").value = "";
+
+    document.getElementById("timelineMessage").textContent = "";
+  });
+}
+
+
+if(saveTimelineBtn){
+  saveTimelineBtn.addEventListener("click", async () => {
+
+    const title =
+      document.getElementById("timelineTitle").value.trim();
+
+    const date =
+      document.getElementById("timelineDate").value;
+
+    const description =
+      document.getElementById("timelineDescription").value.trim();
+
+    const message =
+      document.getElementById("timelineMessage");
+
+
+    if(!title || !date || !description){
+      message.textContent =
+        "Please enter title, date and description. ❤️";
+      return;
+    }
+
+
+    if(!auth.currentUser){
+      message.textContent =
+        "Please login first. ❤️";
+      return;
+    }
+
+
+    saveTimelineBtn.disabled = true;
+    message.textContent = "Saving... ❤️";
+
+
+    try{
+
+      await addDoc(
+        collection(db, "timeline"),
+        {
+          title: title,
+          date: date,
+          description: description,
+          email: auth.currentUser.email,
+          createdAt: new Date().toISOString()
+        }
+      );
+
+
+      message.textContent =
+        "Timeline saved successfully! ❤️";
+
+
+      document.getElementById("timelineTitle").value = "";
+      document.getElementById("timelineDate").value = "";
+      document.getElementById("timelineDescription").value = "";
+
+
+      timelineForm.classList.add("hidden");
+      addTimelineBtn.classList.remove("hidden");
+
+      await loadTimeline();
+
+    }catch(error){
+
+      console.error("Save timeline:", error);
+
+      message.textContent =
+        "Could not save timeline. Please check Firebase Rules. ❤️";
+    }
+
+
+    saveTimelineBtn.disabled = false;
+  });
+}
+
+loadTimeline();  
+
+  
 /* LOAD ALL */
 
 async function loadAllPrivateData(){
