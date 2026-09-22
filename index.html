@@ -1022,10 +1022,63 @@ body.dark .data-item{
 </div>
 
     <div class="card">
-      <h3>💍 Anniversaries</h3>
-      <p>Your special anniversaries. ❤️</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
-    </div>
+  <h3>💍 Anniversaries</h3>
+  <p>Your special anniversaries. ❤️</p>
+
+  <button
+    class="btn small"
+    id="addAnniversaryBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div
+    id="anniversaryForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="anniversaryName"
+      type="text"
+      placeholder="Anniversary name ❤️"
+      style="width:100%; margin-bottom:10px;">
+
+    <input
+      id="anniversaryDate"
+      type="date"
+      style="width:100%; margin-bottom:10px;">
+
+    <input
+      id="anniversaryNote"
+      type="text"
+      placeholder="Note (optional) 💍"
+      style="width:100%; margin-bottom:10px;">
+
+    <button
+      class="btn small"
+      id="saveAnniversaryBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn small"
+      id="cancelAnniversaryBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="anniversaryMessage"
+      style="margin-top:10px;">
+    </p>
+  </div>
+
+  <div
+    id="anniversariesList"
+    style="margin-top:15px;">
+  </div>
+</div>
 
   </div>
 
