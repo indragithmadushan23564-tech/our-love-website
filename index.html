@@ -956,10 +956,70 @@ body.dark .data-item{
 </div>
 
     <div class="card">
-      <h3>🎂 Birthdays</h3>
-      <p>Special birthdays and dates. 🎉</p>
-      <button class="btn small comingSoon" type="button">➕ Add</button>
-    </div>
+
+  <h3>🎂 Birthdays</h3>
+
+  <p>Special birthdays and dates. 🎉</p>
+
+  <button
+    class="btn small"
+    id="addBirthdayBtn"
+    type="button">
+    ➕ Add
+  </button>
+
+  <div
+    id="birthdayForm"
+    class="hidden"
+    style="margin-top:15px;">
+
+    <input
+      id="birthdayName"
+      type="text"
+      placeholder="Birthday person name ❤️"
+      style="width:100%; margin-bottom:10px;"
+    >
+
+    <input
+      id="birthdayDate"
+      type="date"
+      style="width:100%; margin-bottom:10px;"
+    >
+
+    <input
+      id="birthdayNote"
+      type="text"
+      placeholder="Note (optional) 🎉"
+      style="width:100%; margin-bottom:10px;"
+    >
+
+    <button
+      class="btn small"
+      id="saveBirthdayBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn small"
+      id="cancelBirthdayBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="birthdayMessage"
+      style="margin-top:10px;">
+    </p>
+
+  </div>
+
+  <div
+    id="birthdaysList"
+    style="margin-top:15px;">
+  </div>
+
+</div>
 
     <div class="card">
       <h3>💍 Anniversaries</h3>
