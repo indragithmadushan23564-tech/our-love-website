@@ -559,12 +559,12 @@ body.dark .data-item{
 <section>
   <h2 class="section-title">📅 Our Timeline</h2>
 
-  <div class="timeline">
+  <div class="timeline" id="timelineList">
 
     <div class="timeline-item">
       <strong>Our First Meeting ❤️</strong>
       <span class="timeline-date">A special day</span>
-      <p> The beginning of something beautiful. </p>
+      <p>The beginning of something beautiful.</p>
     </div>
 
     <div class="timeline-item">
@@ -578,6 +578,59 @@ body.dark .data-item{
       <span class="timeline-date">Our story continues</span>
       <p>There are still so many beautiful chapters waiting for us.</p>
     </div>
+
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+
+    <button
+      class="btn small"
+      id="addTimelineBtn"
+      type="button">
+      ➕ Add
+    </button>
+
+  </div>
+
+  <div
+    id="timelineForm"
+    class="hidden"
+    style="max-width:600px; margin:20px auto 0;">
+
+    <input
+      id="timelineTitle"
+      type="text"
+      placeholder="Timeline title ❤️"
+      style="width:100%; margin-bottom:10px;">
+
+    <input
+      id="timelineDate"
+      type="date"
+      style="width:100%; margin-bottom:10px;">
+
+    <textarea
+      id="timelineDescription"
+      placeholder="What happened on this special day? ❤️"
+      style="width:100%; min-height:90px; margin-bottom:10px;"></textarea>
+
+    <button
+      class="btn small"
+      id="saveTimelineBtn"
+      type="button">
+      💾 Save
+    </button>
+
+    <button
+      class="btn small"
+      id="cancelTimelineBtn"
+      type="button">
+      ❌ Cancel
+    </button>
+
+    <p
+      id="timelineMessage"
+      style="margin-top:10px;">
+    </p>
 
   </div>
 </section>
