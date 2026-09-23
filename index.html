@@ -1748,6 +1748,151 @@ if(saveTimelineBtn){
 
 loadTimeline();  
 
+  // ===============================
+// 🧠 OUR MEMORIES
+// ===============================
+
+const addMemoryBtn = document.getElementById("addMemoryBtn");
+const memoryForm = document.getElementById("memoryForm");
+const memoryTitle = document.getElementById("memoryTitle");
+const memoryDate = document.getElementById("memoryDate");
+const memoryDescription = document.getElementById("memoryDescription");
+const saveMemoryBtn = document.getElementById("saveMemoryBtn");
+const cancelMemoryBtn = document.getElementById("cancelMemoryBtn");
+const memoryMessage = document.getElementById("memoryMessage");
+const memoriesList = document.getElementById("memoriesList");
+
+
+// ➕ Add Memory
+if (addMemoryBtn) {
+  addMemoryBtn.addEventListener("click", () => {
+    memoryForm.classList.remove("hidden");
+    memoryMessage.textContent = "";
+    memoryTitle.focus();
+  });
+}
+
+
+// ❌ Cancel Memory
+if (cancelMemoryBtn) {
+  cancelMemoryBtn.addEventListener("click", () => {
+    memoryForm.classList.add("hidden");
+
+    memoryTitle.value = "";
+    memoryDate.value = "";
+    memoryDescription.value = "";
+    memoryMessage.textContent = "";
+  });
+}
+
+
+// 💾 Save Memory
+if (saveMemoryBtn) {
+  saveMemoryBtn.addEventListener("click", async () => {
+
+    const title = memoryTitle.value.trim();
+    const date = memoryDate.value;
+    const description = memoryDescription.value.trim();
+
+    if (!title || !date || !description) {
+      memoryMessage.textContent =
+        "Please fill all fields. ❤️";
+      return;
+    }
+
+    try {
+
+      await addDoc(collection(db, "memories"), {
+        title: title,
+        date: date,
+        description: description,
+        createdAt: new Date()
+      });
+
+      memoryMessage.textContent =
+        "Memory saved successfully! ❤️";
+
+      memoryTitle.value = "";
+      memoryDate.value = "";
+      memoryDescription.value = "";
+
+      await loadMemories();
+
+      setTimeout(() => {
+        memoryForm.classList.add("hidden");
+        memoryMessage.textContent = "";
+      }, 1000);
+
+    } catch (error) {
+
+      console.error("Error saving memory:", error);
+
+      memoryMessage.textContent =
+        "Could not save memory. Please check Firebase Rules. ❤️";
+    }
+  });
+}
+
+
+// 📖 Load Memories
+async function loadMemories() {
+
+  if (!memoriesList) return;
+
+  try {
+
+    const snapshot = await getDocs(
+      collection(db, "memories")
+    );
+
+    // Keep the original memories
+    const defaultMemories = `
+      <div class="card">
+        <h3>Memory 01 ❤️</h3>
+        <p>Our First Memory ❤️</p>
+      </div>
+
+      <div class="card">
+        <h3>Memory 02 💕</h3>
+        <p>Another beautiful moment together.</p>
+      </div>
+
+      <div class="card">
+        <h3>Memory 03 🌹</h3>
+        <p>More beautiful memories coming soon...</p>
+      </div>
+    `;
+
+    memoriesList.innerHTML = defaultMemories;
+
+    snapshot.forEach((docSnap) => {
+
+      const memory = docSnap.data();
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <h3>${memory.title || "Beautiful Memory ❤️"}</h3>
+
+        <p>
+          ${memory.date || ""}
+        </p>
+
+        <p>
+          ${memory.description || ""}
+        </p>
+      `;
+
+      memoriesList.appendChild(card);
+    });
+
+  } catch (error) {
+
+    console.error("Error loading memories:", error);
+
+  }
+}
   
 /* LOAD ALL */
 
@@ -1759,9 +1904,10 @@ async function loadAllPrivateData(){
 
   }
 
+  loadMemories(),
+
   await Promise.all([
   loadLoveNotes(),
-  loadMemories(),
   loadPhotos(),
   loadMyThoughts(),
   loadMyDays(),
