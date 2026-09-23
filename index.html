@@ -2372,6 +2372,202 @@ async function loadMemories(){
 
 }
 
+/* PUBLIC MEMORIES */
+
+function initPublicMemories(){
+
+  const addMemoryBtn =
+    document.getElementById("addMemoryBtn");
+
+  const memoryForm =
+    document.getElementById("memoryForm");
+
+  const memoryTitle =
+    document.getElementById("memoryTitle");
+
+  const memoryDate =
+    document.getElementById("memoryDate");
+
+  const memoryDescription =
+    document.getElementById("memoryDescription");
+
+  const saveMemoryBtn =
+    document.getElementById("saveMemoryBtn");
+
+  const cancelMemoryBtn =
+    document.getElementById("cancelMemoryBtn");
+
+  const memoryMessage =
+    document.getElementById("memoryMessage");
+
+  if(!addMemoryBtn || !memoryForm){
+    return;
+  }
+
+  addMemoryBtn.addEventListener("click", () => {
+
+    memoryForm.classList.remove("hidden");
+    addMemoryBtn.classList.add("hidden");
+
+    memoryMessage.textContent = "";
+
+    memoryTitle.focus();
+
+  });
+
+  cancelMemoryBtn.addEventListener("click", () => {
+
+    memoryForm.classList.add("hidden");
+    addMemoryBtn.classList.remove("hidden");
+
+    memoryTitle.value = "";
+    memoryDate.value = "";
+    memoryDescription.value = "";
+    memoryMessage.textContent = "";
+
+  });
+
+  saveMemoryBtn.addEventListener("click", async () => {
+
+    const title =
+      memoryTitle.value.trim();
+
+    const date =
+      memoryDate.value;
+
+    const description =
+      memoryDescription.value.trim();
+
+    if(!title || !date || !description){
+
+      memoryMessage.textContent =
+        "Please fill all fields. ❤️";
+
+      return;
+    }
+
+    if(!auth.currentUser){
+
+      memoryMessage.textContent =
+        "Please login first. ❤️";
+
+      return;
+    }
+
+    try{
+
+      saveMemoryBtn.disabled = true;
+
+      memoryMessage.textContent =
+        "Saving... ❤️";
+
+      await addDoc(
+        collection(db, "memories"),
+        {
+          title: title,
+          date: date,
+          description: description,
+          email: auth.currentUser.email,
+          createdAt: new Date().toISOString()
+        }
+      );
+
+      memoryTitle.value = "";
+      memoryDate.value = "";
+      memoryDescription.value = "";
+
+      memoryMessage.textContent =
+        "Memory saved successfully! ❤️";
+
+      await loadPublicMemories();
+
+    }catch(error){
+
+      console.error(
+        "Save public memory:",
+        error
+      );
+
+      memoryMessage.textContent =
+        "Could not save memory. Please check Firebase Rules. ❤️";
+
+    }finally{
+
+      saveMemoryBtn.disabled = false;
+
+    }
+
+  });
+
+}
+
+
+async function loadPublicMemories(){
+
+  const memoriesList =
+    document.getElementById("memoriesList");
+
+  if(!memoriesList){
+    return;
+  }
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(db, "memories")
+      );
+
+    snapshot.forEach(docSnap => {
+
+      const data =
+        docSnap.data();
+
+      const card =
+        document.createElement("div");
+
+      card.className = "card";
+
+      card.innerHTML = `
+        <h3>
+          ${escapeHtml(
+            data.title ||
+            "Beautiful Memory ❤️"
+          )}
+        </h3>
+
+        <p>
+          📅 ${escapeHtml(
+            data.date || ""
+          )}
+        </p>
+
+        <p>
+          ${escapeHtml(
+            data.description || ""
+          )}
+        </p>
+      `;
+
+      memoriesList.appendChild(card);
+
+    });
+
+  }catch(error){
+
+    console.error(
+      "Load public memories:",
+      error
+    );
+
+  }
+
+}
+
+
+initPublicMemories();
+loadPublicMemories();
+  
 /* PHOTOS */
 
 async function loadPhotos(){
